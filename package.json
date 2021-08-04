@@ -1,10 +1,10 @@
 {
-  "name": "nexui",
+  "name": "nexinterface",
   "version": "1.0.1",
   "description": "A collection of web components based on nexwidget and nexstate following material design guidelines.",
-  "main": "dist/nexui.js",
+  "main": "dist/nexinterface.js",
   "type": "module",
-  "module": "dist/nexui.js",
+  "module": "dist/nexinterface.js",
   "engines": {
     "node": ">=14.6.0",
     "npm": ">=6.0.0"
