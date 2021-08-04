@@ -1,6 +1,6 @@
 import { Nexwidget, css, html, NexwidgetTemplate, NexwidgetAnimation } from 'nexwidget';
 
-type TypographyVariant =
+export type TypographyVariant =
   | 'text'
   | 'iranic'
   | 'button-uppercased'
@@ -14,12 +14,12 @@ declare global {
   }
 }
 
-interface TypographyWidget {
+export interface TypographyWidget {
   get variant(): TypographyVariant;
   set variant(v: TypographyVariant);
 }
 
-class TypographyWidget extends Nexwidget {
+export class TypographyWidget extends Nexwidget {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,

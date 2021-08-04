@@ -4,7 +4,7 @@ import { Interactive } from '../interactive/interactive.js';
 import '../typography/typography.js';
 import '../icon/icon.js';
 
-type ButtonVariant = 'solid' | 'text' | 'list' | 'menu';
+export type ButtonVariant = 'solid' | 'text' | 'list' | 'menu';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-interface ButtonWidget {
+export interface ButtonWidget {
   get link(): string;
   set link(v: string);
 
@@ -26,7 +26,7 @@ interface ButtonWidget {
   set variant(v: ButtonVariant);
 }
 
-class ButtonWidget extends Interactive {
+export class ButtonWidget extends Interactive {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,

@@ -6,12 +6,12 @@ declare global {
   }
 }
 
-interface IconWidget {
+export interface IconWidget {
   get value(): string;
   set value(v: string);
 }
 
-class IconWidget extends Nexwidget {
+export class IconWidget extends Nexwidget {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
