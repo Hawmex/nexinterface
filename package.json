@@ -1,0 +1,46 @@
+{
+  "name": "nexui",
+  "version": "0.1.0",
+  "description": "A collection of web components based on nexwidget and nexstate following material design guidelines.",
+  "main": "dist/nexui.js",
+  "type": "module",
+  "module": "dist/nexui.js",
+  "engines": {
+    "node": ">=14.6.0",
+    "npm": ">=6.0.0"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "npx tsc && npx prettier dist/**/*.{js,d.ts} --write",
+    "version": "npx typedoc && npx prettier docs/**/*.{css,html,js} --write && git add -A docs",
+    "postversion": "git push && git push --tags && npm publish",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hawmex/nexui.git"
+  },
+  "keywords": [
+    "ui",
+    "nexwidget",
+    "nexstate",
+    "material"
+  ],
+  "author": "Hamed Aarab",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hawmex/nexui/issues"
+  },
+  "homepage": "https://github.com/Hawmex/nexui#readme",
+  "dependencies": {
+    "nexstate": "^4.1.2",
+    "nexwidget": "^4.3.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.2",
+    "typedoc": "^0.21.5",
+    "typescript": "^4.3.5"
+  }
+}
