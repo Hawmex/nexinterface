@@ -10,7 +10,8 @@
     "npm": ">=6.0.0"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "assets/**/*"
   ],
   "scripts": {
     "build": "npx tsc && npx prettier dist/**/*.{js,d.ts} --write",

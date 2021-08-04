@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Dana VF';
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url('../fonts/dana-variable.woff2') format('woff2-variations');
+  unicode-range: U+0600-06FF;
+}
+
+@font-face {
+  font-family: 'Jost VF';
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url('../fonts/jost-variable.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/material-icons.woff2') format('woff2');
+}
