@@ -1,6 +1,6 @@
 import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, nothing } from 'nexwidget';
+import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 import '../divider/divider.js';
 import '../menu/menu.js';
 import '../scrim/scrim.js';
@@ -131,9 +131,9 @@ export class DrawerWidget extends Nexwidget {
 
     drawerActive.runAndSubscribe((state) => (this.active = state), { signal: this.removedSignal });
 
-    addEventListener('pushstate', this.#deactivate.bind(this), { signal: this.removedSignal });
-    addEventListener('popstate', this.#deactivate.bind(this), { signal: this.removedSignal });
-    addEventListener('replacestate', this.#deactivate.bind(this), { signal: this.removedSignal });
+    addEventListener('pushstate', deactivateDrawer, { signal: this.removedSignal });
+    addEventListener('popstate', deactivateDrawer, { signal: this.removedSignal });
+    addEventListener('replacestate', deactivateDrawer, { signal: this.removedSignal });
     addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
   }
 
@@ -142,12 +142,12 @@ export class DrawerWidget extends Nexwidget {
     this.scrollable = this.#getScrollableValue();
   }
 
-  get template() {
+  get template(): NexwidgetTemplate {
     return html`
       <scrim-widget
         class="scrim"
         ?active=${this.active}
-        @pointerdown=${this.#deactivate.bind(this)}
+        @pointerdown=${deactivateDrawer}
       ></scrim-widget>
       <div class="drawer">
         <div class="header">
@@ -166,10 +166,6 @@ export class DrawerWidget extends Nexwidget {
         </div>
       </div>
     `;
-  }
-
-  #deactivate() {
-    deactivateDrawer();
   }
 
   #getScrollableValue() {

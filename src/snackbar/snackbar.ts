@@ -1,6 +1,6 @@
 import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, nothing } from 'nexwidget';
+import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 import '../button/button.js';
 import '../typography/typography.js';
 
@@ -145,7 +145,7 @@ export class SnackbarWidget extends Nexwidget {
     this.longButtonText = this.#getLongButtonTextValue();
   }
 
-  get template() {
+  get template(): NexwidgetTemplate {
     return html`
       <typography-widget variant="text" class="text">${this.value?.text}</typography-widget>
       ${this.value?.button?.text

@@ -46,7 +46,7 @@ export interface DialogWidget {
 }
 
 export class DialogWidget extends Nexwidget {
-  static get styles() {
+  static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -165,7 +165,7 @@ export class DialogWidget extends Nexwidget {
     this.scrollable = this.#getScrollableValue();
   }
 
-  get template() {
+  get template(): NexwidgetTemplate {
     return html`
       <scrim-widget
         ?active=${this.active}
