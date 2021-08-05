@@ -36,7 +36,8 @@
   "homepage": "https://github.com/Hawmex/nexinterface#readme",
   "dependencies": {
     "nexstate": "^4.1.2",
-    "nexwidget": "^4.3.3"
+    "nexwidget": "^4.3.3",
+    "regexparam": "^2.0.0"
   },
   "devDependencies": {
     "prettier": "^2.3.2",
