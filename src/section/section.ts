@@ -1,4 +1,4 @@
-import { Nexwidget, css, html } from 'nexwidget';
+import { css, html, Nexwidget } from 'nexwidget';
 
 export type SectionVariant = 'list' | 'inputs' | 'paragraphs' | 'buttons';
 

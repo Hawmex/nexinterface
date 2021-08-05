@@ -1,11 +1,10 @@
-import { Nexwidget, css, html, nothing } from 'nexwidget';
-import { Nexstate } from 'nexstate';
 import { Nexbounce } from 'nexbounce';
-
+import { Nexstate } from 'nexstate';
+import { css, html, Nexwidget, nothing } from 'nexwidget';
+import '../divider/divider.js';
+import '../menu/menu.js';
 import '../scrim/scrim.js';
 import '../typography/typography.js';
-import '../menu/menu.js';
-import '../divider/divider.js';
 
 const drawerActive = new Nexstate(false);
 

@@ -1,4 +1,4 @@
-import { Nexwidget, css, html, NexwidgetTemplate, NexwidgetAnimation } from 'nexwidget';
+import { css, html, Nexwidget, NexwidgetAnimation, NexwidgetTemplate } from 'nexwidget';
 
 export type TypographyVariant =
   | 'text'

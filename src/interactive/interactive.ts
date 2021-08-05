@@ -1,4 +1,4 @@
-import { Nexwidget, css } from 'nexwidget';
+import { css, Nexwidget } from 'nexwidget';
 
 export interface Interactive {
   get centeredRipple(): boolean;

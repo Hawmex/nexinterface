@@ -1,4 +1,4 @@
-import { Nexwidget, css, NexwidgetAnimation } from 'nexwidget';
+import { css, Nexwidget, NexwidgetAnimation } from 'nexwidget';
 
 export class Screen extends Nexwidget {
   static get styles(): CSSStyleSheet[] {

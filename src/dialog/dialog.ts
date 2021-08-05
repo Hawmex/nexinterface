@@ -1,12 +1,11 @@
-import { Nexwidget, css, html, nothing, NexwidgetTemplate } from 'nexwidget';
-import { Nexstate } from 'nexstate';
 import { Nexbounce } from 'nexbounce';
-
+import { Nexstate } from 'nexstate';
+import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
+import '../button/button.js';
+import '../divider/divider.js';
+import '../scrim/scrim.js';
 import '../section/section.js';
 import '../typography/typography.js';
-import '../button/button.js';
-import '../scrim/scrim.js';
-import '../divider/divider.js';
 
 export type DialogInstance = {
   headline: string;

@@ -1,9 +1,8 @@
-import { Nexwidget, css, html, nothing } from 'nexwidget';
-import { Nexstate } from 'nexstate';
 import { Nexbounce } from 'nexbounce';
-
-import '../typography/typography.js';
+import { Nexstate } from 'nexstate';
+import { css, html, Nexwidget, nothing } from 'nexwidget';
 import '../button/button.js';
+import '../typography/typography.js';
 
 export type SnackbarInstance = {
   text: string;

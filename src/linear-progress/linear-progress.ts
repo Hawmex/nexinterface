@@ -1,4 +1,4 @@
-import { Nexwidget, css, html, nothing, NexwidgetTemplate } from 'nexwidget';
+import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 
 declare global {
   interface HTMLElementTagNameMap {
