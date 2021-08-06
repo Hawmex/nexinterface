@@ -16,7 +16,7 @@ export type SnackbarFinalInstance = {
   id: symbol;
 } & SnackbarInstance;
 
-const snackbarsQueue = new Nexstate<SnackbarFinalInstance[]>([]);
+export const snackbarsQueue = new Nexstate<SnackbarFinalInstance[]>([]);
 
 const removeSnackbar = () => snackbarsQueue.setState((state) => state.slice(1));
 

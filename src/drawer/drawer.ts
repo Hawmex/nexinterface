@@ -6,7 +6,7 @@ import '../menu/menu-container.js';
 import '../scrim/scrim.js';
 import '../typography/typography.js';
 
-const drawerActive = new Nexstate(false);
+export const drawerActive = new Nexstate(false);
 
 const deactivateDrawer = () => drawerActive.setState(() => false);
 
