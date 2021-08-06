@@ -2,7 +2,7 @@ import { css, html, Nexwidget, NexwidgetTemplate } from 'nexwidget';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'card-grid-widget': CardsGridWidget;
+    'cards-grid-widget': CardsGridWidget;
   }
 }
 
@@ -34,4 +34,4 @@ export class CardsGridWidget extends Nexwidget {
   }
 }
 
-CardsGridWidget.register('card-grid-widget');
+CardsGridWidget.register('cards-grid-widget');
