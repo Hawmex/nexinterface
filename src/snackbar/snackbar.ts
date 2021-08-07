@@ -4,12 +4,14 @@ import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 import '../button/button.js';
 import '../typography/typography.js';
 
+export type SnackbarButton = {
+  text: string;
+  action: () => void;
+};
+
 export type SnackbarInstance = {
   text: string;
-  button?: {
-    text: string;
-    action: () => void;
-  };
+  button?: SnackbarButton;
 };
 
 export type SnackbarFinalInstance = {
@@ -30,8 +32,11 @@ declare global {
 }
 
 export interface SnackbarWidget {
-  get value(): SnackbarFinalInstance;
-  set value(v: SnackbarFinalInstance);
+  get text(): string | undefined;
+  set text(v: string | undefined);
+
+  get button(): SnackbarButton | undefined;
+  set button(v: SnackbarButton | undefined);
 
   get active(): boolean;
   set active(v: boolean);
@@ -111,6 +116,7 @@ export class SnackbarWidget extends Nexwidget {
     ];
   }
 
+  #id?: symbol;
   #timer?: number;
 
   #resizeDebouncer = new Nexbounce();
@@ -120,17 +126,21 @@ export class SnackbarWidget extends Nexwidget {
     super.addedCallback();
 
     snackbarsQueue.runAndSubscribe(
-      ([snackbar]) => {
-        const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
+      ([snackbar]: Array<SnackbarFinalInstance | undefined>) => {
+        if (this.#id !== snackbar?.id) {
+          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
 
-        if (this.value?.id !== snackbar?.id) {
           this.active = false;
 
           setTimeout(() => {
-            this.value = snackbar;
+            this.#id = snackbar?.id;
+
+            this.text = snackbar?.text;
+            this.button = snackbar?.button;
+
             this.active = !!snackbar;
 
-            if (snackbar) this.#activateRemoveTimer();
+            if (this.active) this.#activateRemoveTimer();
           }, fadeTime);
         }
       },
@@ -147,13 +157,13 @@ export class SnackbarWidget extends Nexwidget {
 
   get template(): NexwidgetTemplate {
     return html`
-      <typography-widget variant="text" class="text">${this.value?.text}</typography-widget>
-      ${this.value?.button?.text
+      <typography-widget variant="text" class="text">${this.text}</typography-widget>
+      ${this.button
         ? html`
             <button-widget
               @click=${this.#buttonAction.bind(this)}
               variant="text"
-              text=${this.value.button.text}
+              text=${this.button.text}
               class="button"
             ></button-widget>
           `
@@ -181,7 +191,7 @@ export class SnackbarWidget extends Nexwidget {
   }
 
   #buttonAction() {
-    this.value.button?.action?.();
+    this.button!.action();
     this.#deactivateRemoveTimer();
 
     removeSnackbar();
@@ -193,5 +203,5 @@ SnackbarWidget.createAttributes([
   ['longButtonText', Boolean],
 ]);
 
-SnackbarWidget.createReactives(['value', 'longButtonText']);
+SnackbarWidget.createReactives(['text', 'button', 'longButtonText']);
 SnackbarWidget.register('snackbar-widget');

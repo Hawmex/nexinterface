@@ -15,8 +15,8 @@ declare global {
 }
 
 export interface TypographyWidget {
-  get variant(): TypographyVariant;
-  set variant(v: TypographyVariant);
+  get variant(): TypographyVariant | null;
+  set variant(v: TypographyVariant | null);
 }
 
 export class TypographyWidget extends Nexwidget {

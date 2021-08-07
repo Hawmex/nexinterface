@@ -1,6 +1,12 @@
-import { css, html, Nexwidget, NexwidgetTemplate } from 'nexwidget';
+import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 import { lazyLoad } from 'nexwidget/dist/directives/lazyload.js';
 import { parse } from 'regexparam';
+
+type LocationParams = {
+  [key: string]: any;
+};
+
+export type RouteSrc = () => Promise<{ default: any }>;
 
 const assignParams = (path: string, { keys, pattern }: { keys: string[]; pattern: RegExp }) => {
   let i = 0;
@@ -10,10 +16,6 @@ const assignParams = (path: string, { keys, pattern }: { keys: string[]; pattern
   while (i < keys.length) out[keys[i]] = Array.isArray(matches) ? matches[++i] : null;
 
   return out;
-};
-
-type LocationParams = {
-  [key: string]: any;
 };
 
 declare global {
@@ -27,11 +29,11 @@ declare global {
 }
 
 export interface RouterWidget {
-  get src(): () => Promise<{ default: any }>;
-  set src(v: () => Promise<{ default: any }>);
+  get src(): RouteSrc | undefined;
+  set src(v: RouteSrc | undefined);
 
-  get component(): string;
-  set component(v: string);
+  get component(): string | null | undefined;
+  set component(v: string | null | undefined);
 
   get loose(): boolean;
   set loose(v: boolean);
@@ -71,6 +73,7 @@ export class RouterWidget extends Nexwidget {
 
     addEventListener('popstate', this.#computeMatching.bind(this), { signal: this.removedSignal });
     addEventListener('pushstate', this.#computeMatching.bind(this), { signal: this.removedSignal });
+
     addEventListener('replacestate', this.#computeMatching.bind(this), {
       signal: this.removedSignal,
     });
@@ -88,7 +91,9 @@ export class RouterWidget extends Nexwidget {
 
   get template(): NexwidgetTemplate {
     return html`
-      ${lazyLoad(this.src(), document.createElement(this.component))}
+      ${this.src && this.component
+        ? lazyLoad(this.src(), document.createElement(this.component))
+        : nothing}
       <slot></slot>
     `;
   }
@@ -99,7 +104,7 @@ export class RouterWidget extends Nexwidget {
 
     for (const route of routes) {
       const { path, loose } = route;
-      const regexPath = parse(path, loose);
+      const regexPath = parse(path!, loose);
 
       if (regexPath.pattern.test(pathname)) {
         const { component, src } = route;
@@ -125,16 +130,16 @@ declare global {
 }
 
 export interface RouteWidget {
-  get path(): string;
-  set path(v: string);
+  get path(): string | null;
+  set path(v: string | null);
 
-  get component(): string;
-  set component(v: string);
+  get component(): string | null;
+  set component(v: string | null);
 
   get loose(): boolean;
   set loose(v: boolean);
 
-  src: () => Promise<{ default: any }>;
+  src: RouteSrc | undefined;
 }
 
 export class RouteWidget extends Nexwidget {

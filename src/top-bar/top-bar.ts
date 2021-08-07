@@ -1,6 +1,6 @@
 import { repeat } from 'lit-html/directives/repeat.js';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, NexwidgetTemplate, noChange, nothing } from 'nexwidget';
+import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 import '../button/button.js';
 import '../linear-progress/linear-progress.js';
 import '../typography/typography.js';
@@ -25,7 +25,7 @@ const defualtState = <TopBarOptions>{
     icon: 'arrow_forward',
     action: () => history.back(),
   },
-  leftSlot: noChange,
+  leftSlot: nothing,
   active: true,
   tabs: [],
   activeTab: -1,
@@ -49,23 +49,23 @@ export interface TopBarWidget {
   get loading(): boolean;
   set loading(v: boolean);
 
-  get appName(): string;
-  set appName(v: string);
+  get appName(): string | null;
+  set appName(v: string | null);
 
-  get headline(): string;
-  set headline(v: string);
+  get headline(): string | undefined;
+  set headline(v: string | undefined);
 
-  get leftSlot(): NexwidgetTemplate;
-  set leftSlot(v: NexwidgetTemplate);
+  get leftSlot(): NexwidgetTemplate | undefined;
+  set leftSlot(v: NexwidgetTemplate | undefined);
 
-  get leading(): TopBarLeading;
-  set leading(v: TopBarLeading);
+  get leading(): TopBarLeading | undefined;
+  set leading(v: TopBarLeading | undefined);
 
-  get tabs(): string[];
-  set tabs(v: string[]);
+  get tabs(): string[] | undefined;
+  set tabs(v: string[] | undefined);
 
-  get activeTab(): number;
-  set activeTab(v: number);
+  get activeTab(): number | undefined;
+  set activeTab(v: number | undefined);
 }
 
 export class TopBarWidget extends Nexwidget {
@@ -241,20 +241,20 @@ export class TopBarWidget extends Nexwidget {
         <div class="container">
           <button-widget
             variant="text"
-            icon=${this.leading?.icon}
-            @click=${this.leading?.action}
+            icon=${this.leading!.icon}
+            @click=${this.leading!.action}
           ></button-widget>
           <typography-widget one-line variant="top-bar">${this.headline}</typography-widget>
         </div>
         <div class="container">${this.leftSlot}</div>
       </div>
-      ${this.tabs.length > 0
+      ${this.tabs!.length
         ? html`
             <div class="tabs">
               <div class="tabs-container">
                 ${repeat(
-                  this.tabs,
-                  () => Math.random(),
+                  this.tabs!,
+                  () => Symbol(),
                   (tab, index) => html`
                     <button-widget
                       @click=${() => this.#activateTab(index)}
@@ -285,13 +285,13 @@ export class TopBarWidget extends Nexwidget {
   }
 
   #scrollActiveTabIntoView() {
-    const tab = this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab];
+    const tab = this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!];
 
     tab?.scrollIntoView?.({ inline: 'center', block: 'nearest' });
   }
 
   #moveTabIndicator() {
-    const tab = this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab];
+    const tab = this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!];
     const tabs = this.shadowRoot!.querySelector('.tabs');
 
     if (tabs !== null) {

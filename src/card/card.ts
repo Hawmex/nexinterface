@@ -10,11 +10,11 @@ declare global {
 }
 
 export interface CardWidget {
-  get headline(): string;
-  set headline(v: string);
+  get headline(): string | null;
+  set headline(v: string | null);
 
-  get imageSrc(): string;
-  set imageSrc(v: string);
+  get imageSrc(): string | null;
+  set imageSrc(v: string | null);
 }
 
 export class CardWidget extends Nexwidget {
@@ -46,7 +46,7 @@ export class CardWidget extends Nexwidget {
     return html`
       <paper-widget full-width>
         <div class="header">
-          <img src=${this.imageSrc} />
+          <img src=${this.imageSrc ?? ''} />
           <section-widget variant="paragraphs">
             <typography-widget variant="headline">${this.headline}</typography-widget>
             <slot name="body"></slot>

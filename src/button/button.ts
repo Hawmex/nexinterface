@@ -12,17 +12,17 @@ declare global {
 }
 
 export interface ButtonWidget {
-  get link(): string;
-  set link(v: string);
+  get link(): string | null;
+  set link(v: string | null);
 
-  get text(): string;
-  set text(v: string);
+  get text(): string | null;
+  set text(v: string | null);
 
-  get icon(): string;
-  set icon(v: string);
+  get icon(): string | null;
+  set icon(v: string | null);
 
-  get variant(): ButtonVariant;
-  set variant(v: ButtonVariant);
+  get variant(): ButtonVariant | null;
+  set variant(v: ButtonVariant | null);
 }
 
 export class ButtonWidget extends Interactive {

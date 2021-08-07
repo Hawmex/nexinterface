@@ -10,11 +10,11 @@ declare global {
 }
 
 export interface SwitchWidget {
-  get text(): string;
-  set text(v: string);
+  get text(): string | null;
+  set text(v: string | null);
 
-  get icon(): string;
-  set icon(v: string);
+  get icon(): string | null;
+  set icon(v: string | null);
 }
 
 export class SwitchWidget extends Interactive {
@@ -121,7 +121,7 @@ export class SwitchWidget extends Interactive {
 
   get template(): NexwidgetTemplate {
     return html`
-      <icon-widget value=${this.icon}></icon-widget>
+      <icon-widget value=${this.icon!}></icon-widget>
       <typography-widget variant="button-normal" class="text">${this.text}</typography-widget>
       <div class="track"><div class="thumb"></div></div>
     `;

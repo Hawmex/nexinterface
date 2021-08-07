@@ -9,8 +9,8 @@ declare global {
 }
 
 export interface SectionWidget {
-  get variant(): SectionVariant;
-  set variant(v: SectionVariant);
+  get variant(): SectionVariant | null;
+  set variant(v: SectionVariant | null);
 }
 
 export class SectionWidget extends Nexwidget {

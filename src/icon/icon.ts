@@ -7,8 +7,8 @@ declare global {
 }
 
 export interface IconWidget {
-  get value(): string;
-  set value(v: string);
+  get value(): string | null;
+  set value(v: string | null);
 }
 
 export class IconWidget extends Nexwidget {

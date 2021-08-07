@@ -1,12 +1,12 @@
 import { css, html, Nexwidget } from 'nexwidget';
 
+export type InputType = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password';
+
 declare global {
   interface HTMLElementTagNameMap {
     'input-widget': InputWidget;
   }
 }
-
-export type InputType = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password';
 
 export interface InputWidget {
   get hasValue(): boolean;
@@ -15,14 +15,14 @@ export interface InputWidget {
   get invalid(): boolean;
   set invalid(v: boolean);
 
-  get placeholder(): string;
-  set placeholder(v: string);
+  get placeholder(): string | null;
+  set placeholder(v: string | null);
 
-  get label(): string;
-  set label(v: string);
+  get label(): string | null;
+  set label(v: string | null);
 
-  get type(): InputType;
-  set type(v: InputType);
+  get type(): InputType | null;
+  set type(v: InputType | null);
 }
 
 export class InputWidget extends Nexwidget {
@@ -170,7 +170,7 @@ export class InputWidget extends Nexwidget {
   #field?: HTMLTextAreaElement | HTMLInputElement;
 
   focus() {
-    this.#field?.focus();
+    this.#field?.focus?.();
   }
 
   updatedCallback() {
@@ -202,7 +202,7 @@ export class InputWidget extends Nexwidget {
               dir="auto"
               class="field"
               placeholder=${this.placeholder ?? ''}
-              type=${this.type}
+              type=${this.type!}
               @input=${this.#handleInput.bind(this)}
               @change=${this.#handleChange.bind(this)}
               @keyup=${this.#focusNext.bind(this)}

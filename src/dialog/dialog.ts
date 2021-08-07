@@ -7,14 +7,15 @@ import '../scrim/scrim.js';
 import '../section/section.js';
 import '../typography/typography.js';
 
+export type DialogButton = {
+  text: string;
+  action: () => void;
+};
+
 export type DialogInstance = {
   headline: string;
   body: NexwidgetTemplate;
-  onCancel?: () => void;
-  button?: {
-    text: string;
-    action: () => void;
-  };
+  button?: DialogButton;
 };
 
 export type DialogFinalInstance = {
@@ -41,8 +42,14 @@ export interface DialogWidget {
   get scrollable(): boolean;
   set scrollable(v: boolean);
 
-  get value(): DialogFinalInstance;
-  set value(v: DialogFinalInstance);
+  get headline(): string | undefined;
+  set headline(v: string | undefined);
+
+  get body(): NexwidgetTemplate | undefined;
+  set body(v: NexwidgetTemplate | undefined);
+
+  get button(): DialogButton | undefined;
+  set button(v: DialogButton | undefined);
 }
 
 export class DialogWidget extends Nexwidget {
@@ -133,20 +140,27 @@ export class DialogWidget extends Nexwidget {
     ];
   }
 
+  #id?: symbol;
+
   #resizeDebouncer = new Nexbounce();
 
   addedCallback() {
     super.addedCallback();
 
     dialogsQueue.runAndSubscribe(
-      ([dialog]) => {
-        const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
+      ([dialog]: Array<DialogFinalInstance | undefined>) => {
+        if (this.#id !== dialog?.id) {
+          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
 
-        if (this.value?.id !== dialog?.id) {
           this.active = false;
 
           setTimeout(() => {
-            this.value = dialog;
+            this.#id = dialog?.id;
+
+            this.headline = dialog?.headline;
+            this.body = dialog?.body;
+            this.button = dialog?.button;
+
             this.active = !!dialog;
           }, fadeTime);
         }
@@ -155,9 +169,9 @@ export class DialogWidget extends Nexwidget {
     );
 
     addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
-    addEventListener('pushstate', this.#deactivate.bind(this), { signal: this.removedSignal });
-    addEventListener('popstate', this.#deactivate.bind(this), { signal: this.removedSignal });
-    addEventListener('replacestate', this.#deactivate.bind(this), { signal: this.removedSignal });
+    addEventListener('pushstate', removeDialog, { signal: this.removedSignal });
+    addEventListener('popstate', removeDialog, { signal: this.removedSignal });
+    addEventListener('replacestate', removeDialog, { signal: this.removedSignal });
   }
 
   updatedCallback() {
@@ -167,24 +181,21 @@ export class DialogWidget extends Nexwidget {
 
   get template(): NexwidgetTemplate {
     return html`
-      <scrim-widget
-        ?active=${this.active}
-        @pointerdown=${this.#deactivate.bind(this)}
-      ></scrim-widget>
+      <scrim-widget ?active=${this.active} @pointerdown=${removeDialog}></scrim-widget>
       <div class="dialog">
         <section-widget class="header" variant="paragraphs">
-          <typography-widget variant="headline"> ${this.value?.headline} </typography-widget>
+          <typography-widget variant="headline"> ${this.headline} </typography-widget>
         </section-widget>
         ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
-        <section-widget class="body" variant="paragraphs"> ${this.value?.body} </section-widget>
-        ${this.value?.button?.text
+        <section-widget class="body" variant="paragraphs"> ${this.body} </section-widget>
+        ${this.button
           ? html`
               ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
               <section-widget class="footer" variant="buttons">
                 <button-widget
                   slot="buttons"
                   variant="text"
-                  text=${this.value.button.text}
+                  text=${this.button.text}
                   @click=${this.#buttonAction.bind(this)}
                 ></button-widget>
               </section-widget>
@@ -195,12 +206,7 @@ export class DialogWidget extends Nexwidget {
   }
 
   #buttonAction() {
-    this.value.button?.action?.();
-    this.#deactivate();
-  }
-
-  #deactivate() {
-    this.value?.onCancel?.();
+    this.button!.action();
     removeDialog();
   }
 
@@ -221,5 +227,5 @@ DialogWidget.createAttributes([
   ['scrollable', Boolean],
 ]);
 
-DialogWidget.createReactives(['active', 'value', 'scrollable']);
+DialogWidget.createReactives(['active', 'scrollable', 'headline', 'body', 'button']);
 DialogWidget.register('dialog-widget');

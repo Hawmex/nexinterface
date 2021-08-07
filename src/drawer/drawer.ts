@@ -19,11 +19,11 @@ declare global {
 }
 
 export interface DrawerWidget {
-  get headline(): string;
-  set headline(v: string);
+  get headline(): string | null;
+  set headline(v: string | null);
 
-  get text(): string;
-  set text(v: string);
+  get text(): string | null;
+  set text(v: string | null);
 
   get active(): boolean;
   set active(v: boolean);
@@ -129,7 +129,9 @@ export class DrawerWidget extends Nexwidget {
   addedCallback() {
     super.addedCallback();
 
-    drawerActive.runAndSubscribe((state) => (this.active = state), { signal: this.removedSignal });
+    drawerActive.runAndSubscribe((drawerActive) => (this.active = drawerActive), {
+      signal: this.removedSignal,
+    });
 
     addEventListener('pushstate', deactivateDrawer, { signal: this.removedSignal });
     addEventListener('popstate', deactivateDrawer, { signal: this.removedSignal });
