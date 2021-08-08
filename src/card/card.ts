@@ -30,11 +30,11 @@ export class CardWidget extends Nexwidget {
 
         :host .header {
           display: grid;
-          grid-auto-flow: column;
+          grid-auto-flow: row;
         }
 
         :host([densed]) .header {
-          grid-auto-flow: row;
+          grid-auto-flow: column;
           grid-template-columns: 96px 1fr;
         }
 
