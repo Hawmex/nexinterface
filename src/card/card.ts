@@ -25,7 +25,6 @@ export class CardWidget extends Nexwidget {
         :host {
           display: flex;
           border-radius: 8px;
-          overflow: hidden;
         }
 
         :host .header {
