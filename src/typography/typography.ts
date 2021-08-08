@@ -112,14 +112,26 @@ export class TypographyWidget extends Nexwidget {
   }
 
   get updateOrSlotChangeAnimation(): NexwidgetAnimation {
-    return [
-      [{ opacity: '0' }, { opacity: '1' }],
-      {
-        duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
-        easing: this.getCSSProperty('--deceleratedEase'),
-        fill: 'forwards',
-      },
-    ];
+    return this.variant === 'top-bar'
+      ? [
+          [
+            { opacity: '0', transform: 'translateY(-16px) rotateX(-90deg)' },
+            { opacity: '1', transform: 'translateY(0px) rotateX(0deg)' },
+          ],
+          {
+            duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
+            easing: this.getCSSProperty('--deceleratedEase'),
+            fill: 'forwards',
+          },
+        ]
+      : [
+          [{ opacity: '0' }, { opacity: '1' }],
+          {
+            duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
+            easing: this.getCSSProperty('--deceleratedEase'),
+            fill: 'forwards',
+          },
+        ];
   }
 }
 
