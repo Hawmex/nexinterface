@@ -171,10 +171,8 @@ export class DrawerWidget extends Nexwidget {
   }
 
   #getScrollableValue() {
-    return this.shadowRoot!.querySelector('.list')!.scrollHeight >
-      this.shadowRoot!.querySelector('.list')!.clientHeight
-      ? true
-      : false;
+    const { scrollHeight, clientHeight } = <HTMLDivElement>this.shadowRoot!.querySelector('.list');
+    return scrollHeight > clientHeight;
   }
 
   #handleResize() {

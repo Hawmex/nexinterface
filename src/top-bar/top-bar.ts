@@ -298,17 +298,17 @@ export class TopBarWidget extends Nexwidget {
       this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!]
     );
 
-    const tabs = this.shadowRoot!.querySelector('.tabs');
+    const tabs = <HTMLDivElement | null>this.shadowRoot!.querySelector('.tabs');
 
-    if (tabs !== null && tab !== undefined) {
+    if (tab !== undefined) {
       const { width: tabWidth, left: tabLeft } = tab.getBoundingClientRect();
-      const { left: tabsLeft } = tabs.getBoundingClientRect();
+      const { left: tabsLeft } = tabs!.getBoundingClientRect();
 
       const tabTextWidth = tabWidth - 16;
 
       this.style.setProperty(
         '--tabIndicatorX',
-        `${tabLeft + 8 - tabsLeft + tabTextWidth / 2 + tabs.scrollLeft}px`,
+        `${tabLeft + 8 - tabsLeft + tabTextWidth / 2 + tabs!.scrollLeft}px`,
       );
 
       this.style.setProperty('--tabIndicatorWidth', `${tabTextWidth}px`);
