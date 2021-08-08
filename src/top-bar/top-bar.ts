@@ -254,7 +254,7 @@ export class TopBarWidget extends Nexwidget {
               <div class="tabs-container">
                 ${repeat(
                   this.tabs!,
-                  () => Symbol(),
+                  (tab) => tab,
                   (tab, index) => html`
                     <button-widget
                       @click=${() => this.#activateTab(index)}
