@@ -2,6 +2,7 @@ import { repeat } from 'lit-html/directives/repeat.js';
 import { Nexstate } from 'nexstate';
 import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 import '../button/button.js';
+import { ButtonWidget } from '../button/button.js';
 import '../linear-progress/linear-progress.js';
 import '../typography/typography.js';
 
@@ -248,7 +249,7 @@ export class TopBarWidget extends Nexwidget {
         </div>
         <div class="container">${this.leftSlot}</div>
       </div>
-      ${this.tabs!.length
+      ${this.tabs!.length > 0
         ? html`
             <div class="tabs">
               <div class="tabs-container">
@@ -285,16 +286,21 @@ export class TopBarWidget extends Nexwidget {
   }
 
   #scrollActiveTabIntoView() {
-    const tab = this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!];
+    const tab = <ButtonWidget | undefined>(
+      this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!]
+    );
 
     tab?.scrollIntoView?.({ inline: 'center', block: 'nearest' });
   }
 
   #moveTabIndicator() {
-    const tab = this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!];
+    const tab = <ButtonWidget | undefined>(
+      this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!]
+    );
+
     const tabs = this.shadowRoot!.querySelector('.tabs');
 
-    if (tabs !== null) {
+    if (tabs !== null && tab !== undefined) {
       const { width: tabWidth, left: tabLeft } = tab.getBoundingClientRect();
       const { left: tabsLeft } = tabs.getBoundingClientRect();
 

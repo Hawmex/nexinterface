@@ -2,6 +2,7 @@ import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
 import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
 import '../button/button.js';
+import { ButtonWidget } from '../button/button.js';
 import '../typography/typography.js';
 
 export type SnackbarButton = {
@@ -180,10 +181,8 @@ export class SnackbarWidget extends Nexwidget {
   }
 
   #getLongButtonTextValue() {
-    return (
-      (this.shadowRoot!.querySelector('.button')?.getBoundingClientRect?.()?.width ?? 0) >
-      (innerWidth - 16) / 2
-    );
+    const body = <ButtonWidget | null>this.shadowRoot!.querySelector('.button');
+    return (body?.getBoundingClientRect?.()?.width ?? 0) > (innerWidth - 16) / 2;
   }
 
   #handleResize() {
