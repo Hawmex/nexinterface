@@ -28,15 +28,24 @@ export class CardWidget extends Nexwidget {
           overflow: hidden;
         }
 
-        :host([densed]) .header {
+        :host .header {
           display: grid;
+          grid-auto-flow: column;
+        }
+
+        :host([densed]) .header {
+          grid-auto-flow: row;
           grid-template-columns: 96px 1fr;
         }
 
         :host img {
-          width: 96px;
+          width: 100%;
           height: 100%;
           object-fit: cover;
+        }
+
+        :host([densed]) img {
+          width: 96px;
         }
       `,
     ];
