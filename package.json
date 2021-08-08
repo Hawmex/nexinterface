@@ -1,6 +1,6 @@
 {
   "name": "nexinterface",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "A collection of web components based on nexwidget and nexstate following material design guidelines.",
   "main": "dist/nexinterface.js",
   "type": "module",
