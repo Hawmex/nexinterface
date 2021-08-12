@@ -1,6 +1,6 @@
 import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
+import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
 import '../button/button.js';
 import '../divider/divider.js';
 import '../scrim/scrim.js';
@@ -15,7 +15,7 @@ export type DialogButton = {
 
 export type DialogInstance = {
   headline: string;
-  body: NexwidgetTemplate;
+  body: WidgetTemplate;
   button?: DialogButton;
 };
 
@@ -46,8 +46,8 @@ export interface DialogWidget {
   get headline(): string | undefined;
   set headline(v: string | undefined);
 
-  get body(): NexwidgetTemplate | undefined;
-  set body(v: NexwidgetTemplate | undefined);
+  get body(): WidgetTemplate | undefined;
+  set body(v: WidgetTemplate | undefined);
 
   get button(): DialogButton | undefined;
   set button(v: DialogButton | undefined);
@@ -180,7 +180,7 @@ export class DialogWidget extends Nexwidget {
     this.scrollable = this.#getScrollableValue();
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       <scrim-widget ?active=${this.active} @pointerdown=${removeDialog}></scrim-widget>
       <div class="dialog">

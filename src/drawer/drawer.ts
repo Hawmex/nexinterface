@@ -1,6 +1,6 @@
 import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
+import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
 import '../divider/divider.js';
 import '../menu/menu-container.js';
 import '../scrim/scrim.js';
@@ -144,7 +144,7 @@ export class DrawerWidget extends Nexwidget {
     this.scrollable = this.#getScrollableValue();
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       <scrim-widget
         class="scrim"

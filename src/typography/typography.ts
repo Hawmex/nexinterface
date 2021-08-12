@@ -1,4 +1,4 @@
-import { css, html, Nexwidget, NexwidgetAnimation, NexwidgetTemplate } from 'nexwidget';
+import { css, html, Nexwidget, WidgetAnimation, WidgetTemplate } from 'nexwidget';
 
 export type TypographyVariant =
   | 'text'
@@ -91,11 +91,11 @@ export class TypographyWidget extends Nexwidget {
     ];
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`<slot></slot>`;
   }
 
-  get mountAnimation(): NexwidgetAnimation {
+  get mountAnimation(): WidgetAnimation {
     return this.variant === 'top-bar'
       ? [
           [
@@ -111,7 +111,7 @@ export class TypographyWidget extends Nexwidget {
       : this.updateOrSlotChangeAnimation;
   }
 
-  get updateOrSlotChangeAnimation(): NexwidgetAnimation {
+  get updateOrSlotChangeAnimation(): WidgetAnimation {
     return this.variant === 'top-bar'
       ? [
           [

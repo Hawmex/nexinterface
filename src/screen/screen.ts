@@ -1,4 +1,4 @@
-import { css, Nexwidget, NexwidgetAnimation } from 'nexwidget';
+import { css, Nexwidget, WidgetAnimation } from 'nexwidget';
 
 export class Screen extends Nexwidget {
   static get styles(): CSSStyleSheet[] {
@@ -16,7 +16,7 @@ export class Screen extends Nexwidget {
     ];
   }
 
-  get mountAnimation(): NexwidgetAnimation {
+  get mountAnimation(): WidgetAnimation {
     return [
       [
         { opacity: '0', transform: 'scale(0.9)' },

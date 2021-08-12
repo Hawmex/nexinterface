@@ -1,12 +1,12 @@
-import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
+import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
 import { lazyLoad } from 'nexwidget/dist/directives/lazyload.js';
 import { parse } from 'regexparam';
 
 type LocationParams = {
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
-export type RouteSrc = () => Promise<{ default: any }>;
+export type RouteSrc = () => Promise<{ default: unknown }>;
 
 const assignParams = (path: string, { keys, pattern }: { keys: string[]; pattern: RegExp }) => {
   let i = 0;
@@ -89,7 +89,7 @@ export class RouterWidget extends Nexwidget {
     this.scrollTo({ top: 0 });
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       ${this.src && this.component
         ? lazyLoad(this.src(), document.createElement(this.component))

@@ -1,4 +1,4 @@
-import { css, html, Nexwidget, NexwidgetTemplate } from 'nexwidget';
+import { css, html, Nexwidget, WidgetTemplate } from 'nexwidget';
 import '../paper/paper.js';
 import '../section/section.js';
 import '../typography/typography.js';
@@ -50,7 +50,7 @@ export class CardWidget extends Nexwidget {
     ];
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       <paper-widget full-width>
         <div class="header">

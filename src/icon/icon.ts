@@ -1,4 +1,4 @@
-import { css, Nexwidget, NexwidgetAnimation } from 'nexwidget';
+import { css, Nexwidget, WidgetAnimation } from 'nexwidget';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -38,7 +38,7 @@ export class IconWidget extends Nexwidget {
     ];
   }
 
-  get mountAnimation(): NexwidgetAnimation {
+  get mountAnimation(): WidgetAnimation {
     return [
       [
         { transform: 'rotateX(-90deg)', opacity: '0' },
@@ -52,7 +52,7 @@ export class IconWidget extends Nexwidget {
     ];
   }
 
-  get updateOrSlotChangeAnimation(): NexwidgetAnimation {
+  get updateOrSlotChangeAnimation(): WidgetAnimation {
     return [
       [
         { transform: 'rotateZ(-90deg)', opacity: '0' },

@@ -1,4 +1,4 @@
-import { css, html, NexwidgetTemplate, nothing } from 'nexwidget';
+import { css, html, WidgetTemplate, nothing } from 'nexwidget';
 import '../icon/icon.js';
 import { Interactive } from '../interactive/interactive.js';
 import '../typography/typography.js';
@@ -123,7 +123,7 @@ export class ButtonWidget extends Interactive {
     this.centeredRipple = !this.text;
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       ${this.icon ? html`<icon-widget value=${this.icon} class="icon"></icon-widget>` : nothing}
       ${this.text

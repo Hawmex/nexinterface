@@ -1,4 +1,4 @@
-import { css, html, Nexwidget, NexwidgetTemplate } from 'nexwidget';
+import { css, html, Nexwidget, WidgetTemplate } from 'nexwidget';
 
 export type SectionVariant = 'list' | 'inputs' | 'paragraphs' | 'buttons';
 
@@ -58,7 +58,7 @@ export class SectionWidget extends Nexwidget {
     ];
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       ${this.variant === 'buttons'
         ? html`

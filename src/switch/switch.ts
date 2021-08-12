@@ -1,4 +1,4 @@
-import { css, html, NexwidgetTemplate } from 'nexwidget';
+import { css, html, WidgetTemplate } from 'nexwidget';
 import '../icon/icon.js';
 import { Interactive } from '../interactive/interactive.js';
 import '../typography/typography.js';
@@ -119,7 +119,7 @@ export class SwitchWidget extends Interactive {
     ];
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       <icon-widget value=${this.icon!}></icon-widget>
       <typography-widget variant="button-normal" class="text">${this.text}</typography-widget>

@@ -1,6 +1,6 @@
 import { repeat } from 'lit-html/directives/repeat.js';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
+import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
 import '../button/button.js';
 import { ButtonWidget } from '../button/button.js';
 import '../linear-progress/linear-progress.js';
@@ -14,7 +14,7 @@ export type TopBarLeading = {
 export type TopBarOptions = {
   headline: string;
   leading: TopBarLeading;
-  leftSlot: NexwidgetTemplate;
+  leftSlot: WidgetTemplate;
   active: boolean;
   tabs: string[];
   activeTab: number;
@@ -56,8 +56,8 @@ export interface TopBarWidget {
   get headline(): string | undefined;
   set headline(v: string | undefined);
 
-  get leftSlot(): NexwidgetTemplate | undefined;
-  set leftSlot(v: NexwidgetTemplate | undefined);
+  get leftSlot(): WidgetTemplate | undefined;
+  set leftSlot(v: WidgetTemplate | undefined);
 
   get leading(): TopBarLeading | undefined;
   set leading(v: TopBarLeading | undefined);
@@ -236,7 +236,7 @@ export class TopBarWidget extends Nexwidget {
     this.#moveTabIndicator();
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       <div class="containers">
         <div class="container">

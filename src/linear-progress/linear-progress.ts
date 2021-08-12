@@ -1,4 +1,4 @@
-import { css, html, Nexwidget, NexwidgetTemplate, nothing } from 'nexwidget';
+import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -101,7 +101,7 @@ export class LinearProgressWidget extends Nexwidget {
     ];
   }
 
-  get template(): NexwidgetTemplate {
+  get template(): WidgetTemplate {
     return html`
       <div class="container">
         ${this.active
