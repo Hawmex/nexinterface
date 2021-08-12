@@ -45,7 +45,6 @@ export class AppScaffold extends Nexwidget {
             --onBackgroundColor: #ffffff;
             --surfaceColor: #212121;
             --onSurfaceColor: #ffffff;
-            --errorColor: #d43936;
           }
         }
       `,
