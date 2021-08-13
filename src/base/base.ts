@@ -19,14 +19,4 @@ export class Nexinterface extends Nexwidget {
       `,
     ];
   }
-
-  updatedCallback() {
-    super.updatedCallback();
-    this.dir = 'auto';
-  }
-
-  slotChangedCallback() {
-    super.slotChangedCallback();
-    this.dir = 'auto';
-  }
 }
