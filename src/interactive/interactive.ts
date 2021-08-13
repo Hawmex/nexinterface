@@ -57,6 +57,8 @@ export class Interactive extends Nexinterface {
     ];
   }
 
+  #isRippleCompleted = false;
+  #isPointerActive = false;
   #timeout?: number;
 
   addedCallback() {
@@ -80,6 +82,9 @@ export class Interactive extends Nexinterface {
 
     clearTimeout(this.#timeout);
 
+    this.#isPointerActive = true;
+    this.#isRippleCompleted = true;
+
     this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
     this.style.setProperty('--rippleTimer', '0ms');
     this.style.setProperty('--rippleSize', `${s}px`);
@@ -88,15 +93,24 @@ export class Interactive extends Nexinterface {
     this.style.setProperty('--rippleOpacity', '0.08');
 
     requestAnimationFrame(() => {
+      const timeout = Number(this.getCSSProperty('--durationLvl2').replace('ms', ''));
+
       this.style.setProperty('--rippleTimer', 'var(--durationLvl2)');
       this.style.setProperty('--rippleTranslate', 'translate(-50%, -50%)');
       this.style.setProperty('--rippleScale', 'scale(1.0)');
+
+      this.#isRippleCompleted = false;
+
+      this.#timeout = setTimeout(() => {
+        if (!this.#isPointerActive) this.style.setProperty('--rippleOpacity', '0');
+        this.#isRippleCompleted = true;
+      }, timeout);
     });
   }
 
   #finishRipple() {
-    const timeout = Number(this.getCSSProperty('--durationLvl2').replace('ms', ''));
-    this.#timeout = setTimeout(() => this.style.setProperty('--rippleOpacity', '0'), timeout);
+    if (this.#isRippleCompleted) this.style.setProperty('--rippleOpacity', '0');
+    this.#isPointerActive = false;
   }
 
   #startHover() {
