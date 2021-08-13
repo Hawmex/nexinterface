@@ -91,16 +91,20 @@ export class Interactive extends Nexinterface {
   }
 
   #finishRipple() {
-    this.style.setProperty('--rippleOpacity', '0');
+    requestAnimationFrame(() => this.style.setProperty('--rippleOpacity', '0'));
   }
 
   #startHover() {
-    this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
-    this.style.setProperty('--hoverOpacity', '0.04');
+    requestAnimationFrame(() => {
+      this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
+      this.style.setProperty('--hoverOpacity', '0.04');
+    });
   }
 
   #finishHover() {
-    this.style.setProperty('--hoverOpacity', '0');
+    requestAnimationFrame(() => {
+      this.style.setProperty('--hoverOpacity', '0');
+    });
   }
 }
 
