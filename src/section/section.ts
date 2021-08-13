@@ -1,4 +1,5 @@
-import { css, html, Nexwidget, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 export type SectionVariant = 'list' | 'inputs' | 'paragraphs' | 'buttons';
 
@@ -13,15 +14,11 @@ export interface SectionWidget {
   set variant(v: SectionVariant | null);
 }
 
-export class SectionWidget extends Nexwidget {
+export class SectionWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
-        :host {
-          box-sizing: border-box;
-        }
-
         :host([variant='list']),
         :host([variant='inputs']),
         :host([variant='paragraphs']) {

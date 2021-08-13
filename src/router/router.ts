@@ -1,6 +1,7 @@
-import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
+import { css, html, nothing, WidgetTemplate } from 'nexwidget';
 import { lazyLoad } from 'nexwidget/dist/directives/lazyload.js';
 import { parse } from 'regexparam';
+import { Nexinterface } from '../base/base.js';
 
 type LocationParams = {
   [key: string]: unknown;
@@ -39,7 +40,7 @@ export interface RouterWidget {
   set loose(v: boolean);
 }
 
-export class RouterWidget extends Nexwidget {
+export class RouterWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -50,7 +51,6 @@ export class RouterWidget extends Nexwidget {
           overflow-x: hidden;
           overflow-y: auto;
           scroll-behavior: smooth;
-          box-sizing: border-box;
         }
       `,
     ];
@@ -142,7 +142,7 @@ export interface RouteWidget {
   src: RouteSrc | undefined;
 }
 
-export class RouteWidget extends Nexwidget {
+export class RouteWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,

@@ -1,4 +1,5 @@
-import { css, Nexwidget, WidgetAnimation } from 'nexwidget';
+import { css, WidgetAnimation } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,7 +12,7 @@ export interface IconWidget {
   set value(v: string | null);
 }
 
-export class IconWidget extends Nexwidget {
+export class IconWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,

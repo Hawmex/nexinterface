@@ -1,6 +1,7 @@
 import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
+import { css, html, nothing, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 import '../button/button.js';
 import '../divider/divider.js';
 import '../scrim/scrim.js';
@@ -53,7 +54,7 @@ export interface DialogWidget {
   set button(v: DialogButton | undefined);
 }
 
-export class DialogWidget extends Nexwidget {
+export class DialogWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -69,7 +70,6 @@ export class DialogWidget extends Nexwidget {
         }
 
         :host .dialog {
-          box-sizing: border-box;
           position: absolute;
           grid-template-rows: max-content 1fr max-content;
           display: grid;

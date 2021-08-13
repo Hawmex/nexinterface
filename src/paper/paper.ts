@@ -1,4 +1,5 @@
-import { css, html, Nexwidget, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -6,7 +7,7 @@ declare global {
   }
 }
 
-export class PaperWidget extends Nexwidget {
+export class PaperWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -17,7 +18,6 @@ export class PaperWidget extends Nexwidget {
           background: var(--surfaceColor);
           color: var(--onSurfaceColor);
           border-radius: 8px;
-          box-sizing: border-box;
           overflow: hidden;
           box-shadow: var(--shadowLvl1);
           width: calc(100% - 32px);

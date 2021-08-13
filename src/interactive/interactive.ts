@@ -1,11 +1,12 @@
-import { css, Nexwidget } from 'nexwidget';
+import { css } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 export interface Interactive {
   get centeredRipple(): boolean;
   set centeredRipple(v: boolean);
 }
 
-export class Interactive extends Nexwidget {
+export class Interactive extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -13,6 +14,7 @@ export class Interactive extends Nexwidget {
         :host {
           position: relative;
           overflow: hidden;
+          cursor: pointer;
         }
 
         :host([disabled]) {

@@ -1,4 +1,5 @@
-import { css, html, Nexwidget, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -6,7 +7,7 @@ declare global {
   }
 }
 
-export class MenuContainerWidget extends Nexwidget {
+export class MenuContainerWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -17,7 +18,6 @@ export class MenuContainerWidget extends Nexwidget {
           grid-auto-flow: row;
           padding: 8px;
           gap: 8px;
-          box-sizing: border-box;
           background: var(--surfaceColor);
         }
       `,

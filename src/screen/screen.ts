@@ -1,6 +1,7 @@
-import { css, Nexwidget, WidgetAnimation } from 'nexwidget';
+import { css, WidgetAnimation } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
-export class Screen extends Nexwidget {
+export class Screen extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -10,7 +11,6 @@ export class Screen extends Nexwidget {
           grid-auto-flow: row;
           gap: 16px;
           padding: 16px 0px;
-          box-sizing: border-box;
         }
       `,
     ];

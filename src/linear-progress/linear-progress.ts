@@ -1,4 +1,5 @@
-import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
+import { css, html, WidgetTemplate, nothing } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,7 +12,7 @@ export interface LinearProgressWidget {
   set active(v: boolean);
 }
 
-export class LinearProgressWidget extends Nexwidget {
+export class LinearProgressWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -20,7 +21,6 @@ export class LinearProgressWidget extends Nexwidget {
           display: block;
           width: 100%;
           height: 4px;
-          box-sizing: border-box;
           overflow: hidden;
           border-radius: 2px;
           opacity: 0;

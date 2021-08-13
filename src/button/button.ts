@@ -33,10 +33,8 @@ export class ButtonWidget extends Interactive {
         :host {
           display: grid;
           grid-template-columns: 1fr;
-          box-sizing: border-box;
           align-items: center;
           padding: 8px;
-          cursor: pointer;
           background: inherit;
         }
 

@@ -1,6 +1,7 @@
-import { css, Nexwidget } from 'nexwidget';
+import { css } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
-export class AppScaffold extends Nexwidget {
+export class AppScaffold extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -11,7 +12,6 @@ export class AppScaffold extends Nexwidget {
           height: 100vh;
           overflow: hidden;
           position: relative;
-          box-sizing: border-box;
           background: var(--backgroundColor);
           color: var(--onBackgroundColor);
 

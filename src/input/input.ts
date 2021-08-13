@@ -1,4 +1,5 @@
-import { css, html, Nexwidget } from 'nexwidget';
+import { css, html } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 export type InputType = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password';
 
@@ -25,7 +26,7 @@ export interface InputWidget {
   set type(v: InputType | null);
 }
 
-export class InputWidget extends Nexwidget {
+export class InputWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -120,7 +121,6 @@ export class InputWidget extends Nexwidget {
           position: relative;
           color: var(--onSurfaceColor);
           width: 100%;
-          box-sizing: border-box;
           height: 24px;
           border-radius: 4px 4px 0px 0px;
           font-size: 16px;

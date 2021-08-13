@@ -1,4 +1,5 @@
-import { css, html, Nexwidget, WidgetAnimation, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetAnimation, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 export type TypographyVariant =
   | 'text'
@@ -19,7 +20,7 @@ export interface TypographyWidget {
   set variant(v: TypographyVariant | null);
 }
 
-export class TypographyWidget extends Nexwidget {
+export class TypographyWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -33,7 +34,6 @@ export class TypographyWidget extends Nexwidget {
           letter-spacing: 0.25px;
           padding: 0px;
           margin: 0px;
-          box-sizing: border-box;
           font-variation-settings: 'wght' var(--typographyWeight);
         }
 

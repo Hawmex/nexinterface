@@ -1,6 +1,7 @@
 import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
+import { css, html, nothing, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 import '../divider/divider.js';
 import '../menu/menu-container.js';
 import '../scrim/scrim.js';
@@ -32,7 +33,7 @@ export interface DrawerWidget {
   set scrollable(v: boolean);
 }
 
-export class DrawerWidget extends Nexwidget {
+export class DrawerWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -59,7 +60,6 @@ export class DrawerWidget extends Nexwidget {
           width: var(--drawerWidth);
           height: 100vh;
           overflow: hidden;
-          box-sizing: border-box;
           display: grid;
           grid-template-rows: 64px 1fr;
           position: fixed;
@@ -101,7 +101,6 @@ export class DrawerWidget extends Nexwidget {
         :host .header {
           display: flex;
           padding: 0px 16px;
-          box-sizing: border-box;
           align-items: center;
           width: inherit;
           justify-content: flex-start;

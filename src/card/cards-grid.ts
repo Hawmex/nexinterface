@@ -1,4 +1,5 @@
-import { css, html, Nexwidget, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -6,7 +7,7 @@ declare global {
   }
 }
 
-export class CardsGridWidget extends Nexwidget {
+export class CardsGridWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,

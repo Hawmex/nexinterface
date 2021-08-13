@@ -23,12 +23,10 @@ export class SwitchWidget extends Interactive {
       ...super.styles,
       css`
         :host {
-          cursor: pointer;
           display: grid;
           grid-template-columns: 24px 1fr 36px;
           padding: 12px 16px;
           gap: 32px;
-          box-sizing: border-box;
         }
 
         :host .text {

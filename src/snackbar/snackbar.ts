@@ -1,6 +1,7 @@
 import { Nexbounce } from 'nexbounce';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
+import { css, html, nothing, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 import '../button/button.js';
 import { ButtonWidget } from '../button/button.js';
 import '../typography/typography.js';
@@ -46,7 +47,7 @@ export interface SnackbarWidget {
   set longButtonText(v: boolean);
 }
 
-export class SnackbarWidget extends Nexwidget {
+export class SnackbarWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -57,7 +58,6 @@ export class SnackbarWidget extends Nexwidget {
           bottom: 8px;
           right: 8px;
           border-radius: 8px;
-          box-sizing: border-box;
           background: var(--onSurfaceColor);
           color: var(--surfaceColor);
           display: grid;

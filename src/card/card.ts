@@ -1,4 +1,5 @@
-import { css, html, Nexwidget, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 import '../paper/paper.js';
 import '../section/section.js';
 import '../typography/typography.js';
@@ -17,7 +18,7 @@ export interface CardWidget {
   set imageSrc(v: string | null);
 }
 
-export class CardWidget extends Nexwidget {
+export class CardWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,

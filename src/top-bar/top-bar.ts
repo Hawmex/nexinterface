@@ -1,6 +1,7 @@
 import { repeat } from 'lit-html/directives/repeat.js';
 import { Nexstate } from 'nexstate';
-import { css, html, Nexwidget, WidgetTemplate, nothing } from 'nexwidget';
+import { css, html, nothing, WidgetTemplate } from 'nexwidget';
+import { Nexinterface } from '../base/base.js';
 import '../button/button.js';
 import { ButtonWidget } from '../button/button.js';
 import '../linear-progress/linear-progress.js';
@@ -69,7 +70,7 @@ export interface TopBarWidget {
   set activeTab(v: number | undefined);
 }
 
-export class TopBarWidget extends Nexwidget {
+export class TopBarWidget extends Nexinterface {
   static get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -80,7 +81,6 @@ export class TopBarWidget extends Nexwidget {
           position: relative;
           display: flex;
           flex-direction: column;
-          box-sizing: border-box;
           gap: 8px;
           background: var(--surfaceColor);
           color: var(--primaryColor);
@@ -107,7 +107,6 @@ export class TopBarWidget extends Nexwidget {
           display: none;
           grid-auto-flow: column;
           padding: 8px;
-          box-sizing: border-box;
           gap: 8px;
           align-items: center;
         }
@@ -159,7 +158,6 @@ export class TopBarWidget extends Nexwidget {
 
         :host .tabs-container {
           display: grid;
-          box-sizing: border-box;
           gap: 8px;
           padding: 0px 8px;
           width: max-content;
