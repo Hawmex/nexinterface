@@ -190,7 +190,6 @@ export class InputWidget extends Nexinterface {
       ${this.type === 'textarea'
         ? html`
             <textarea
-              dir="auto"
               class="field"
               placeholder=${this.placeholder ?? ''}
               @input=${this.#handleInput.bind(this)}
@@ -199,7 +198,6 @@ export class InputWidget extends Nexinterface {
           `
         : html`
             <input
-              dir="auto"
               class="field"
               placeholder=${this.placeholder ?? ''}
               type=${this.type!}
