@@ -83,7 +83,6 @@ export class Interactive extends Nexinterface {
     clearTimeout(this.#timeout);
 
     this.#isPointerActive = true;
-    this.#isRippleCompleted = true;
 
     this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
     this.style.setProperty('--rippleTimer', '0ms');
