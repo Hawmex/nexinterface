@@ -28,7 +28,7 @@ export class ScrimWidget extends Nexinterface {
         }
 
         :host([active]) {
-          opacity: 0.64;
+          opacity: 0.32;
           visibility: visible;
           transition-duration: var(--durationLvl2);
         }
