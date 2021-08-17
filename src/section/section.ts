@@ -59,8 +59,8 @@ export class SectionWidget extends Nexinterface {
     return html`
       ${this.variant === 'buttons'
         ? html`
-            <div><slot name="icons"></slot></div>
-            <div><slot name="buttons"></slot></div>
+            <div><slot name="leading"></slot></div>
+            <div><slot name="trailing"></slot></div>
           `
         : html`<slot></slot>`}
     `;

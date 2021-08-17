@@ -194,7 +194,7 @@ export class DialogWidget extends Nexinterface {
               ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
               <section-widget class="footer" variant="buttons">
                 <button-widget
-                  slot="buttons"
+                  slot="trailing"
                   variant="text"
                   text=${this.button.text}
                   @click=${this.#buttonAction.bind(this)}

@@ -15,7 +15,7 @@ export type TopBarLeading = {
 export type TopBarOptions = {
   headline: string;
   leading: TopBarLeading;
-  leftSlot: WidgetTemplate;
+  trailing: WidgetTemplate;
   active: boolean;
   tabs: string[];
   activeTab: number;
@@ -27,7 +27,7 @@ const defualtState = <TopBarOptions>{
     icon: 'arrow_forward',
     action: () => history.back(),
   },
-  leftSlot: nothing,
+  trailing: nothing,
   active: true,
   tabs: [],
   activeTab: -1,
@@ -57,8 +57,8 @@ export interface TopBarWidget {
   get headline(): string | undefined;
   set headline(v: string | undefined);
 
-  get leftSlot(): WidgetTemplate | undefined;
-  set leftSlot(v: WidgetTemplate | undefined);
+  get trailing(): WidgetTemplate | undefined;
+  set trailing(v: WidgetTemplate | undefined);
 
   get leading(): TopBarLeading | undefined;
   set leading(v: TopBarLeading | undefined);
@@ -213,9 +213,9 @@ export class TopBarWidget extends Nexinterface {
     super.addedCallback();
 
     topBarOptions.runAndSubscribe(
-      ({ headline, leftSlot, active, leading, tabs, activeTab }) => {
+      ({ headline, trailing, active, leading, tabs, activeTab }) => {
         this.headline = headline;
-        this.leftSlot = leftSlot;
+        this.trailing = trailing;
         this.active = active;
         this.leading = leading;
         this.tabs = tabs;
@@ -245,7 +245,7 @@ export class TopBarWidget extends Nexinterface {
           ></button-widget>
           <typography-widget one-line variant="top-bar">${this.headline}</typography-widget>
         </div>
-        <div class="container">${this.leftSlot}</div>
+        <div class="container">${this.trailing}</div>
       </div>
       ${this.tabs!.length > 0
         ? html`
@@ -320,5 +320,5 @@ TopBarWidget.createAttributes([
   ['appName', String],
 ]);
 
-TopBarWidget.createReactives(['headline', 'leftSlot', 'leading', 'loading', 'tabs', 'activeTab']);
+TopBarWidget.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
 TopBarWidget.register('top-bar-widget');

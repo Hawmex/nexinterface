@@ -62,8 +62,8 @@ export class CardWidget extends Nexinterface {
           </section-widget>
         </div>
         <section-widget variant="buttons">
-          <slot name="icons" slot="icons"></slot>
-          <slot name="buttons" slot="buttons"></slot>
+          <slot name="footer-leading" slot="leading"></slot>
+          <slot name="footer-trailing" slot="trailing"></slot>
         </section-widget>
       </paper-widget>
     `;
