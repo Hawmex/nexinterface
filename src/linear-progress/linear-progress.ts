@@ -118,6 +118,6 @@ export class LinearProgressWidget extends Nexinterface {
   }
 }
 
-LinearProgressWidget.createAttributes([['active', Boolean]]);
+LinearProgressWidget.createAttributes([{ key: 'active', type: 'boolean' }]);
 LinearProgressWidget.createReactives(['active']);
 LinearProgressWidget.register('linear-progress-widget');

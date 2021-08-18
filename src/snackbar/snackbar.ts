@@ -198,8 +198,8 @@ export class SnackbarWidget extends Nexinterface {
 }
 
 SnackbarWidget.createAttributes([
-  ['active', Boolean],
-  ['longButtonText', Boolean],
+  { key: 'active', type: 'boolean' },
+  { key: 'longButtonText', type: 'boolean' },
 ]);
 
 SnackbarWidget.createReactives(['text', 'button', 'longButtonText']);

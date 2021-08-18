@@ -222,8 +222,8 @@ export class DialogWidget extends Nexinterface {
 }
 
 DialogWidget.createAttributes([
-  ['active', Boolean],
-  ['scrollable', Boolean],
+  { key: 'active', type: 'boolean' },
+  { key: 'scrollable', type: 'boolean' },
 ]);
 
 DialogWidget.createReactives(['active', 'scrollable', 'headline', 'body', 'button']);

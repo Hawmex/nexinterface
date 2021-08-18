@@ -71,8 +71,8 @@ export class CardWidget extends Nexinterface {
 }
 
 CardWidget.createAttributes([
-  ['imageSrc', String],
-  ['headline', String],
+  { key: 'imageSrc', type: 'string' },
+  { key: 'headline', type: 'string' },
 ]);
 
 CardWidget.createReactives(['imageSrc', 'headline']);

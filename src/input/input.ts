@@ -227,11 +227,11 @@ export class InputWidget extends Nexinterface {
 }
 
 InputWidget.createAttributes([
-  ['placeholder', String],
-  ['type', String],
-  ['label', String],
-  ['hasValue', Boolean],
-  ['invalid', Boolean],
+  { key: 'placeholder', type: 'string' },
+  { key: 'type', type: 'string' },
+  { key: 'label', type: 'string' },
+  { key: 'hasValue', type: 'boolean' },
+  { key: 'invalid', type: 'boolean' },
 ]);
 
 InputWidget.createReactives(['placeholder', 'type', 'label', 'invalid']);

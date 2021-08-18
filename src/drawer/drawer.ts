@@ -180,10 +180,10 @@ export class DrawerWidget extends Nexinterface {
 }
 
 DrawerWidget.createAttributes([
-  ['headline', String],
-  ['text', String],
-  ['active', Boolean],
-  ['scrollable', Boolean],
+  { key: 'headline', type: 'string' },
+  { key: 'text', type: 'string' },
+  { key: 'active', type: 'boolean' },
+  { key: 'scrollable', type: 'boolean' },
 ]);
 
 DrawerWidget.createReactives(['headline', 'text', 'active', 'scrollable']);

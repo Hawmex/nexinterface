@@ -17,16 +17,16 @@ export class Screen extends Nexinterface {
   }
 
   get mountAnimation(): WidgetAnimation {
-    return [
-      [
+    return {
+      keyframes: [
         { opacity: '0', transform: 'scale(0.9)' },
         { opacity: '1', transform: 'scale(1)' },
       ],
-      {
+      options: {
         duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
         easing: this.getCSSProperty('--deceleratedEase'),
         fill: 'forwards',
       },
-    ];
+    };
   }
 }

@@ -40,34 +40,34 @@ export class IconWidget extends Nexinterface {
   }
 
   get mountAnimation(): WidgetAnimation {
-    return [
-      [
+    return {
+      keyframes: [
         { transform: 'rotateX(-90deg)', opacity: '0' },
         { transform: 'rotateX(0deg)', opacity: '1' },
       ],
-      {
+      options: {
         duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
         easing: this.getCSSProperty('--standardEase'),
         fill: 'forwards',
       },
-    ];
+    };
   }
 
   get updateOrSlotChangeAnimation(): WidgetAnimation {
-    return [
-      [
+    return {
+      keyframes: [
         { transform: 'rotateZ(-90deg)', opacity: '0' },
         { transform: 'rotateZ(0deg)', opacity: '1' },
       ],
-      {
+      options: {
         duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
         easing: this.getCSSProperty('--standardEase'),
         fill: 'forwards',
       },
-    ];
+    };
   }
 }
 
-IconWidget.createAttributes([['value', String]]);
+IconWidget.createAttributes([{ key: 'value', type: 'string' }]);
 IconWidget.createReactives(['value']);
 IconWidget.register('icon-widget');

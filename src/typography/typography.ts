@@ -97,43 +97,43 @@ export class TypographyWidget extends Nexinterface {
 
   get mountAnimation(): WidgetAnimation {
     return this.variant === 'top-bar'
-      ? [
-          [
+      ? {
+          keyframes: [
             { opacity: '0', transform: 'scale(0.9)' },
             { opacity: '1', transform: 'scale(1)' },
           ],
-          {
+          options: {
             duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
             easing: this.getCSSProperty('--deceleratedEase'),
             fill: 'forwards',
           },
-        ]
+        }
       : this.updateOrSlotChangeAnimation;
   }
 
   get updateOrSlotChangeAnimation(): WidgetAnimation {
     return this.variant === 'top-bar'
-      ? [
-          [
+      ? {
+          keyframes: [
             { opacity: '0', transform: 'translateY(-16px) rotateX(-90deg)' },
             { opacity: '1', transform: 'translateY(0px) rotateX(0deg)' },
           ],
-          {
+          options: {
             duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
             easing: this.getCSSProperty('--deceleratedEase'),
             fill: 'forwards',
           },
-        ]
-      : [
-          [{ opacity: '0' }, { opacity: '1' }],
-          {
+        }
+      : {
+          keyframes: [{ opacity: '0' }, { opacity: '1' }],
+          options: {
             duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
             easing: this.getCSSProperty('--deceleratedEase'),
             fill: 'forwards',
           },
-        ];
+        };
   }
 }
 
-TypographyWidget.createAttributes([['variant', String]]);
+TypographyWidget.createAttributes([{ key: 'variant', type: 'string' }]);
 TypographyWidget.register('typography-widget');

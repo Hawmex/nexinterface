@@ -315,9 +315,9 @@ export class TopBarWidget extends Nexinterface {
 }
 
 TopBarWidget.createAttributes([
-  ['active', Boolean],
-  ['loading', Boolean],
-  ['appName', String],
+  { key: 'active', type: 'boolean' },
+  { key: 'loading', type: 'boolean' },
+  { key: 'appName', type: 'string' },
 ]);
 
 TopBarWidget.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);

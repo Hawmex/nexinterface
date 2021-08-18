@@ -127,8 +127,8 @@ export class SwitchWidget extends Interactive {
 }
 
 SwitchWidget.createAttributes([
-  ['text', String],
-  ['icon', String],
+  { key: 'text', type: 'string' },
+  { key: 'icon', type: 'string' },
 ]);
 
 SwitchWidget.createReactives(['text', 'icon']);

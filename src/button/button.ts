@@ -138,10 +138,10 @@ export class ButtonWidget extends Interactive {
 }
 
 ButtonWidget.createAttributes([
-  ['variant', String],
-  ['text', String],
-  ['icon', String],
-  ['link', String],
+  { key: 'variant', type: 'string' },
+  { key: 'text', type: 'string' },
+  { key: 'icon', type: 'string' },
+  { key: 'link', type: 'string' },
 ]);
 
 ButtonWidget.createReactives(['text', 'icon']);

@@ -122,4 +122,4 @@ export class Interactive extends Nexinterface {
   }
 }
 
-Interactive.createAttributes([['centeredRipple', Boolean]]);
+Interactive.createAttributes([{ key: 'centeredRipple', type: 'boolean' }]);

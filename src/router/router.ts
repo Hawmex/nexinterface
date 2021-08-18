@@ -156,9 +156,9 @@ export class RouteWidget extends Nexinterface {
 }
 
 RouteWidget.createAttributes([
-  ['path', String],
-  ['component', String],
-  ['loose', Boolean],
+  { key: 'path', type: 'string' },
+  { key: 'component', type: 'string' },
+  { key: 'loose', type: 'boolean' },
 ]);
 
 RouteWidget.register('route-widget');
