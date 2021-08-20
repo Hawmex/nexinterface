@@ -37,4 +37,4 @@ export class ScrimWidget extends Nexinterface {
   }
 }
 
-ScrimWidget.register('scrim-widget');
+ScrimWidget.registerAs('scrim-widget');

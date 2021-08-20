@@ -35,4 +35,4 @@ export class CardsGridWidget extends Nexinterface {
   }
 }
 
-CardsGridWidget.register('cards-grid-widget');
+CardsGridWidget.registerAs('cards-grid-widget');

@@ -145,4 +145,4 @@ ButtonWidget.createAttributes([
 ]);
 
 ButtonWidget.createReactives(['text', 'icon']);
-ButtonWidget.register('button-widget');
+ButtonWidget.registerAs('button-widget');

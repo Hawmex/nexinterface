@@ -70,4 +70,4 @@ export class IconWidget extends Nexinterface {
 
 IconWidget.createAttributes([{ key: 'value', type: 'string' }]);
 IconWidget.createReactives(['value']);
-IconWidget.register('icon-widget');
+IconWidget.registerAs('icon-widget');

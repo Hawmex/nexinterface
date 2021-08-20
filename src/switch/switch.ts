@@ -132,4 +132,4 @@ SwitchWidget.createAttributes([
 ]);
 
 SwitchWidget.createReactives(['text', 'icon']);
-SwitchWidget.register('switch-widget');
+SwitchWidget.registerAs('switch-widget');

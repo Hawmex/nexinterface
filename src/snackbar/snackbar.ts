@@ -203,4 +203,4 @@ SnackbarWidget.createAttributes([
 ]);
 
 SnackbarWidget.createReactives(['text', 'button', 'longButtonText']);
-SnackbarWidget.register('snackbar-widget');
+SnackbarWidget.registerAs('snackbar-widget');

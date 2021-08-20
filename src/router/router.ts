@@ -121,7 +121,7 @@ export class RouterWidget extends Nexinterface {
 }
 
 RouterWidget.createReactives(['src', 'component']);
-RouterWidget.register('router-widget');
+RouterWidget.registerAs('router-widget');
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -161,4 +161,4 @@ RouteWidget.createAttributes([
   { key: 'loose', type: 'boolean' },
 ]);
 
-RouteWidget.register('route-widget');
+RouteWidget.registerAs('route-widget');

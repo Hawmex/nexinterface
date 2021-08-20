@@ -136,4 +136,4 @@ export class TypographyWidget extends Nexinterface {
 }
 
 TypographyWidget.createAttributes([{ key: 'variant', type: 'string' }]);
-TypographyWidget.register('typography-widget');
+TypographyWidget.registerAs('typography-widget');

@@ -321,4 +321,4 @@ TopBarWidget.createAttributes([
 ]);
 
 TopBarWidget.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
-TopBarWidget.register('top-bar-widget');
+TopBarWidget.registerAs('top-bar-widget');

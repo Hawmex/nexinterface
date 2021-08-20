@@ -37,4 +37,4 @@ export class PaperWidget extends Nexinterface {
   }
 }
 
-PaperWidget.register('paper-widget');
+PaperWidget.registerAs('paper-widget');

@@ -25,4 +25,4 @@ export class DividerWidget extends Nexinterface {
   }
 }
 
-DividerWidget.register('divider-widget');
+DividerWidget.registerAs('divider-widget');

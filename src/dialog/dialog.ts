@@ -227,4 +227,4 @@ DialogWidget.createAttributes([
 ]);
 
 DialogWidget.createReactives(['active', 'scrollable', 'headline', 'body', 'button']);
-DialogWidget.register('dialog-widget');
+DialogWidget.registerAs('dialog-widget');

@@ -187,4 +187,4 @@ DrawerWidget.createAttributes([
 ]);
 
 DrawerWidget.createReactives(['headline', 'text', 'active', 'scrollable']);
-DrawerWidget.register('drawer-widget');
+DrawerWidget.registerAs('drawer-widget');

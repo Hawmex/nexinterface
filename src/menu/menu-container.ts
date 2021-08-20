@@ -29,4 +29,4 @@ export class MenuContainerWidget extends Nexinterface {
   }
 }
 
-MenuContainerWidget.register('menu-container-widget');
+MenuContainerWidget.registerAs('menu-container-widget');

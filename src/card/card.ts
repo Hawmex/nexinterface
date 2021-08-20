@@ -76,4 +76,4 @@ CardWidget.createAttributes([
 ]);
 
 CardWidget.createReactives(['imageSrc', 'headline']);
-CardWidget.register('card-widget');
+CardWidget.registerAs('card-widget');

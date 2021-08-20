@@ -235,4 +235,4 @@ InputWidget.createAttributes([
 ]);
 
 InputWidget.createReactives(['placeholder', 'type', 'label', 'invalid']);
-InputWidget.register('input-widget');
+InputWidget.registerAs('input-widget');

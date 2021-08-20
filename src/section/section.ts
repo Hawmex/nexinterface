@@ -69,4 +69,4 @@ export class SectionWidget extends Nexinterface {
 
 SectionWidget.createAttributes([{ key: 'variant', type: 'string' }]);
 SectionWidget.createReactives(['variant']);
-SectionWidget.register('section-widget');
+SectionWidget.registerAs('section-widget');
