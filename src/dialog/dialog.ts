@@ -79,7 +79,6 @@ export class DialogWidget extends Nexinterface {
           background: var(--surfaceColor);
           color: var(--onSurfaceColor);
           border-radius: 8px;
-          overflow: hidden;
           box-shadow: var(--shadowLvl4);
           width: var(--dialogWidth);
           max-height: calc(100vh - 32px);
@@ -111,7 +110,6 @@ export class DialogWidget extends Nexinterface {
         }
 
         :host .body {
-          padding: 0px 0px 16px 0px;
           overflow-y: auto;
         }
 
@@ -119,7 +117,6 @@ export class DialogWidget extends Nexinterface {
           padding: 0px 8px 8px 8px;
         }
 
-        :host .body,
         :host .header,
         :host .footer {
           transition: padding var(--durationLvl1) var(--deceleratedEase);
@@ -128,10 +125,6 @@ export class DialogWidget extends Nexinterface {
 
         :host([scrollable]) .header {
           padding: 16px 0px;
-        }
-
-        :host([scrollable]) .body {
-          padding: 8px 0px;
         }
 
         :host([scrollable]) .footer {
@@ -187,7 +180,8 @@ export class DialogWidget extends Nexinterface {
         <section-widget class="header" variant="paragraphs">
           <typography-widget variant="headline"> ${this.headline} </typography-widget>
         </section-widget>
-        ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing} ${this.body}
+        ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
+        <div class="body">${this.body}</div>
         ${this.button
           ? html`
               ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
@@ -211,8 +205,8 @@ export class DialogWidget extends Nexinterface {
   }
 
   #getScrollableValue() {
-    const body = this.shadowRoot!.querySelector('.body');
-    return body ? body.scrollHeight > body.clientHeight : false;
+    const { scrollHeight, clientHeight } = <HTMLDivElement>this.shadowRoot!.querySelector('.body');
+    return scrollHeight > clientHeight;
   }
 
   #handleResize() {
