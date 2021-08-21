@@ -187,8 +187,7 @@ export class DialogWidget extends Nexinterface {
         <section-widget class="header" variant="paragraphs">
           <typography-widget variant="headline"> ${this.headline} </typography-widget>
         </section-widget>
-        ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
-        <section-widget class="body" variant="paragraphs"> ${this.body} </section-widget>
+        ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing} ${this.body}
         ${this.button
           ? html`
               ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
