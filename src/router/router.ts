@@ -2,12 +2,11 @@ import { css, html, nothing, WidgetTemplate } from 'nexwidget';
 import { lazyLoad } from 'nexwidget/dist/directives/lazyload.js';
 import { parse } from 'regexparam';
 import { Nexinterface } from '../base/base.js';
+import { Screen } from '../screen/screen.js';
 
-type LocationParams = {
-  [key: string]: unknown;
-};
+type LocationParams = { [key: string]: unknown };
 
-export type RouteSrc = () => Promise<{ default: unknown }>;
+export type RouteSrc = () => Promise<{ [key: string]: Screen }>;
 
 const assignParams = (path: string, { keys, pattern }: { keys: string[]; pattern: RegExp }) => {
   let i = 0;
