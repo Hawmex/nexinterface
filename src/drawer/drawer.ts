@@ -9,8 +9,7 @@ import '../typography/typography.js';
 
 export const drawerActive = new Nexstate(false);
 
-const deactivateDrawer = () => drawerActive.setState(() => false);
-
+export const deactivateDrawer = () => drawerActive.setState(() => false);
 export const activateDrawer = () => drawerActive.setState(() => true);
 
 declare global {

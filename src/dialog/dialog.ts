@@ -26,7 +26,7 @@ export type DialogFinalInstance = {
 
 export const dialogsQueue = new Nexstate<DialogFinalInstance[]>([]);
 
-const removeDialog = () => dialogsQueue.setState((state) => state.slice(1));
+export const removeDialog = () => dialogsQueue.setState((state) => state.slice(1));
 
 export const addDialog = (dialog: DialogInstance) =>
   dialogsQueue.setState((state) => [...state, { ...dialog, id: Symbol(dialog.headline) }]);
