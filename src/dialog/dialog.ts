@@ -79,6 +79,7 @@ export class DialogWidget extends Nexinterface {
           background: var(--surfaceColor);
           color: var(--onSurfaceColor);
           border-radius: 8px;
+          overflow: hidden;
           box-shadow: var(--shadowLvl4);
           width: var(--dialogWidth);
           max-height: calc(100vh - 32px);
