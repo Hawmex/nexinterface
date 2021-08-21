@@ -6,7 +6,6 @@ import '../button/button.js';
 import '../divider/divider.js';
 import '../scrim/scrim.js';
 import '../section/section.js';
-import { SectionWidget } from '../section/section.js';
 import '../typography/typography.js';
 
 export type DialogButton = {
@@ -211,8 +210,8 @@ export class DialogWidget extends Nexinterface {
   }
 
   #getScrollableValue() {
-    const { scrollHeight, clientHeight } = <SectionWidget>this.shadowRoot!.querySelector('.body');
-    return scrollHeight > clientHeight;
+    const body = this.shadowRoot!.querySelector('.body');
+    return body ? body.scrollHeight > body.clientHeight : false;
   }
 
   #handleResize() {
