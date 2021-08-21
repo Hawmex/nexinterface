@@ -1,7 +1,7 @@
 import { css, html } from 'nexwidget';
 import { Nexinterface } from '../base/base.js';
 
-export type InputType = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password';
+export type InputType = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password' | 'time';
 
 declare global {
   interface HTMLElementTagNameMap {
