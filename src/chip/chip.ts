@@ -28,6 +28,7 @@ export class ChipWidget extends Interactive {
           background: var(--backgroundColor);
           min-height: 32px;
           gap: 8px;
+          padding: 4px;
           align-items: center;
           border-radius: 10000px;
           box-shadow: var(--shadowLvl1);
@@ -35,6 +36,10 @@ export class ChipWidget extends Interactive {
 
         :host typography-widget {
           padding: 4px 8px;
+        }
+
+        :host([icon]) typography-widget {
+          padding-inline-start: 0px;
         }
       `,
     ];
