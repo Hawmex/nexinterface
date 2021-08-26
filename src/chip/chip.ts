@@ -27,21 +27,14 @@ export class ChipWidget extends Interactive {
           width: max-content;
           background: var(--backgroundColor);
           min-height: 32px;
+          gap: 8px;
           align-items: center;
           border-radius: 10000px;
           box-shadow: var(--shadowLvl1);
         }
 
-        :host icon-widget {
-          padding: 4px;
-        }
-
         :host typography-widget {
-          padding: 4px 12px;
-        }
-
-        :host([icon]) typography-widget {
-          padding: 4px 4px 4px 12px;
+          padding: 4px 8px;
         }
       `,
     ];
