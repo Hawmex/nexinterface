@@ -73,6 +73,7 @@ export class DialogWidget extends Nexinterface {
           grid-template-rows: max-content 1fr max-content;
           display: grid;
           z-index: 2;
+          overflow: hidden;
           top: 50%;
           right: 50%;
           transform: translate(50%, -50%) scale(0.9);
