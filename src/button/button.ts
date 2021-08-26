@@ -82,7 +82,7 @@ export class ButtonWidget extends Interactive {
         :host([variant='solid'][text]) {
           min-width: 64px;
           min-height: 36px;
-          text-align: center;
+          justify-content: center;
         }
 
         :host([variant='solid'][text]) {
