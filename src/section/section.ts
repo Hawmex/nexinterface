@@ -60,8 +60,8 @@ export class SectionWidget extends Nexinterface {
     return html`
       ${this.variant === 'buttons'
         ? html`
-            <div style="justify-self: flex-start;"><slot name="leading"></slot></div>
-            <div style="justify-self: flex-end;"><slot name="trailing"></slot></div>
+            <div><slot name="leading"></slot></div>
+            <div style="margin-inline-start: auto;"><slot name="trailing"></slot></div>
           `
         : html`<slot></slot>`}
     `;
