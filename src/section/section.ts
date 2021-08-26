@@ -40,7 +40,7 @@ export class SectionWidget extends Nexinterface {
 
         :host([variant='buttons']) {
           display: flex;
-          justify-content: space-between;
+          flex-wrap: wrap;
           gap: 8px;
           padding: 8px;
         }
@@ -48,6 +48,7 @@ export class SectionWidget extends Nexinterface {
         :host([variant='buttons']) > div {
           align-items: center;
           display: flex;
+          flex-wrap: wrap;
           flex-direction: row;
           gap: 8px;
         }
@@ -59,8 +60,8 @@ export class SectionWidget extends Nexinterface {
     return html`
       ${this.variant === 'buttons'
         ? html`
-            <div><slot name="leading"></slot></div>
-            <div><slot name="trailing"></slot></div>
+            <div style="justify-self: flex-start;"><slot name="leading"></slot></div>
+            <div style="justify-self: flex-end;"><slot name="trailing"></slot></div>
           `
         : html`<slot></slot>`}
     `;
