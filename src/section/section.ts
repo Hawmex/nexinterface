@@ -47,8 +47,8 @@ export class SectionWidget extends Nexinterface {
 
         :host([variant='buttons']) > div {
           align-items: center;
-          display: grid;
-          grid-auto-flow: column;
+          display: flex;
+          flex-direction: row;
           gap: 8px;
         }
       `,

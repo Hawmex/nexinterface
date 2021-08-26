@@ -104,7 +104,7 @@ export class DialogWidget extends Nexinterface {
         }
 
         :host .header {
-          padding: 16px 0px 8px 0px;
+          padding: 16px 0px 0px 0px;
           min-height: 56px;
           justify-content: center;
         }
