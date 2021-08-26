@@ -49,8 +49,12 @@ export class SectionWidget extends Nexinterface {
           align-items: center;
           display: flex;
           flex-wrap: wrap;
-          flex-direction: row;
           gap: 8px;
+        }
+
+        :host([variant='buttons']) .end {
+          margin-inline-start: auto;
+          justify-content: flex-end;
         }
       `,
     ];
@@ -61,7 +65,7 @@ export class SectionWidget extends Nexinterface {
       ${this.variant === 'buttons'
         ? html`
             <div><slot name="leading"></slot></div>
-            <div style="margin-inline-start: auto;"><slot name="trailing"></slot></div>
+            <div class="end"><slot name="trailing"></slot></div>
           `
         : html`<slot></slot>`}
     `;

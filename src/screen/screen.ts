@@ -7,8 +7,8 @@ export class Screen extends Nexinterface {
       ...super.styles,
       css`
         :host {
-          display: grid;
-          grid-auto-flow: row;
+          display: flex;
+          flex-direction: column;
           gap: 16px;
           padding: 16px 0px;
         }

@@ -23,7 +23,7 @@ export class CardsGridWidget extends Nexinterface {
 
         @media (max-width: 640px) {
           :host {
-            grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
           }
         }
       `,

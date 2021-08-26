@@ -14,8 +14,8 @@ export class MenuContainerWidget extends Nexinterface {
       css`
         :host {
           width: 100%;
-          display: grid;
-          grid-auto-flow: row;
+          display: flex;
+          flex-direction: column;
           padding: 8px;
           gap: 8px;
           background: var(--surfaceColor);

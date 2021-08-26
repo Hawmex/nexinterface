@@ -31,8 +31,7 @@ export class ButtonWidget extends Interactive {
       ...super.styles,
       css`
         :host {
-          display: grid;
-          grid-template-columns: 1fr;
+          display: flex;
           align-items: center;
           padding: 8px;
           background: inherit;
@@ -49,10 +48,6 @@ export class ButtonWidget extends Interactive {
           padding: 6px 8px;
           width: max-content;
           align-items: center;
-        }
-
-        :host([text][icon]) {
-          grid-template-columns: 24px 1fr;
         }
 
         :host([variant='menu'][text][icon]),

@@ -60,9 +60,8 @@ export class SnackbarWidget extends Nexinterface {
           border-radius: 8px;
           background: var(--onSurfaceColor);
           color: var(--surfaceColor);
-          display: grid;
+          display: flex;
           gap: 8px;
-          grid-auto-flow: column;
           align-items: center;
           justify-content: space-between;
           min-height: 48px;
@@ -97,7 +96,6 @@ export class SnackbarWidget extends Nexinterface {
         }
 
         :host([long-button-text]) {
-          display: flex;
           flex-direction: column;
           justify-content: initial;
           align-items: initial;
