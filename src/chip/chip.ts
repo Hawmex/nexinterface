@@ -35,7 +35,7 @@ export class ChipWidget extends Interactive {
         }
 
         :host typography-widget {
-          padding: 4px 8px;
+          padding: 0px 8px;
         }
 
         :host([icon]) typography-widget {
