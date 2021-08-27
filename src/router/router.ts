@@ -97,9 +97,9 @@ export class RouterWidget extends Nexinterface {
 
   #computeMatching() {
     const { pathname } = location;
-    const routes = <RouteWidget[]>(<unknown>this.querySelectorAll('route-widget'));
+    const routes = this.querySelectorAll('route-widget');
 
-    for (const route of routes) {
+    for (const route of <RouteWidget[]>(<unknown>routes)) {
       const { path, loose } = route;
       const regexPath = parse(path!, loose);
 
