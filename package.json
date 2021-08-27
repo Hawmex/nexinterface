@@ -37,7 +37,7 @@
   "dependencies": {
     "nexbounce": "^5.1.0",
     "nexstate": "^5.1.0",
-    "nexwidget": "^5.1.0",
+    "nexwidget": "^5.1.1",
     "regexparam": "^2.0.0"
   },
   "devDependencies": {
