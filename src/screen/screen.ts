@@ -1,7 +1,7 @@
 import { css, WidgetAnimation } from 'nexwidget';
 import { Nexinterface } from '../base/base.js';
 
-export class Screen extends Nexinterface {
+export class Nexscreen extends Nexinterface {
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,

@@ -2,11 +2,9 @@ import { css, html, nothing, WidgetTemplate } from 'nexwidget';
 import { lazyLoad } from 'nexwidget/dist/directives/lazyload.js';
 import { parse } from 'regexparam';
 import { Nexinterface } from '../base/base.js';
-import { Screen } from '../screen/screen.js';
+import { RouteSrc, RouteWidget } from './route.js';
 
 type LocationParams = { [key: string]: unknown };
-
-export type RouteSrc = () => Promise<{ [key: string]: Screen }>;
 
 const assignParams = (path: string, { keys, pattern }: { keys: string[]; pattern: RegExp }) => {
   let i = 0;
@@ -121,43 +119,3 @@ export class RouterWidget extends Nexinterface {
 
 RouterWidget.createReactives(['src', 'component']);
 RouterWidget.registerAs('router-widget');
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'route-widget': RouteWidget;
-  }
-}
-
-export interface RouteWidget {
-  get path(): string | null;
-  set path(v: string | null);
-
-  get component(): string | null;
-  set component(v: string | null);
-
-  get loose(): boolean;
-  set loose(v: boolean);
-
-  src: RouteSrc | undefined;
-}
-
-export class RouteWidget extends Nexinterface {
-  static override get styles(): CSSStyleSheet[] {
-    return [
-      ...super.styles,
-      css`
-        :host {
-          display: none;
-        }
-      `,
-    ];
-  }
-}
-
-RouteWidget.createAttributes([
-  { key: 'path', type: 'string' },
-  { key: 'component', type: 'string' },
-  { key: 'loose', type: 'boolean' },
-]);
-
-RouteWidget.registerAs('route-widget');

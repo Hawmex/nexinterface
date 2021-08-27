@@ -20,3 +20,6 @@ export class Nexinterface extends Nexwidget {
     ];
   }
 }
+
+//@ts-ignore
+globalThis.usesNexinterfacePackage = true;

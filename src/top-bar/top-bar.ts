@@ -7,10 +7,7 @@ import { ButtonWidget } from '../button/button.js';
 import '../linear-progress/linear-progress.js';
 import '../typography/typography.js';
 
-export type TopBarLeading = {
-  icon: string;
-  action: () => void;
-};
+export type TopBarLeading = { icon: string; action: () => void };
 
 export type TopBarOptions = {
   headline: string;
@@ -23,10 +20,7 @@ export type TopBarOptions = {
 
 const defualtState = <TopBarOptions>{
   headline: '',
-  leading: {
-    icon: 'arrow_forward',
-    action: () => history.back(),
-  },
+  leading: { icon: 'arrow_forward', action: () => history.back() },
   trailing: nothing,
   active: true,
   tabs: [],

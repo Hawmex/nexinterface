@@ -8,20 +8,9 @@ import '../scrim/scrim.js';
 import '../section/section.js';
 import '../typography/typography.js';
 
-export type DialogButton = {
-  text: string;
-  action: () => void;
-};
-
-export type DialogInstance = {
-  headline: string;
-  body: WidgetTemplate;
-  button?: DialogButton;
-};
-
-export type DialogFinalInstance = {
-  id: symbol;
-} & DialogInstance;
+export type DialogButton = { text: string; action: () => void };
+export type DialogInstance = { headline: string; body: WidgetTemplate; button?: DialogButton };
+export type DialogFinalInstance = { id: symbol } & DialogInstance;
 
 export const dialogsQueue = new Nexstate<DialogFinalInstance[]>([]);
 

@@ -6,19 +6,9 @@ import '../button/button.js';
 import { ButtonWidget } from '../button/button.js';
 import '../typography/typography.js';
 
-export type SnackbarButton = {
-  text: string;
-  action: () => void;
-};
-
-export type SnackbarInstance = {
-  text: string;
-  button?: SnackbarButton;
-};
-
-export type SnackbarFinalInstance = {
-  id: symbol;
-} & SnackbarInstance;
+export type SnackbarButton = { text: string; action: () => void };
+export type SnackbarInstance = { text: string; button?: SnackbarButton };
+export type SnackbarFinalInstance = { id: symbol } & SnackbarInstance;
 
 export const snackbarsQueue = new Nexstate<SnackbarFinalInstance[]>([]);
 
