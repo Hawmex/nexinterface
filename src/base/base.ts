@@ -1,7 +1,7 @@
 import { css, Nexwidget } from 'nexwidget';
 
 export class Nexinterface extends Nexwidget {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`

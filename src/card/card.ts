@@ -19,7 +19,7 @@ export interface CardWidget {
 }
 
 export class CardWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -51,7 +51,7 @@ export class CardWidget extends Nexinterface {
     ];
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       <paper-widget full-width>
         <div class="header">

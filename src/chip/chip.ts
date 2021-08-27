@@ -18,7 +18,7 @@ export interface ChipWidget {
 }
 
 export class ChipWidget extends Interactive {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -45,7 +45,7 @@ export class ChipWidget extends Interactive {
     ];
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       ${this.icon ? html`<icon-widget value=${this.icon}></icon-widget>` : nothing}
       <typography-widget variant="text"> ${this.text} </typography-widget>

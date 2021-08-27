@@ -40,7 +40,7 @@ export interface RouterWidget {
 }
 
 export class RouterWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -55,7 +55,7 @@ export class RouterWidget extends Nexinterface {
     ];
   }
 
-  addedCallback() {
+  override addedCallback() {
     super.addedCallback();
 
     History.prototype.pushState = ((defaultFn) =>
@@ -78,17 +78,17 @@ export class RouterWidget extends Nexinterface {
     });
   }
 
-  slotChangedCallback() {
+  override slotChangedCallback() {
     super.slotChangedCallback();
     this.#computeMatching();
   }
 
-  updatedCallback() {
+  override updatedCallback() {
     super.updatedCallback();
     this.scrollTo({ top: 0 });
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       ${this.src && this.component
         ? lazyLoad(this.src(), document.createElement(this.component))
@@ -142,7 +142,7 @@ export interface RouteWidget {
 }
 
 export class RouteWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`

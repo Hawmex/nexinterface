@@ -15,7 +15,7 @@ export interface SectionWidget {
 }
 
 export class SectionWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -60,7 +60,7 @@ export class SectionWidget extends Nexinterface {
     ];
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       ${this.variant === 'buttons'
         ? html`

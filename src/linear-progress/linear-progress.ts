@@ -13,7 +13,7 @@ export interface LinearProgressWidget {
 }
 
 export class LinearProgressWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -101,7 +101,7 @@ export class LinearProgressWidget extends Nexinterface {
     ];
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       <div class="container">
         ${this.active

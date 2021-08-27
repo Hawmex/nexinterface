@@ -48,7 +48,7 @@ export interface SnackbarWidget {
 }
 
 export class SnackbarWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -121,7 +121,7 @@ export class SnackbarWidget extends Nexinterface {
   #resizeDebouncer = new Nexbounce();
   #activeTime = 6000;
 
-  addedCallback() {
+  override addedCallback() {
     super.addedCallback();
 
     snackbarsQueue.runAndSubscribe(
@@ -149,12 +149,12 @@ export class SnackbarWidget extends Nexinterface {
     addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
   }
 
-  updatedCallback() {
+  override updatedCallback() {
     super.updatedCallback();
     this.longButtonText = this.#getLongButtonTextValue();
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       <typography-widget variant="text" class="text">${this.text}</typography-widget>
       ${this.button

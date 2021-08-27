@@ -54,7 +54,7 @@ export interface DialogWidget {
 }
 
 export class DialogWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -139,7 +139,7 @@ export class DialogWidget extends Nexinterface {
 
   #resizeDebouncer = new Nexbounce();
 
-  addedCallback() {
+  override addedCallback() {
     super.addedCallback();
 
     dialogsQueue.runAndSubscribe(
@@ -169,12 +169,12 @@ export class DialogWidget extends Nexinterface {
     addEventListener('replacestate', removeDialog, { signal: this.removedSignal });
   }
 
-  updatedCallback() {
+  override updatedCallback() {
     super.updatedCallback();
     this.scrollable = this.#getScrollableValue();
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       <scrim-widget ?active=${this.active} @pointerdown=${removeDialog}></scrim-widget>
       <div class="dialog">

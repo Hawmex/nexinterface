@@ -8,7 +8,7 @@ declare global {
 }
 
 export class PaperWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -32,7 +32,7 @@ export class PaperWidget extends Nexinterface {
     ];
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`<slot></slot>`;
   }
 }

@@ -33,7 +33,7 @@ export interface DrawerWidget {
 }
 
 export class DrawerWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -124,7 +124,7 @@ export class DrawerWidget extends Nexinterface {
 
   #resizeDebouncer = new Nexbounce();
 
-  addedCallback() {
+  override addedCallback() {
     super.addedCallback();
 
     drawerActive.runAndSubscribe((drawerActive) => (this.active = drawerActive), {
@@ -137,12 +137,12 @@ export class DrawerWidget extends Nexinterface {
     addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
   }
 
-  slotChangedCallback() {
+  override slotChangedCallback() {
     super.slotChangedCallback();
     this.scrollable = this.#getScrollableValue();
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       <scrim-widget
         class="scrim"

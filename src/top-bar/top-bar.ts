@@ -71,7 +71,7 @@ export interface TopBarWidget {
 }
 
 export class TopBarWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -209,7 +209,7 @@ export class TopBarWidget extends Nexinterface {
     ];
   }
 
-  addedCallback() {
+  override addedCallback() {
     super.addedCallback();
 
     topBarOptions.runAndSubscribe(
@@ -227,14 +227,14 @@ export class TopBarWidget extends Nexinterface {
     addEventListener('resize', this.#moveTabIndicator.bind(this), { signal: this.removedSignal });
   }
 
-  updatedCallback() {
+  override updatedCallback() {
     super.updatedCallback();
     this.#setWindowTitle();
     this.#scrollActiveTabIntoView();
     this.#moveTabIndicator();
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       <div class="containers">
         <div class="container">

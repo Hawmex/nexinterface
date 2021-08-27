@@ -7,7 +7,7 @@ export interface Interactive {
 }
 
 export class Interactive extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -61,7 +61,7 @@ export class Interactive extends Nexinterface {
   #isPointerActive = false;
   #timeout?: number;
 
-  addedCallback() {
+  override addedCallback() {
     super.addedCallback();
 
     this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));

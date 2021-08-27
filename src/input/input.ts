@@ -27,7 +27,7 @@ export interface InputWidget {
 }
 
 export class InputWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -169,11 +169,11 @@ export class InputWidget extends Nexinterface {
 
   #field?: HTMLTextAreaElement | HTMLInputElement;
 
-  focus() {
+  requestFocus() {
     this.#field?.focus?.();
   }
 
-  updatedCallback() {
+  override updatedCallback() {
     super.updatedCallback();
     this.#field = this.shadowRoot!.querySelector(this.type === 'textarea' ? 'textarea' : 'input')!;
 
@@ -184,7 +184,7 @@ export class InputWidget extends Nexinterface {
     return this.#field?.value;
   }
 
-  get template() {
+  override get template() {
     return html`
       <div class="label">${this.label}</div>
       ${this.type === 'textarea'
@@ -222,7 +222,7 @@ export class InputWidget extends Nexinterface {
 
   #focusNext({ key }: KeyboardEvent) {
     if (key === 'Enter' && this.nextElementSibling instanceof this.constructor)
-      (<InputWidget>this.nextElementSibling).focus();
+      (<InputWidget>this.nextElementSibling).requestFocus();
   }
 }
 

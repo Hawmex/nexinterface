@@ -13,7 +13,7 @@ export interface IconWidget {
 }
 
 export class IconWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -39,7 +39,7 @@ export class IconWidget extends Nexinterface {
     ];
   }
 
-  get mountAnimation(): WidgetAnimation {
+  override get mountAnimation(): WidgetAnimation {
     return {
       keyframes: [
         { transform: 'rotateX(-90deg)', opacity: '0' },
@@ -53,7 +53,7 @@ export class IconWidget extends Nexinterface {
     };
   }
 
-  get updateOrSlotChangeAnimation(): WidgetAnimation {
+  override get updateOrSlotChangeAnimation(): WidgetAnimation {
     return {
       keyframes: [
         { transform: 'rotateZ(-90deg)', opacity: '0' },

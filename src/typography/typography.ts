@@ -21,7 +21,7 @@ export interface TypographyWidget {
 }
 
 export class TypographyWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -91,11 +91,11 @@ export class TypographyWidget extends Nexinterface {
     ];
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`<slot></slot>`;
   }
 
-  get mountAnimation(): WidgetAnimation {
+  override get mountAnimation(): WidgetAnimation {
     return this.variant === 'top-bar'
       ? {
           keyframes: [
@@ -111,7 +111,7 @@ export class TypographyWidget extends Nexinterface {
       : this.updateOrSlotChangeAnimation;
   }
 
-  get updateOrSlotChangeAnimation(): WidgetAnimation {
+  override get updateOrSlotChangeAnimation(): WidgetAnimation {
     return this.variant === 'top-bar'
       ? {
           keyframes: [

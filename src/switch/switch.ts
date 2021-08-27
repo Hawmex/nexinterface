@@ -18,7 +18,7 @@ export interface SwitchWidget {
 }
 
 export class SwitchWidget extends Interactive {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -117,7 +117,7 @@ export class SwitchWidget extends Interactive {
     ];
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       <icon-widget value=${this.icon!}></icon-widget>
       <typography-widget variant="button-normal" class="text">${this.text}</typography-widget>

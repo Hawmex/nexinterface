@@ -2,7 +2,7 @@ import { css } from 'nexwidget';
 import { Nexinterface } from '../base/base.js';
 
 export class AppScaffold extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`

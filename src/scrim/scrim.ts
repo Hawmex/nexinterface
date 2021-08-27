@@ -8,7 +8,7 @@ declare global {
 }
 
 export class ScrimWidget extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`

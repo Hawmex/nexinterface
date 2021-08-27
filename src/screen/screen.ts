@@ -2,7 +2,7 @@ import { css, WidgetAnimation } from 'nexwidget';
 import { Nexinterface } from '../base/base.js';
 
 export class Screen extends Nexinterface {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -16,7 +16,7 @@ export class Screen extends Nexinterface {
     ];
   }
 
-  get mountAnimation(): WidgetAnimation {
+  override get mountAnimation(): WidgetAnimation {
     return {
       keyframes: [
         { opacity: '0', transform: 'scale(0.9)' },

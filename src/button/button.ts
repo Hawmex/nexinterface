@@ -26,7 +26,7 @@ export interface ButtonWidget {
 }
 
 export class ButtonWidget extends Interactive {
-  static get styles(): CSSStyleSheet[] {
+  static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
       css`
@@ -106,17 +106,17 @@ export class ButtonWidget extends Interactive {
       : 'button-normal';
   }
 
-  addedCallback() {
+  override addedCallback() {
     super.addedCallback();
     this.addEventListener('click', this.#navigate, { signal: this.removedSignal });
   }
 
-  updatedCallback() {
+  override updatedCallback() {
     super.updatedCallback();
     this.centeredRipple = !this.text;
   }
 
-  get template(): WidgetTemplate {
+  override get template(): WidgetTemplate {
     return html`
       ${this.icon ? html`<icon-widget value=${this.icon} class="icon"></icon-widget>` : nothing}
       ${this.text
