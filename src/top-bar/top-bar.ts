@@ -279,7 +279,7 @@ export class TopBarWidget extends Nexinterface {
 
   #scrollActiveTabIntoView() {
     const tab = <ButtonWidget | undefined>(
-      this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!]
+      this.shadowRoot!.querySelectorAll<ButtonWidget>('.tab')?.[this.activeTab!]
     );
 
     tab?.scrollIntoView?.({ inline: 'center', block: 'nearest' });
@@ -287,10 +287,10 @@ export class TopBarWidget extends Nexinterface {
 
   #moveTabIndicator() {
     const tab = <ButtonWidget | undefined>(
-      this.shadowRoot!.querySelectorAll('.tab')?.[this.activeTab!]
+      this.shadowRoot!.querySelectorAll<ButtonWidget>('.tab')?.[this.activeTab!]
     );
 
-    const tabs = <HTMLDivElement | null>this.shadowRoot!.querySelector('.tabs');
+    const tabs = this.shadowRoot!.querySelector<HTMLDivElement>('.tabs');
 
     if (tab !== undefined) {
       const { width: tabWidth, left: tabLeft } = tab.getBoundingClientRect();

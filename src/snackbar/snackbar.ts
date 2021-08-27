@@ -169,7 +169,7 @@ export class SnackbarWidget extends Nexinterface {
   }
 
   #getLongButtonTextValue() {
-    const body = <ButtonWidget | null>this.shadowRoot!.querySelector('.button');
+    const body = this.shadowRoot!.querySelector<ButtonWidget>('.button');
     return (body?.getBoundingClientRect?.()?.width ?? 0) > (innerWidth - 16) / 2;
   }
 

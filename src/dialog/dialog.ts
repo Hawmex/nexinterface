@@ -195,7 +195,7 @@ export class DialogWidget extends Nexinterface {
   }
 
   #getScrollableValue() {
-    const { scrollHeight, clientHeight } = <HTMLDivElement>this.shadowRoot!.querySelector('.body');
+    const { scrollHeight, clientHeight } = this.shadowRoot!.querySelector<HTMLDivElement>('.body')!;
     return scrollHeight > clientHeight;
   }
 
