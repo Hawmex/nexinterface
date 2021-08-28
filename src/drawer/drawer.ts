@@ -33,6 +33,18 @@ export interface DrawerWidget {
 }
 
 export class DrawerWidget extends Nexinterface {
+  static {
+    this.createAttributes([
+      { key: 'headline', type: 'string' },
+      { key: 'text', type: 'string' },
+      { key: 'active', type: 'boolean' },
+      { key: 'scrollable', type: 'boolean' },
+    ]);
+    
+    this.createReactives(['headline', 'text', 'active', 'scrollable']);
+    this.registerAs('drawer-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -124,24 +136,6 @@ export class DrawerWidget extends Nexinterface {
 
   #resizeDebouncer = new Nexbounce();
 
-  override addedCallback() {
-    super.addedCallback();
-
-    drawerActive.runAndSubscribe((drawerActive) => (this.active = drawerActive), {
-      signal: this.removedSignal,
-    });
-
-    addEventListener('pushstate', deactivateDrawer, { signal: this.removedSignal });
-    addEventListener('popstate', deactivateDrawer, { signal: this.removedSignal });
-    addEventListener('replacestate', deactivateDrawer, { signal: this.removedSignal });
-    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
-  }
-
-  override slotChangedCallback() {
-    super.slotChangedCallback();
-    this.scrollable = this.#getScrollableValue();
-  }
-
   override get template(): WidgetTemplate {
     return html`
       <scrim-widget
@@ -176,14 +170,22 @@ export class DrawerWidget extends Nexinterface {
   #handleResize() {
     this.#resizeDebouncer.enqueue(() => (this.scrollable = this.#getScrollableValue()));
   }
+
+  override addedCallback() {
+    super.addedCallback();
+
+    drawerActive.runAndSubscribe((drawerActive) => (this.active = drawerActive), {
+      signal: this.removedSignal,
+    });
+
+    addEventListener('pushstate', deactivateDrawer, { signal: this.removedSignal });
+    addEventListener('popstate', deactivateDrawer, { signal: this.removedSignal });
+    addEventListener('replacestate', deactivateDrawer, { signal: this.removedSignal });
+    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
+  }
+
+  override slotChangedCallback() {
+    super.slotChangedCallback();
+    this.scrollable = this.#getScrollableValue();
+  }
 }
-
-DrawerWidget.createAttributes([
-  { key: 'headline', type: 'string' },
-  { key: 'text', type: 'string' },
-  { key: 'active', type: 'boolean' },
-  { key: 'scrollable', type: 'boolean' },
-]);
-
-DrawerWidget.createReactives(['headline', 'text', 'active', 'scrollable']);
-DrawerWidget.registerAs('drawer-widget');

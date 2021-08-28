@@ -19,6 +19,16 @@ export interface CardWidget {
 }
 
 export class CardWidget extends Nexinterface {
+  static {
+    this.createAttributes([
+      { key: 'imageSrc', type: 'string' },
+      { key: 'headline', type: 'string' },
+    ]);
+    
+    this.createReactives(['imageSrc', 'headline']);
+    this.registerAs('card-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -69,11 +79,3 @@ export class CardWidget extends Nexinterface {
     `;
   }
 }
-
-CardWidget.createAttributes([
-  { key: 'imageSrc', type: 'string' },
-  { key: 'headline', type: 'string' },
-]);
-
-CardWidget.createReactives(['imageSrc', 'headline']);
-CardWidget.registerAs('card-widget');

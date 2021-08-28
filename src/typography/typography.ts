@@ -21,6 +21,11 @@ export interface TypographyWidget {
 }
 
 export class TypographyWidget extends Nexinterface {
+  static {
+    this.createAttributes([{ key: 'variant', type: 'string' }]);
+    this.registerAs('typography-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -134,6 +139,3 @@ export class TypographyWidget extends Nexinterface {
         };
   }
 }
-
-TypographyWidget.createAttributes([{ key: 'variant', type: 'string' }]);
-TypographyWidget.registerAs('typography-widget');

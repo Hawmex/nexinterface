@@ -13,6 +13,12 @@ export interface IconWidget {
 }
 
 export class IconWidget extends Nexinterface {
+  static {
+    this.createAttributes([{ key: 'value', type: 'string' }]);
+    this.createReactives(['value']);
+    this.registerAs('icon-widget');
+  }
+  
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -67,7 +73,3 @@ export class IconWidget extends Nexinterface {
     };
   }
 }
-
-IconWidget.createAttributes([{ key: 'value', type: 'string' }]);
-IconWidget.createReactives(['value']);
-IconWidget.registerAs('icon-widget');

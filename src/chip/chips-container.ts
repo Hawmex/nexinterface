@@ -8,6 +8,10 @@ declare global {
 }
 
 export class ChipsContainerWidget extends Nexinterface {
+  static {
+    this.registerAs('chips-container-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -28,5 +32,3 @@ export class ChipsContainerWidget extends Nexinterface {
     return html`<slot></slot>`;
   }
 }
-
-ChipsContainerWidget.registerAs('chips-container-widget');

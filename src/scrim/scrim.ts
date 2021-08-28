@@ -8,6 +8,10 @@ declare global {
 }
 
 export class ScrimWidget extends Nexinterface {
+  static {
+    this.registerAs('scrim-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -36,5 +40,3 @@ export class ScrimWidget extends Nexinterface {
     ];
   }
 }
-
-ScrimWidget.registerAs('scrim-widget');

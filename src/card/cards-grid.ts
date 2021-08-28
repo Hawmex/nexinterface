@@ -8,6 +8,10 @@ declare global {
 }
 
 export class CardsGridWidget extends Nexinterface {
+  static {
+    this.registerAs('cards-grid-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -35,4 +39,4 @@ export class CardsGridWidget extends Nexinterface {
   }
 }
 
-CardsGridWidget.registerAs('cards-grid-widget');
+

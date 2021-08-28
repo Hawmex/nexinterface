@@ -26,6 +26,18 @@ export interface ButtonWidget {
 }
 
 export class ButtonWidget extends Interactive {
+  static {
+    this.createAttributes([
+      { key: 'variant', type: 'string' },
+      { key: 'text', type: 'string' },
+      { key: 'icon', type: 'string' },
+      { key: 'link', type: 'string' },
+    ]);
+    
+    this.createReactives(['text', 'icon']);
+    this.registerAs('button-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -106,16 +118,6 @@ export class ButtonWidget extends Interactive {
       : 'button-normal';
   }
 
-  override addedCallback() {
-    super.addedCallback();
-    this.addEventListener('click', this.#navigate, { signal: this.removedSignal });
-  }
-
-  override updatedCallback() {
-    super.updatedCallback();
-    this.centeredRipple = !this.text;
-  }
-
   override get template(): WidgetTemplate {
     return html`
       ${this.icon ? html`<icon-widget value=${this.icon} class="icon"></icon-widget>` : nothing}
@@ -130,14 +132,14 @@ export class ButtonWidget extends Interactive {
   #navigate() {
     if (this.link) history.pushState({}, document.title, this.link);
   }
+
+  override addedCallback() {
+    super.addedCallback();
+    this.addEventListener('click', this.#navigate, { signal: this.removedSignal });
+  }
+
+  override updatedCallback() {
+    super.updatedCallback();
+    this.centeredRipple = !this.text;
+  }
 }
-
-ButtonWidget.createAttributes([
-  { key: 'variant', type: 'string' },
-  { key: 'text', type: 'string' },
-  { key: 'icon', type: 'string' },
-  { key: 'link', type: 'string' },
-]);
-
-ButtonWidget.createReactives(['text', 'icon']);
-ButtonWidget.registerAs('button-widget');

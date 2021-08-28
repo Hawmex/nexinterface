@@ -13,6 +13,12 @@ export interface LinearProgressWidget {
 }
 
 export class LinearProgressWidget extends Nexinterface {
+  static {
+    this.createAttributes([{ key: 'active', type: 'boolean' }]);
+    this.createReactives(['active']);
+    this.registerAs('linear-progress-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -117,7 +123,3 @@ export class LinearProgressWidget extends Nexinterface {
     `;
   }
 }
-
-LinearProgressWidget.createAttributes([{ key: 'active', type: 'boolean' }]);
-LinearProgressWidget.createReactives(['active']);
-LinearProgressWidget.registerAs('linear-progress-widget');

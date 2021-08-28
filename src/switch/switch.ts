@@ -18,6 +18,16 @@ export interface SwitchWidget {
 }
 
 export class SwitchWidget extends Interactive {
+  static {
+    this.createAttributes([
+      { key: 'text', type: 'string' },
+      { key: 'icon', type: 'string' },
+    ]);
+    
+    this.createReactives(['text', 'icon']);
+    this.registerAs('switch-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -125,11 +135,3 @@ export class SwitchWidget extends Interactive {
     `;
   }
 }
-
-SwitchWidget.createAttributes([
-  { key: 'text', type: 'string' },
-  { key: 'icon', type: 'string' },
-]);
-
-SwitchWidget.createReactives(['text', 'icon']);
-SwitchWidget.registerAs('switch-widget');

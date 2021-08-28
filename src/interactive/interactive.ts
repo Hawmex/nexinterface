@@ -7,6 +7,10 @@ export interface Interactive {
 }
 
 export class Interactive extends Nexinterface {
+  static {
+    this.createAttributes([{ key: 'centeredRipple', type: 'boolean' }]);
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -61,19 +65,6 @@ export class Interactive extends Nexinterface {
   #isPointerActive = false;
   #timeout?: number;
 
-  override addedCallback() {
-    super.addedCallback();
-
-    this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
-
-    this.addEventListener('pointerdown', this.#startRipple, { signal: this.removedSignal });
-    this.addEventListener('pointerup', this.#finishRipple, { signal: this.removedSignal });
-    this.addEventListener('pointerleave', this.#finishRipple, { signal: this.removedSignal });
-    this.addEventListener('touchend', this.#finishRipple, { signal: this.removedSignal });
-    this.addEventListener('pointerenter', this.#startHover, { signal: this.removedSignal });
-    this.addEventListener('pointerleave', this.#finishHover, { signal: this.removedSignal });
-  }
-
   #startRipple({ clientX, clientY }: PointerEvent) {
     const { width, height, left, top } = this.getBoundingClientRect();
     const s = this.centeredRipple ? Math.max(width, height) : Math.sqrt(width ** 2 + height ** 2);
@@ -120,6 +111,17 @@ export class Interactive extends Nexinterface {
   #finishHover() {
     this.style.setProperty('--hoverOpacity', '0');
   }
-}
 
-Interactive.createAttributes([{ key: 'centeredRipple', type: 'boolean' }]);
+  override addedCallback() {
+    super.addedCallback();
+
+    this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
+
+    this.addEventListener('pointerdown', this.#startRipple, { signal: this.removedSignal });
+    this.addEventListener('pointerup', this.#finishRipple, { signal: this.removedSignal });
+    this.addEventListener('pointerleave', this.#finishRipple, { signal: this.removedSignal });
+    this.addEventListener('touchend', this.#finishRipple, { signal: this.removedSignal });
+    this.addEventListener('pointerenter', this.#startHover, { signal: this.removedSignal });
+    this.addEventListener('pointerleave', this.#finishHover, { signal: this.removedSignal });
+  }
+}

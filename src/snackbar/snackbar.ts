@@ -38,6 +38,16 @@ export interface SnackbarWidget {
 }
 
 export class SnackbarWidget extends Nexinterface {
+  static {
+    this.createAttributes([
+      { key: 'active', type: 'boolean' },
+      { key: 'longButtonText', type: 'boolean' },
+    ]);
+    
+    this.createReactives(['text', 'button', 'longButtonText']);
+    this.registerAs('snackbar-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -111,39 +121,6 @@ export class SnackbarWidget extends Nexinterface {
   #resizeDebouncer = new Nexbounce();
   #activeTime = 6000;
 
-  override addedCallback() {
-    super.addedCallback();
-
-    snackbarsQueue.runAndSubscribe(
-      ([snackbar]: Array<SnackbarFinalInstance | undefined>) => {
-        if (this.#id !== snackbar?.id) {
-          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
-
-          this.active = false;
-
-          setTimeout(() => {
-            this.#id = snackbar?.id;
-
-            this.text = snackbar?.text;
-            this.button = snackbar?.button;
-
-            this.active = !!snackbar;
-
-            if (this.active) this.#activateRemoveTimer();
-          }, fadeTime);
-        }
-      },
-      { signal: this.removedSignal },
-    );
-
-    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
-  }
-
-  override updatedCallback() {
-    super.updatedCallback();
-    this.longButtonText = this.#getLongButtonTextValue();
-  }
-
   override get template(): WidgetTemplate {
     return html`
       <typography-widget variant="text" class="text">${this.text}</typography-widget>
@@ -183,12 +160,37 @@ export class SnackbarWidget extends Nexinterface {
 
     removeSnackbar();
   }
+
+  override addedCallback() {
+    super.addedCallback();
+
+    snackbarsQueue.runAndSubscribe(
+      ([snackbar]: Array<SnackbarFinalInstance | undefined>) => {
+        if (this.#id !== snackbar?.id) {
+          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
+
+          this.active = false;
+
+          setTimeout(() => {
+            this.#id = snackbar?.id;
+
+            this.text = snackbar?.text;
+            this.button = snackbar?.button;
+
+            this.active = !!snackbar;
+
+            if (this.active) this.#activateRemoveTimer();
+          }, fadeTime);
+        }
+      },
+      { signal: this.removedSignal },
+    );
+
+    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
+  }
+
+  override updatedCallback() {
+    super.updatedCallback();
+    this.longButtonText = this.#getLongButtonTextValue();
+  }
 }
-
-SnackbarWidget.createAttributes([
-  { key: 'active', type: 'boolean' },
-  { key: 'longButtonText', type: 'boolean' },
-]);
-
-SnackbarWidget.createReactives(['text', 'button', 'longButtonText']);
-SnackbarWidget.registerAs('snackbar-widget');

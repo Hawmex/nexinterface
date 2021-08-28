@@ -65,6 +65,17 @@ export interface TopBarWidget {
 }
 
 export class TopBarWidget extends Nexinterface {
+  static {
+    this.createAttributes([
+      { key: 'active', type: 'boolean' },
+      { key: 'loading', type: 'boolean' },
+      { key: 'appName', type: 'string' },
+    ]);
+    
+    this.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
+    this.registerAs('top-bar-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -203,31 +214,6 @@ export class TopBarWidget extends Nexinterface {
     ];
   }
 
-  override addedCallback() {
-    super.addedCallback();
-
-    topBarOptions.runAndSubscribe(
-      ({ headline, trailing, active, leading, tabs, activeTab }) => {
-        this.headline = headline;
-        this.trailing = trailing;
-        this.active = active;
-        this.leading = leading;
-        this.tabs = tabs;
-        this.activeTab = activeTab;
-      },
-      { signal: this.removedSignal },
-    );
-
-    addEventListener('resize', this.#moveTabIndicator.bind(this), { signal: this.removedSignal });
-  }
-
-  override updatedCallback() {
-    super.updatedCallback();
-    this.#setWindowTitle();
-    this.#scrollActiveTabIntoView();
-    this.#moveTabIndicator();
-  }
-
   override get template(): WidgetTemplate {
     return html`
       <div class="containers">
@@ -306,13 +292,29 @@ export class TopBarWidget extends Nexinterface {
       this.style.setProperty('--tabIndicatorWidth', `${tabTextWidth}px`);
     }
   }
+
+  override addedCallback() {
+    super.addedCallback();
+
+    topBarOptions.runAndSubscribe(
+      ({ headline, trailing, active, leading, tabs, activeTab }) => {
+        this.headline = headline;
+        this.trailing = trailing;
+        this.active = active;
+        this.leading = leading;
+        this.tabs = tabs;
+        this.activeTab = activeTab;
+      },
+      { signal: this.removedSignal },
+    );
+
+    addEventListener('resize', this.#moveTabIndicator.bind(this), { signal: this.removedSignal });
+  }
+
+  override updatedCallback() {
+    super.updatedCallback();
+    this.#setWindowTitle();
+    this.#scrollActiveTabIntoView();
+    this.#moveTabIndicator();
+  }
 }
-
-TopBarWidget.createAttributes([
-  { key: 'active', type: 'boolean' },
-  { key: 'loading', type: 'boolean' },
-  { key: 'appName', type: 'string' },
-]);
-
-TopBarWidget.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
-TopBarWidget.registerAs('top-bar-widget');

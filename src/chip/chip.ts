@@ -18,6 +18,16 @@ export interface ChipWidget {
 }
 
 export class ChipWidget extends Interactive {
+  static {
+    this.createAttributes([
+      { key: 'icon', type: 'string' },
+      { key: 'text', type: 'string' },
+    ]);
+    
+    this.createReactives(['icon', 'text']);
+    this.registerAs('chip-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -52,11 +62,3 @@ export class ChipWidget extends Interactive {
     `;
   }
 }
-
-ChipWidget.createAttributes([
-  { key: 'icon', type: 'string' },
-  { key: 'text', type: 'string' },
-]);
-
-ChipWidget.createReactives(['icon', 'text']);
-ChipWidget.registerAs('chip-widget');

@@ -24,6 +24,16 @@ export interface RouteWidget {
 }
 
 export class RouteWidget extends Nexinterface {
+  static {
+    this.createAttributes([
+      { key: 'path', type: 'string' },
+      { key: 'component', type: 'string' },
+      { key: 'loose', type: 'boolean' },
+    ]);
+    
+    this.registerAs('route-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -35,11 +45,3 @@ export class RouteWidget extends Nexinterface {
     ];
   }
 }
-
-RouteWidget.createAttributes([
-  { key: 'path', type: 'string' },
-  { key: 'component', type: 'string' },
-  { key: 'loose', type: 'boolean' },
-]);
-
-RouteWidget.registerAs('route-widget');

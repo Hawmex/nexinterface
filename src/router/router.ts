@@ -53,6 +53,36 @@ export class RouterWidget extends Nexinterface {
     ];
   }
 
+  override get template(): WidgetTemplate {
+    return html`
+      ${this.src && this.component
+        ? lazyLoad(this.src(), document.createElement(this.component))
+        : nothing}
+      <slot></slot>
+    `;
+  }
+
+  #computeMatching() {
+    const { pathname } = location;
+    const routes = this.querySelectorAll('route-widget');
+
+    for (const route of <RouteWidget[]>(<unknown>routes)) {
+      const { path, loose } = route;
+      const regexPath = parse(path!, loose);
+
+      if (regexPath.pattern.test(pathname)) {
+        const { component, src } = route;
+
+        location.params = assignParams(pathname, regexPath);
+
+        this.component = component;
+        this.src = src;
+
+        break;
+      }
+    }
+  }
+
   override addedCallback() {
     super.addedCallback();
 
@@ -84,36 +114,6 @@ export class RouterWidget extends Nexinterface {
   override updatedCallback() {
     super.updatedCallback();
     this.scrollTo({ top: 0 });
-  }
-
-  override get template(): WidgetTemplate {
-    return html`
-      ${this.src && this.component
-        ? lazyLoad(this.src(), document.createElement(this.component))
-        : nothing}
-      <slot></slot>
-    `;
-  }
-
-  #computeMatching() {
-    const { pathname } = location;
-    const routes = this.querySelectorAll('route-widget');
-
-    for (const route of <RouteWidget[]>(<unknown>routes)) {
-      const { path, loose } = route;
-      const regexPath = parse(path!, loose);
-
-      if (regexPath.pattern.test(pathname)) {
-        const { component, src } = route;
-
-        location.params = assignParams(pathname, regexPath);
-
-        this.component = component;
-        this.src = src;
-
-        break;
-      }
-    }
   }
 }
 

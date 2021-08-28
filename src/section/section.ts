@@ -15,6 +15,12 @@ export interface SectionWidget {
 }
 
 export class SectionWidget extends Nexinterface {
+  static {
+    this.createAttributes([{ key: 'variant', type: 'string' }]);
+    this.createReactives(['variant']);
+    this.registerAs('section-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -71,7 +77,3 @@ export class SectionWidget extends Nexinterface {
     `;
   }
 }
-
-SectionWidget.createAttributes([{ key: 'variant', type: 'string' }]);
-SectionWidget.createReactives(['variant']);
-SectionWidget.registerAs('section-widget');

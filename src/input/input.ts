@@ -27,6 +27,19 @@ export interface InputWidget {
 }
 
 export class InputWidget extends Nexinterface {
+  static {
+    this.createAttributes([
+      { key: 'placeholder', type: 'string' },
+      { key: 'type', type: 'string' },
+      { key: 'label', type: 'string' },
+      { key: 'hasValue', type: 'boolean' },
+      { key: 'invalid', type: 'boolean' },
+    ]);
+    
+    this.createReactives(['placeholder', 'type', 'label', 'invalid']);
+    this.registerAs('input-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -169,17 +182,6 @@ export class InputWidget extends Nexinterface {
 
   #field?: HTMLTextAreaElement | HTMLInputElement;
 
-  requestFocus() {
-    this.#field?.focus?.();
-  }
-
-  override updatedCallback() {
-    super.updatedCallback();
-    this.#field = this.shadowRoot!.querySelector(this.type === 'textarea' ? 'textarea' : 'input')!;
-
-    if (this.invalid) this.scrollIntoView({ block: 'center' });
-  }
-
   get value() {
     return this.#field?.value;
   }
@@ -224,15 +226,15 @@ export class InputWidget extends Nexinterface {
     if (key === 'Enter' && this.nextElementSibling instanceof this.constructor)
       (<InputWidget>this.nextElementSibling).requestFocus();
   }
+
+  requestFocus() {
+    this.#field?.focus?.();
+  }
+
+  override updatedCallback() {
+    super.updatedCallback();
+    this.#field = this.shadowRoot!.querySelector(this.type === 'textarea' ? 'textarea' : 'input')!;
+
+    if (this.invalid) this.scrollIntoView({ block: 'center' });
+  }
 }
-
-InputWidget.createAttributes([
-  { key: 'placeholder', type: 'string' },
-  { key: 'type', type: 'string' },
-  { key: 'label', type: 'string' },
-  { key: 'hasValue', type: 'boolean' },
-  { key: 'invalid', type: 'boolean' },
-]);
-
-InputWidget.createReactives(['placeholder', 'type', 'label', 'invalid']);
-InputWidget.registerAs('input-widget');

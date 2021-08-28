@@ -43,6 +43,16 @@ export interface DialogWidget {
 }
 
 export class DialogWidget extends Nexinterface {
+  static {
+    this.createAttributes([
+      { key: 'active', type: 'boolean' },
+      { key: 'scrollable', type: 'boolean' },
+    ]);
+    
+    this.createReactives(['active', 'scrollable', 'headline', 'body', 'button']);
+    this.registerAs('dialog-widget');  
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -125,43 +135,7 @@ export class DialogWidget extends Nexinterface {
   }
 
   #id?: symbol;
-
   #resizeDebouncer = new Nexbounce();
-
-  override addedCallback() {
-    super.addedCallback();
-
-    dialogsQueue.runAndSubscribe(
-      ([dialog]: Array<DialogFinalInstance | undefined>) => {
-        if (this.#id !== dialog?.id) {
-          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
-
-          this.active = false;
-
-          setTimeout(() => {
-            this.#id = dialog?.id;
-
-            this.headline = dialog?.headline;
-            this.body = dialog?.body;
-            this.button = dialog?.button;
-
-            this.active = !!dialog;
-          }, fadeTime);
-        }
-      },
-      { signal: this.removedSignal },
-    );
-
-    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
-    addEventListener('pushstate', removeDialog, { signal: this.removedSignal });
-    addEventListener('popstate', removeDialog, { signal: this.removedSignal });
-    addEventListener('replacestate', removeDialog, { signal: this.removedSignal });
-  }
-
-  override updatedCallback() {
-    super.updatedCallback();
-    this.scrollable = this.#getScrollableValue();
-  }
 
   override get template(): WidgetTemplate {
     return html`
@@ -202,12 +176,39 @@ export class DialogWidget extends Nexinterface {
   #handleResize() {
     this.#resizeDebouncer.enqueue(() => (this.scrollable = this.#getScrollableValue()));
   }
+
+  override addedCallback() {
+    super.addedCallback();
+
+    dialogsQueue.runAndSubscribe(
+      ([dialog]: Array<DialogFinalInstance | undefined>) => {
+        if (this.#id !== dialog?.id) {
+          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
+
+          this.active = false;
+
+          setTimeout(() => {
+            this.#id = dialog?.id;
+
+            this.headline = dialog?.headline;
+            this.body = dialog?.body;
+            this.button = dialog?.button;
+
+            this.active = !!dialog;
+          }, fadeTime);
+        }
+      },
+      { signal: this.removedSignal },
+    );
+
+    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
+    addEventListener('pushstate', removeDialog, { signal: this.removedSignal });
+    addEventListener('popstate', removeDialog, { signal: this.removedSignal });
+    addEventListener('replacestate', removeDialog, { signal: this.removedSignal });
+  }
+
+  override updatedCallback() {
+    super.updatedCallback();
+    this.scrollable = this.#getScrollableValue();
+  }
 }
-
-DialogWidget.createAttributes([
-  { key: 'active', type: 'boolean' },
-  { key: 'scrollable', type: 'boolean' },
-]);
-
-DialogWidget.createReactives(['active', 'scrollable', 'headline', 'body', 'button']);
-DialogWidget.registerAs('dialog-widget');

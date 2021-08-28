@@ -8,6 +8,10 @@ declare global {
 }
 
 export class DividerWidget extends Nexinterface {
+  static {
+    this.registerAs('divider-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -24,5 +28,3 @@ export class DividerWidget extends Nexinterface {
     ];
   }
 }
-
-DividerWidget.registerAs('divider-widget');
