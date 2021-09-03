@@ -1,6 +1,6 @@
-import { Nexbounce } from 'nexbounce';
-import { Nexstate } from 'nexstate';
-import { css, html, nothing, WidgetTemplate } from 'nexwidget';
+import { Nexbounce } from 'nexbounce/nexbounce.js';
+import { Nexstate } from 'nexstate/nexstate.js';
+import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 import '../button/button.js';
 import { ButtonWidget } from '../button/button.js';

@@ -1,4 +1,4 @@
-import { css, html, WidgetAnimation, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetAnimation, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
 export type TypographyVariant =

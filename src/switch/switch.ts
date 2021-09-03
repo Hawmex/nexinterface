@@ -1,4 +1,4 @@
-import { css, html, WidgetTemplate } from 'nexwidget';
+import { css, html, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import '../icon/icon.js';
 import { Interactive } from '../interactive/interactive.js';
 import '../typography/typography.js';

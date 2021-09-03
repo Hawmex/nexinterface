@@ -1,4 +1,4 @@
-import { css, html, nothing, WidgetTemplate } from 'nexwidget';
+import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { lazyLoad } from 'nexwidget/directives/lazyload.js';
 import { parse } from 'regexparam';
 import { Nexinterface } from '../base/base.js';

@@ -1,4 +1,4 @@
-import { css } from 'nexwidget';
+import { css } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
 export class AppScaffold extends Nexinterface {

@@ -1,4 +1,4 @@
-import { css, Nexwidget } from 'nexwidget';
+import { css, Nexwidget } from 'nexwidget/nexwidget.js';
 
 export class Nexinterface extends Nexwidget {
   static override get styles(): CSSStyleSheet[] {

@@ -1,4 +1,4 @@
-import { css, html, WidgetTemplate, nothing } from 'nexwidget';
+import { css, html, WidgetTemplate, nothing } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
 declare global {

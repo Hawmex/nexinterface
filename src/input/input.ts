@@ -1,4 +1,4 @@
-import { css, html } from 'nexwidget';
+import { css, html } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
 export type InputType = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password' | 'time';
