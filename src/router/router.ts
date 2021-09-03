@@ -1,12 +1,51 @@
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { lazyLoad } from 'nexwidget/directives/lazyload.js';
-import { parse } from 'regexparam';
 import { Nexinterface } from '../base/base.js';
 import { RouteSrc, RouteWidget } from './route.js';
 
+type ParsedRoute = { keys: string[]; pattern: RegExp };
 type LocationParams = { [key: string]: unknown };
 
-const assignParams = (path: string, { keys, pattern }: { keys: string[]; pattern: RegExp }) => {
+const parse = (route: string, loose?: boolean) => {
+  let tmp: string | undefined;
+  let pattern = '';
+
+  const keys = [];
+  const paths = route.split('/');
+
+  if (!paths[0]) paths.shift();
+
+  while ((tmp = paths.shift())) {
+    switch (tmp[0]) {
+      case '*':
+        keys.push('wild');
+        pattern += '/(.*)';
+        break;
+
+      case ':':
+        let o = tmp.indexOf('?', 1);
+        let ext = tmp.indexOf('.', 1);
+
+        keys.push(tmp.substring(1, !!~o ? o : !!~ext ? ext : tmp.length));
+
+        pattern += !!~o && !~ext ? '(?:/([^/]+?))?' : '/([^/]+?)';
+
+        if (!!~ext) pattern += (!!~o ? '?' : '') + '\\' + tmp.substring(ext);
+
+        break;
+
+      default:
+        pattern += '/' + tmp;
+    }
+  }
+
+  return <ParsedRoute>{
+    keys: keys,
+    pattern: new RegExp('^' + pattern + (loose ? '(?=$|/)' : '/?$'), 'i'),
+  };
+};
+
+const assignParams = (path: string, { keys, pattern }: ParsedRoute) => {
   let i = 0;
   const out: LocationParams = {};
   const matches = pattern.exec(path);
