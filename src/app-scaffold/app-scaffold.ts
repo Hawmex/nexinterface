@@ -15,13 +15,13 @@ export class AppScaffold extends Nexinterface {
           background: var(--backgroundColor);
           color: var(--onBackgroundColor);
 
-          --primaryColor: #5701a8;
+          --primaryColor: #26a69a;
           --onPrimaryColor: #ffffff;
           --backgroundColor: #fafafa;
           --onBackgroundColor: #000000;
           --surfaceColor: #ffffff;
           --onSurfaceColor: #000000;
-          --errorColor: #d43936;
+          --errorColor: #ef5350;
 
           --shadowLvl1: rgba(0, 0, 0, 0.04) 0px 1px 3px 0px;
           --shadowLvl2: rgba(0, 0, 0, 0.08) 0px 2px 6px 0px;
