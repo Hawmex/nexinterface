@@ -1,5 +1,5 @@
 import { css, html, nothing, WidgetTemplate } from 'nexwidget';
-import { lazyLoad } from 'nexwidget/dist/directives/lazyload.js';
+import { lazyLoad } from 'nexwidget/directives/lazyload.js';
 import { parse } from 'regexparam';
 import { Nexinterface } from '../base/base.js';
 import { RouteSrc, RouteWidget } from './route.js';

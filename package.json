@@ -2,12 +2,16 @@
   "name": "nexinterface",
   "version": "3.3.5",
   "description": "A collection of web components based on nexwidget and nexstate following material design guidelines.",
-  "main": "dist/nexinterface.js",
   "type": "module",
-  "module": "dist/nexinterface.js",
-  "engines": {
-    "node": ">=14.6.0",
-    "npm": ">=6.0.0"
+  "exports": {
+    "./**/*.js": "./dist/**/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
   },
   "files": [
     "dist/**/*",
@@ -35,9 +39,9 @@
   },
   "homepage": "https://github.com/Hawmex/nexinterface#readme",
   "dependencies": {
-    "nexbounce": "^5.1.2",
-    "nexstate": "^5.1.2",
-    "nexwidget": "^5.1.2",
+    "nexbounce": "^5.1.5",
+    "nexstate": "^5.1.6",
+    "nexwidget": "^5.1.6",
     "regexparam": "^2.0.0"
   },
   "devDependencies": {
