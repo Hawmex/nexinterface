@@ -10,5 +10,5 @@ A collection of web components created with [`nexwidget`](https://github.com/Haw
 ## Installation
 
 ```
-npm i nexstate
+npm i nexinterface
 ```
