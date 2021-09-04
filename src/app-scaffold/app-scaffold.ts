@@ -40,6 +40,8 @@ export class AppScaffold extends Nexinterface {
 
         @media (prefers-color-scheme: dark) {
           :host {
+            color-scheme: dark;
+
             --onPrimaryColor: #111111;
             --backgroundColor: #111111;
             --onBackgroundColor: #ffffff;
