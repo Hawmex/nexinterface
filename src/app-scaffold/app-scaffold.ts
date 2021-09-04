@@ -42,10 +42,10 @@ export class AppScaffold extends Nexinterface {
           :host {
             color-scheme: dark;
 
-            --onPrimaryColor: #111111;
-            --backgroundColor: #111111;
+            --onPrimaryColor: #1c2128;
+            --backgroundColor: #1c2128;
             --onBackgroundColor: #ffffff;
-            --surfaceColor: #212121;
+            --surfaceColor: #22272e;
             --onSurfaceColor: #ffffff;
           }
         }
