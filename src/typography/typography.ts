@@ -100,19 +100,19 @@ export class TypographyWidget extends Nexinterface {
 
           :host([variant='button-uppercased']),
           :host([variant='button-normal']) {
-            --typographyWeight: 375;
+            --typographyWeight: 364;
           }
 
           :host([variant='button-uppercased']) {
-            --typographyWeight: 450;
+            --typographyWeight: 429;
           }
 
           :host([variant='headline']) {
-            --typographyWeight: 525;
+            --typographyWeight: 493;
           }
 
           :host([variant='top-bar']) {
-            --typographyWeight: 600;
+            --typographyWeight: 557;
           }
         }
       `,
