@@ -92,6 +92,29 @@ export class TypographyWidget extends Nexinterface {
           overflow: hidden;
           text-overflow: ellipsis;
         }
+
+        @media (prefers-color-scheme: dark) {
+          :host([variant='text']) {
+            --typographyWeight: 300;
+          }
+
+          :host([variant='button-uppercased']),
+          :host([variant='button-normal']) {
+            --typographyWeight: 375;
+          }
+
+          :host([variant='button-uppercased']) {
+            --typographyWeight: 450;
+          }
+
+          :host([variant='headline']) {
+            --typographyWeight: 525;
+          }
+
+          :host([variant='top-bar']) {
+            --typographyWeight: 600;
+          }
+        }
       `,
     ];
   }
