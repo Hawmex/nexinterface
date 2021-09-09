@@ -19,7 +19,8 @@ export class Nexinterface extends Nexwidget {
       `,
     ];
   }
-}
 
-//@ts-ignore
-globalThis.usesNexinterfacePackage = true;
+  get usesNexinterface(): true {
+    return true;
+  }
+}
