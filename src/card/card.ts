@@ -24,7 +24,7 @@ export class CardWidget extends Nexinterface {
       { key: 'imageSrc', type: 'string' },
       { key: 'headline', type: 'string' },
     ]);
-    
+
     this.createReactives(['imageSrc', 'headline']);
     this.registerAs('card-widget');
   }

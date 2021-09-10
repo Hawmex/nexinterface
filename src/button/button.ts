@@ -33,7 +33,7 @@ export class ButtonWidget extends Interactive {
       { key: 'icon', type: 'string' },
       { key: 'link', type: 'string' },
     ]);
-    
+
     this.createReactives(['text', 'icon']);
     this.registerAs('button-widget');
   }

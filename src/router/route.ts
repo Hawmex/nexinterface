@@ -30,7 +30,7 @@ export class RouteWidget extends Nexinterface {
       { key: 'component', type: 'string' },
       { key: 'loose', type: 'boolean' },
     ]);
-    
+
     this.registerAs('route-widget');
   }
 

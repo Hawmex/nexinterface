@@ -38,5 +38,3 @@ export class CardsGridWidget extends Nexinterface {
     return html`<slot></slot>`;
   }
 }
-
-

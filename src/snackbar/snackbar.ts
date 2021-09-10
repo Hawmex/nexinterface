@@ -43,7 +43,7 @@ export class SnackbarWidget extends Nexinterface {
       { key: 'active', type: 'boolean' },
       { key: 'longButtonText', type: 'boolean' },
     ]);
-    
+
     this.createReactives(['text', 'button', 'longButtonText']);
     this.registerAs('snackbar-widget');
   }

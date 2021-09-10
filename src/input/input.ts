@@ -35,7 +35,7 @@ export class InputWidget extends Nexinterface {
       { key: 'hasValue', type: 'boolean' },
       { key: 'invalid', type: 'boolean' },
     ]);
-    
+
     this.createReactives(['placeholder', 'type', 'label', 'invalid']);
     this.registerAs('input-widget');
   }

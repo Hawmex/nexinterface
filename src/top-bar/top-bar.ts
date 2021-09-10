@@ -71,7 +71,7 @@ export class TopBarWidget extends Nexinterface {
       { key: 'loading', type: 'boolean' },
       { key: 'appName', type: 'string' },
     ]);
-    
+
     this.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
     this.registerAs('top-bar-widget');
   }

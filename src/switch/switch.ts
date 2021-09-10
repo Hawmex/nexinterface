@@ -23,7 +23,7 @@ export class SwitchWidget extends Interactive {
       { key: 'text', type: 'string' },
       { key: 'icon', type: 'string' },
     ]);
-    
+
     this.createReactives(['text', 'icon']);
     this.registerAs('switch-widget');
   }

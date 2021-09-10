@@ -23,7 +23,7 @@ export class ChipWidget extends Interactive {
       { key: 'icon', type: 'string' },
       { key: 'text', type: 'string' },
     ]);
-    
+
     this.createReactives(['icon', 'text']);
     this.registerAs('chip-widget');
   }

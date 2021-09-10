@@ -40,7 +40,7 @@ export class DrawerWidget extends Nexinterface {
       { key: 'active', type: 'boolean' },
       { key: 'scrollable', type: 'boolean' },
     ]);
-    
+
     this.createReactives(['headline', 'text', 'active', 'scrollable']);
     this.registerAs('drawer-widget');
   }

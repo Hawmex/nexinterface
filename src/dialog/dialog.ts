@@ -48,9 +48,9 @@ export class DialogWidget extends Nexinterface {
       { key: 'active', type: 'boolean' },
       { key: 'scrollable', type: 'boolean' },
     ]);
-    
+
     this.createReactives(['active', 'scrollable', 'headline', 'body', 'button']);
-    this.registerAs('dialog-widget');  
+    this.registerAs('dialog-widget');
   }
 
   static override get styles(): CSSStyleSheet[] {

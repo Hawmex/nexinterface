@@ -18,7 +18,7 @@ export class IconWidget extends Nexinterface {
     this.createReactives(['value']);
     this.registerAs('icon-widget');
   }
-  
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
