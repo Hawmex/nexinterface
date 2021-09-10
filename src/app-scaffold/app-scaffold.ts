@@ -14,6 +14,7 @@ export class AppScaffold extends Nexinterface {
           position: relative;
           background: var(--backgroundColor);
           color: var(--onBackgroundColor);
+          accent-color: var(--primaryColor);
 
           --primaryColor: #1eb06d;
           --onPrimaryColor: #ffffff;
