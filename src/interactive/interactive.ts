@@ -4,11 +4,17 @@ import { Nexinterface } from '../base/base.js';
 export interface Interactive {
   get centeredRipple(): boolean;
   set centeredRipple(v: boolean);
+
+  get disabled(): boolean;
+  set disabled(v: boolean);
 }
 
 export class Interactive extends Nexinterface {
   static {
-    this.createAttributes([{ key: 'centeredRipple', type: 'boolean' }]);
+    this.createAttributes([
+      { key: 'centeredRipple', type: 'boolean' },
+      { key: 'disabled', type: 'boolean' },
+    ]);
   }
 
   static override get styles(): CSSStyleSheet[] {

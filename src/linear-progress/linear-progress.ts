@@ -1,4 +1,4 @@
-import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
+import { css, html, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
 declare global {
@@ -15,7 +15,6 @@ export interface LinearProgressWidget {
 export class LinearProgressWidget extends Nexinterface {
   static {
     this.createAttributes([{ key: 'active', type: 'boolean' }]);
-    this.createReactives(['active']);
     this.registerAs('linear-progress-widget');
   }
 
@@ -86,6 +85,11 @@ export class LinearProgressWidget extends Nexinterface {
           width: 200%;
           height: 100%;
           animation: indeterminate-rtl var(--durationLvl4) var(--standardEase) infinite;
+          animation-play-state: paused;
+        }
+
+        :host([active]) .bar {
+          animation-play-state: running;
         }
 
         :host .bar:dir(ltr) {
@@ -107,15 +111,11 @@ export class LinearProgressWidget extends Nexinterface {
   override get template(): WidgetTemplate {
     return html`
       <div class="container">
-        ${this.active
-          ? html`
-              <div class="bar">
-                <span class="colored"></span>
-                <span></span>
-                <span class="colored"></span>
-              </div>
-            `
-          : nothing}
+        <div class="bar">
+          <span class="colored"></span>
+          <span></span>
+          <span class="colored"></span>
+        </div>
       </div>
     `;
   }

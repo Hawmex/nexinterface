@@ -1,10 +1,13 @@
 import { Nexbounce } from 'nexbounce/nexbounce.js';
 import { Nexstate } from 'nexstate/nexstate.js';
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
+import { AppBarWidget } from '../app-bar/app-bar.js';
 import { Nexinterface } from '../base/base.js';
 import '../button/button.js';
 import { ButtonWidget } from '../button/button.js';
 import '../typography/typography.js';
+
+export type SnackbarPlaceOverAppBar = 'none' | 'normal' | 'tabs' | 'loading';
 
 export type SnackbarButton = { text: string; action: () => void };
 export type SnackbarInstance = { text: string; button?: SnackbarButton };
@@ -35,6 +38,9 @@ export interface SnackbarWidget {
 
   get longButtonText(): boolean;
   set longButtonText(v: boolean);
+
+  get placeOverAppBar(): SnackbarPlaceOverAppBar | undefined;
+  set placeOverAppBar(v: SnackbarPlaceOverAppBar | undefined);
 }
 
 export class SnackbarWidget extends Nexinterface {
@@ -42,9 +48,10 @@ export class SnackbarWidget extends Nexinterface {
     this.createAttributes([
       { key: 'active', type: 'boolean' },
       { key: 'longButtonText', type: 'boolean' },
+      { key: 'placeOverAppBar', type: 'string' },
     ]);
 
-    this.createReactives(['text', 'button', 'longButtonText']);
+    this.createReactives(['text', 'button']);
     this.registerAs('snackbar-widget');
   }
 
@@ -55,7 +62,6 @@ export class SnackbarWidget extends Nexinterface {
         :host {
           position: absolute;
           z-index: 0;
-          bottom: 8px;
           right: 8px;
           border-radius: 8px;
           background: var(--onSurfaceColor);
@@ -80,6 +86,22 @@ export class SnackbarWidget extends Nexinterface {
         :host(:dir(ltr)) {
           right: initial;
           left: 8px;
+        }
+
+        :host([place-over-app-bar='none']) {
+          bottom: 8px;
+        }
+
+        :host([place-over-app-bar='normal']) {
+          bottom: 64px;
+        }
+
+        :host([place-over-app-bar='tabs']) {
+          bottom: 120px;
+        }
+
+        :host([place-over-app-bar='loading']) {
+          bottom: 12px;
         }
 
         :host .text {
@@ -150,6 +172,22 @@ export class SnackbarWidget extends Nexinterface {
     return (body?.getBoundingClientRect?.()?.width ?? 0) > (innerWidth - 16) / 2;
   }
 
+  #getPlaceOverAppBarValue() {
+    const appBar = <AppBarWidget | undefined>(
+      [...(<HTMLElement[] | undefined>this.parentNode?.children ?? <HTMLElement[]>[])].find(
+        (child) => child instanceof AppBarWidget,
+      )
+    );
+
+    return appBar?.variant === 'bottom' && appBar.active
+      ? appBar.hasTabs
+        ? 'tabs'
+        : appBar.loading
+        ? 'loading'
+        : 'normal'
+      : 'none';
+  }
+
   #handleResize() {
     this.#resizeDebouncer.enqueue(() => (this.longButtonText = this.#getLongButtonTextValue()));
   }
@@ -192,5 +230,6 @@ export class SnackbarWidget extends Nexinterface {
   override updatedCallback() {
     super.updatedCallback();
     this.longButtonText = this.#getLongButtonTextValue();
+    this.placeOverAppBar = this.#getPlaceOverAppBarValue();
   }
 }

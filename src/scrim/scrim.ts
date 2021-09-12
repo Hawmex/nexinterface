@@ -7,8 +7,14 @@ declare global {
   }
 }
 
+export interface ScrimWidget {
+  get active(): boolean;
+  set active(v: boolean);
+}
+
 export class ScrimWidget extends Nexinterface {
   static {
+    this.createAttributes([{ key: 'active', type: 'boolean' }]);
     this.registerAs('scrim-widget');
   }
 

@@ -16,6 +16,9 @@ export interface CardWidget {
 
   get imageSrc(): string | null;
   set imageSrc(v: string | null);
+
+  get densed(): boolean;
+  set densed(v: boolean);
 }
 
 export class CardWidget extends Nexinterface {
@@ -23,6 +26,7 @@ export class CardWidget extends Nexinterface {
     this.createAttributes([
       { key: 'imageSrc', type: 'string' },
       { key: 'headline', type: 'string' },
+      { key: 'densed', type: 'boolean' },
     ]);
 
     this.createReactives(['imageSrc', 'headline']);

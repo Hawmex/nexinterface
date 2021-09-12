@@ -77,6 +77,11 @@ export interface RouterWidget {
 }
 
 export class RouterWidget extends Nexinterface {
+  static {
+    this.createReactives(['src', 'component']);
+    this.registerAs('router-widget');
+  }
+
   static override get styles(): CSSStyleSheet[] {
     return [
       ...super.styles,
@@ -155,6 +160,3 @@ export class RouterWidget extends Nexinterface {
     this.scrollTo({ top: 0 });
   }
 }
-
-RouterWidget.createReactives(['src', 'component']);
-RouterWidget.registerAs('router-widget');

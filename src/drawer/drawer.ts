@@ -7,6 +7,8 @@ import '../menu/menu-container.js';
 import '../scrim/scrim.js';
 import '../typography/typography.js';
 
+export type DrawerVariant = 'side' | 'bottom';
+
 export const drawerActive = new Nexstate(false);
 
 export const deactivateDrawer = () => drawerActive.setState(() => false);
@@ -30,6 +32,9 @@ export interface DrawerWidget {
 
   get scrollable(): boolean;
   set scrollable(v: boolean);
+
+  get variant(): DrawerVariant | null;
+  set variant(v: DrawerVariant | null);
 }
 
 export class DrawerWidget extends Nexinterface {
@@ -39,6 +44,7 @@ export class DrawerWidget extends Nexinterface {
       { key: 'text', type: 'string' },
       { key: 'active', type: 'boolean' },
       { key: 'scrollable', type: 'boolean' },
+      { key: 'variant', type: 'string' },
     ]);
 
     this.createReactives(['headline', 'text', 'active', 'scrollable']);

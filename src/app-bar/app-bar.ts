@@ -7,18 +7,20 @@ import { ButtonWidget } from '../button/button.js';
 import '../linear-progress/linear-progress.js';
 import '../typography/typography.js';
 
-export type TopBarLeading = { icon: string; action: () => void };
+export type AppBarVariant = 'top' | 'bottom';
 
-export type TopBarOptions = {
+export type AppBarLeading = { icon: string; action: () => void };
+
+export type AppBarOptions = {
   headline: string;
-  leading: TopBarLeading;
+  leading: AppBarLeading;
   trailing: WidgetTemplate;
   active: boolean;
   tabs: string[];
   activeTab: number;
 };
 
-const defualtState = <TopBarOptions>{
+const defualtState = <AppBarOptions>{
   headline: '',
   leading: { icon: 'arrow_forward', action: () => history.back() },
   trailing: nothing,
@@ -27,18 +29,18 @@ const defualtState = <TopBarOptions>{
   activeTab: -1,
 };
 
-export const topBarOptions = new Nexstate(defualtState);
+export const appBarOptions = new Nexstate(defualtState);
 
-export const setTopBarOptions = (options: Partial<TopBarOptions>) =>
-  topBarOptions.setState(() => ({ ...defualtState, ...options }));
+export const setAppBarOptions = (options: Partial<AppBarOptions>) =>
+  appBarOptions.setState(() => ({ ...defualtState, ...options }));
 
 declare global {
   interface HTMLElementTagNameMap {
-    'top-bar-widget': TopBarWidget;
+    'app-bar-widget': AppBarWidget;
   }
 }
 
-export interface TopBarWidget {
+export interface AppBarWidget {
   get active(): boolean;
   set active(v: boolean);
 
@@ -54,26 +56,33 @@ export interface TopBarWidget {
   get trailing(): WidgetTemplate | undefined;
   set trailing(v: WidgetTemplate | undefined);
 
-  get leading(): TopBarLeading | undefined;
-  set leading(v: TopBarLeading | undefined);
+  get leading(): AppBarLeading | undefined;
+  set leading(v: AppBarLeading | undefined);
 
   get tabs(): string[] | undefined;
   set tabs(v: string[] | undefined);
 
   get activeTab(): number | undefined;
   set activeTab(v: number | undefined);
+
+  get hasTabs(): boolean;
+  set hasTabs(v: boolean);
+
+  get variant(): AppBarVariant | null;
+  set variant(v: AppBarVariant | null);
 }
 
-export class TopBarWidget extends Nexinterface {
+export class AppBarWidget extends Nexinterface {
   static {
     this.createAttributes([
       { key: 'active', type: 'boolean' },
       { key: 'loading', type: 'boolean' },
       { key: 'appName', type: 'string' },
+      { key: 'hasTabs', type: 'boolean' },
     ]);
 
     this.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
-    this.registerAs('top-bar-widget');
+    this.registerAs('app-bar-widget');
   }
 
   static override get styles(): CSSStyleSheet[] {
@@ -85,18 +94,26 @@ export class TopBarWidget extends Nexinterface {
           overflow: hidden;
           position: relative;
           display: flex;
-          flex-direction: column;
           gap: 8px;
           background: var(--surfaceColor);
           color: var(--primaryColor);
           box-shadow: var(--shadowLvl2);
           height: 0px;
           visibility: hidden;
-          transform: translateY(-100%);
           transition: transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
             visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
             height calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           will-change: transform, height;
+        }
+
+        :host([variant='top']) {
+          flex-direction: column;
+          transform: translateY(-100%);
+        }
+
+        :host([variant='bottom']) {
+          flex-direction: column-reverse;
+          transform: translateY(100%);
         }
 
         :host .containers {
@@ -119,6 +136,10 @@ export class TopBarWidget extends Nexinterface {
           visibility: visible;
           transform: translateY(0%);
           transition-duration: var(--durationLvl2);
+        }
+
+        :host([active][has-tabs]) {
+          height: 112px;
         }
 
         :host([active]) .container {
@@ -167,13 +188,20 @@ export class TopBarWidget extends Nexinterface {
         }
 
         :host .tab {
-          border-radius: 4px 4px 0px 0px;
           width: max-content;
           min-height: 48px;
           padding: 0px 8px;
           white-space: nowrap;
           min-width: unset;
           scroll-snap-align: center;
+        }
+
+        :host([variant='top']) .tab {
+          border-radius: 4px 4px 0px 0px;
+        }
+
+        :host([variant='bottom']) .tab {
+          border-radius: 0px 0px 4px 4px;
         }
 
         :host .tab:not(.active) {
@@ -185,14 +213,22 @@ export class TopBarWidget extends Nexinterface {
           left: 0px;
           width: var(--tabIndicatorWidth, 0px);
           transform: translateX(calc(var(--tabIndicatorX, 0px) - 50%));
-          bottom: 0px;
           height: 4px;
-          border-radius: 4px 4px 0px 0px;
           display: block;
           background: var(--primaryColor);
           transition: transform var(--durationLvl2) var(--deceleratedEase),
             width var(--durationLvl2) var(--deceleratedEase),
             opacity var(--durationLvl2) var(--deceleratedEase);
+        }
+
+        :host([variant='top']) .tab-indicator {
+          bottom: 0px;
+          border-radius: 4px 4px 0px 0px;
+        }
+
+        :host([variant='bottom']) .tab-indicator {
+          border-radius: 0px 0px 4px 4px;
+          top: 0px;
         }
 
         :host([loading]) .tab-indicator {
@@ -204,8 +240,16 @@ export class TopBarWidget extends Nexinterface {
           width: 100vw;
           position: absolute;
           right: 0px;
+        }
+
+        :host([variant='top']) .progress-bar {
           bottom: 0px;
           transform-origin: bottom;
+        }
+
+        :host([variant='bottom']) .progress-bar {
+          top: 0px;
+          transform-origin: top;
         }
       `,
     ];
@@ -220,7 +264,7 @@ export class TopBarWidget extends Nexinterface {
             icon=${this.leading!.icon}
             @click=${this.leading!.action}
           ></button-widget>
-          <typography-widget one-line variant="top-bar">${this.headline}</typography-widget>
+          <typography-widget one-line variant="app-bar">${this.headline}</typography-widget>
         </div>
         <div class="container">${this.trailing}</div>
       </div>
@@ -254,10 +298,7 @@ export class TopBarWidget extends Nexinterface {
   }
 
   #activateTab(index: number) {
-    setTopBarOptions({
-      ...topBarOptions.state,
-      activeTab: index,
-    });
+    setAppBarOptions({ ...appBarOptions.state, activeTab: index });
   }
 
   #scrollActiveTabIntoView() {
@@ -293,7 +334,7 @@ export class TopBarWidget extends Nexinterface {
   override addedCallback() {
     super.addedCallback();
 
-    topBarOptions.runAndSubscribe(
+    appBarOptions.runAndSubscribe(
       ({ headline, trailing, active, leading, tabs, activeTab }) => {
         this.headline = headline;
         this.trailing = trailing;
@@ -301,6 +342,7 @@ export class TopBarWidget extends Nexinterface {
         this.leading = leading;
         this.tabs = tabs;
         this.activeTab = activeTab;
+        this.hasTabs = tabs.length > 0;
       },
       { signal: this.removedSignal },
     );

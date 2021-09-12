@@ -23,6 +23,9 @@ export interface ButtonWidget {
 
   get variant(): ButtonVariant | null;
   set variant(v: ButtonVariant | null);
+
+  get noShadow(): boolean;
+  set noShadow(v: boolean);
 }
 
 export class ButtonWidget extends Interactive {
@@ -32,6 +35,7 @@ export class ButtonWidget extends Interactive {
       { key: 'text', type: 'string' },
       { key: 'icon', type: 'string' },
       { key: 'link', type: 'string' },
+      { key: 'noShadow', type: 'boolean' },
     ]);
 
     this.createReactives(['text', 'icon']);

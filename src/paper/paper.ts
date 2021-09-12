@@ -7,8 +7,14 @@ declare global {
   }
 }
 
+export interface PaperWidget {
+  get fullWidth(): boolean;
+  set fullWidth(v: boolean);
+}
+
 export class PaperWidget extends Nexinterface {
   static {
+    this.createAttributes([{ key: 'fullWidth', type: 'boolean' }]);
     this.registerAs('paper-widget');
   }
 

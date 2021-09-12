@@ -1,7 +1,7 @@
 import { css, html } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
-export type InputType = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password' | 'time';
+export type InputVariant = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password' | 'time';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -22,21 +22,21 @@ export interface InputWidget {
   get label(): string | null;
   set label(v: string | null);
 
-  get type(): InputType | null;
-  set type(v: InputType | null);
+  get variant(): InputVariant | null;
+  set variant(v: InputVariant | null);
 }
 
 export class InputWidget extends Nexinterface {
   static {
     this.createAttributes([
       { key: 'placeholder', type: 'string' },
-      { key: 'type', type: 'string' },
+      { key: 'variant', type: 'string' },
       { key: 'label', type: 'string' },
       { key: 'hasValue', type: 'boolean' },
       { key: 'invalid', type: 'boolean' },
     ]);
 
-    this.createReactives(['placeholder', 'type', 'label', 'invalid']);
+    this.createReactives(['placeholder', 'variant', 'label', 'invalid']);
     this.registerAs('input-widget');
   }
 
@@ -189,7 +189,7 @@ export class InputWidget extends Nexinterface {
   override get template() {
     return html`
       <div class="label">${this.label}</div>
-      ${this.type === 'textarea'
+      ${this.variant === 'textarea'
         ? html`
             <textarea
               class="field"
@@ -202,7 +202,7 @@ export class InputWidget extends Nexinterface {
             <input
               class="field"
               placeholder=${this.placeholder ?? ''}
-              type=${this.type!}
+              type=${this.variant!}
               @input=${this.#handleInput.bind(this)}
               @change=${this.#handleChange.bind(this)}
               @keyup=${this.#focusNext.bind(this)}
@@ -233,7 +233,9 @@ export class InputWidget extends Nexinterface {
 
   override updatedCallback() {
     super.updatedCallback();
-    this.#field = this.shadowRoot!.querySelector(this.type === 'textarea' ? 'textarea' : 'input')!;
+    this.#field = this.shadowRoot!.querySelector(
+      this.variant === 'textarea' ? 'textarea' : 'input',
+    )!;
 
     if (this.invalid) this.scrollIntoView({ block: 'center' });
   }

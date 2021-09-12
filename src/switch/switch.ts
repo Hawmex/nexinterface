@@ -15,6 +15,9 @@ export interface SwitchWidget {
 
   get icon(): string | null;
   set icon(v: string | null);
+
+  get active(): boolean;
+  set active(v: boolean);
 }
 
 export class SwitchWidget extends Interactive {
@@ -22,6 +25,7 @@ export class SwitchWidget extends Interactive {
     this.createAttributes([
       { key: 'text', type: 'string' },
       { key: 'icon', type: 'string' },
+      { key: 'active', type: 'boolean' },
     ]);
 
     this.createReactives(['text', 'icon']);

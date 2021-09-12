@@ -7,7 +7,7 @@ export type TypographyVariant =
   | 'button-uppercased'
   | 'button-normal'
   | 'headline'
-  | 'top-bar';
+  | 'app-bar';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,11 +18,18 @@ declare global {
 export interface TypographyWidget {
   get variant(): TypographyVariant | null;
   set variant(v: TypographyVariant | null);
+
+  get oneLine(): boolean;
+  set oneLine(v: boolean);
 }
 
 export class TypographyWidget extends Nexinterface {
   static {
-    this.createAttributes([{ key: 'variant', type: 'string' }]);
+    this.createAttributes([
+      { key: 'variant', type: 'string' },
+      { key: 'oneLine', type: 'boolean' },
+    ]);
+
     this.registerAs('typography-widget');
   }
 
@@ -80,7 +87,7 @@ export class TypographyWidget extends Nexinterface {
           --typographyWeight: 575;
         }
 
-        :host([variant='top-bar']) {
+        :host([variant='app-bar']) {
           text-transform: capitalize;
           padding: 0px 16px;
           font-size: 20px;
@@ -111,7 +118,7 @@ export class TypographyWidget extends Nexinterface {
             --typographyWeight: 493;
           }
 
-          :host([variant='top-bar']) {
+          :host([variant='app-bar']) {
             --typographyWeight: 557;
           }
         }
@@ -124,7 +131,7 @@ export class TypographyWidget extends Nexinterface {
   }
 
   override get mountAnimation(): WidgetAnimation {
-    return this.variant === 'top-bar'
+    return this.variant === 'app-bar'
       ? {
           keyframes: [
             { opacity: '0', transform: 'scale(0.9)' },
@@ -140,7 +147,7 @@ export class TypographyWidget extends Nexinterface {
   }
 
   override get updateOrSlotChangeAnimation(): WidgetAnimation {
-    return this.variant === 'top-bar'
+    return this.variant === 'app-bar'
       ? {
           keyframes: [
             { opacity: '0', transform: 'translateY(-16px) rotateX(-90deg)' },
