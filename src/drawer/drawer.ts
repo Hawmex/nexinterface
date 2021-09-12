@@ -127,11 +127,11 @@ export class DrawerWidget extends Nexinterface {
           transition-duration: var(--durationLvl3);
         }
 
-        :host([active][variant="side"]) {
+        :host([active][variant='side']) .drawer {
           transform: translateX(0%);
         }
 
-        :host([active][variant="bottom"]) {
+        :host([active][variant='bottom']) .drawer {
           transform: translateY(0%);
         }
 
