@@ -100,6 +100,7 @@ export class DrawerWidget extends Nexinterface {
           transform: translateY(100%);
           height: max-content;
           max-height: var(--drawerHeight);
+          border-radius: 8px;
         }
 
         :host([variant='side']) .drawer:dir(ltr) {
