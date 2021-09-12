@@ -79,6 +79,7 @@ export class AppBarWidget extends Nexinterface {
       { key: 'loading', type: 'boolean' },
       { key: 'appName', type: 'string' },
       { key: 'hasTabs', type: 'boolean' },
+      { key: 'variant', type: 'string' },
     ]);
 
     this.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
