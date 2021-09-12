@@ -29,7 +29,6 @@ export class LinearProgressWidget extends Nexinterface {
           height: 4px;
           overflow: hidden;
           border-radius: 2px;
-          opacity: 0;
           visibility: hidden;
           transform: scaleY(0);
           transition: transform calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
