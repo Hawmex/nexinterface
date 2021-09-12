@@ -87,14 +87,14 @@ export class DrawerWidget extends Nexinterface {
           box-shadow: var(--shadowLvl4);
         }
 
-        :host([variant='side']) {
+        :host([variant='side']) .drawer {
           top: 0px;
           right: 0px;
           transform: translateX(100%);
           height: var(--drawerHeight);
         }
 
-        :host([variant='bottom']) {
+        :host([variant='bottom']) .drawer {
           bottom: 0px;
           right: 0px;
           transform: translateY(100%);
