@@ -117,7 +117,7 @@ export class TopBarWidget extends Nexinterface {
         }
 
         :host([active]) {
-          height: auto;
+          height: 56px;
           opacity: 1;
           visibility: visible;
           transform: translateY(0%);
