@@ -49,18 +49,24 @@ export class DrawerWidget extends Nexinterface {
     return [
       ...super.styles,
       css`
-        :host {
+        :host([variant='side']) {
           --drawerWidth: 256px;
+          --drawerHeight: 100vh;
+        }
+
+        :host([variant='bottom']) {
+          --drawerWidth: 100vw;
+          --drawerHeight: 50vh;
         }
 
         @media (max-width: 640px) {
-          :host {
+          :host([variant='side']) {
             --drawerWidth: calc(100vw - 56px);
           }
         }
 
         @media (max-width: 640px) and (orientation: landscape) {
-          :host {
+          :host([variant='side']) {
             --drawerWidth: 50vw;
           }
         }
@@ -69,15 +75,11 @@ export class DrawerWidget extends Nexinterface {
           background: var(--surfaceColor);
           color: var(--onSurfaceColor);
           width: var(--drawerWidth);
-          height: 100vh;
           overflow: hidden;
           display: grid;
           grid-template-rows: 64px 1fr;
           position: fixed;
           z-index: 2;
-          top: 0px;
-          right: 0px;
-          transform: translateX(100%);
           visibility: hidden;
           transition: transform calc(var(--durationLvl3) - 50ms) var(--deceleratedEase),
             visibility calc(var(--durationLvl3) - 50ms) var(--deceleratedEase);
@@ -85,7 +87,24 @@ export class DrawerWidget extends Nexinterface {
           box-shadow: var(--shadowLvl4);
         }
 
-        :host .drawer:dir(ltr) {
+        :host([variant='side']) {
+          top: 0px;
+          right: 0px;
+          transform: translateX(100%);
+          height: var(--drawerHeight);
+        }
+
+        :host([variant='bottom']) {
+          bottom: 0px;
+          right: 0px;
+          transform: translateY(100%);
+          height: auto;
+          max-height: var(--drawerHeight);
+
+          --drawerWidth: 100vw;
+        }
+
+        :host([variant='side']) .drawer:dir(ltr) {
           left: 0px;
           right: initial;
           transform: translateX(-100%);
