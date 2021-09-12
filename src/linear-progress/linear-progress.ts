@@ -32,14 +32,12 @@ export class LinearProgressWidget extends Nexinterface {
           opacity: 0;
           visibility: hidden;
           transform: scaleY(0);
-          transition: opacity calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
-            transform calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
+          transition: transform calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
             visibility calc(var(--durationLvl1) - 50ms) var(--deceleratedEase);
-          will-change: opacity, transform;
+          will-change: transform;
         }
 
         :host([active]) {
-          opacity: 1;
           visibility: visible;
           transform: scaleY(1);
           transition-duration: var(--durationLvl1);

@@ -91,14 +91,12 @@ export class TopBarWidget extends Nexinterface {
           color: var(--primaryColor);
           box-shadow: var(--shadowLvl2);
           height: 0px;
-          opacity: 0;
           visibility: hidden;
           transform: translateY(-100%);
-          transition: opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
-            transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
+          transition: transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
             visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
             height calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
-          will-change: opacity, transform, height;
+          will-change: transform, height;
         }
 
         :host .containers {
@@ -118,7 +116,6 @@ export class TopBarWidget extends Nexinterface {
 
         :host([active]) {
           height: 56px;
-          opacity: 1;
           visibility: visible;
           transform: translateY(0%);
           transition-duration: var(--durationLvl2);
