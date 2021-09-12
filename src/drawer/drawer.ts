@@ -124,8 +124,15 @@ export class DrawerWidget extends Nexinterface {
 
         :host([active]) .drawer {
           visibility: visible;
-          transform: translateX(0%);
           transition-duration: var(--durationLvl3);
+        }
+
+        :host([active][variant="side"]) {
+          transform: translateX(0%);
+        }
+
+        :host([active][variant="bottom"]) {
+          transform: translateY(0%);
         }
 
         :host .header {
