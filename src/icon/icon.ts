@@ -48,8 +48,8 @@ export class IconWidget extends Nexinterface {
   override get mountAnimation(): WidgetAnimation {
     return {
       keyframes: [
-        { transform: 'rotate3d(0, 1.5, 1, -90deg)' },
-        { transform: 'rotate3d(0, 1.5, 1, 0deg)' },
+        { transform: 'rotateZ(-90deg) rotateY(-90deg)' },
+        { transform: 'rotateZ(0deg) rotateY(0deg)' },
       ],
       options: {
         duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
