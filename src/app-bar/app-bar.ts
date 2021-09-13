@@ -155,11 +155,11 @@ export class AppBarWidget extends Nexinterface {
           transition-delay: var(--durationLvl1);
         }
 
-        :host([variant='top'][loading]) {
+        :host([variant='top'][loading]:not([active])) {
           transform: translateY(calc(-100% + 4px));
         }
 
-        :host([variant='bottom'][loading]) {
+        :host([variant='bottom'][loading]:not([active])) {
           transform: translateY(calc(100% - 4px));
         }
 
