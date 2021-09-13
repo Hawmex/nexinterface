@@ -150,8 +150,8 @@ export class TypographyWidget extends Nexinterface {
     return this.variant === 'app-bar'
       ? {
           keyframes: [
-            { opacity: '0', transform: 'translateY(-16px) rotateX(-90deg)' },
-            { opacity: '1', transform: 'translateY(0px) rotateX(0deg)' },
+            { transform: 'translateY(-16px) rotateX(-90deg)' },
+            { transform: 'translateY(0px) rotateX(0deg)' },
           ],
           options: {
             duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
