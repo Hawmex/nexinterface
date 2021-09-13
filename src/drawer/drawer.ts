@@ -104,7 +104,7 @@ export class DrawerWidget extends Nexinterface {
           bottom: 0px;
           right: 0px;
           transform: translateY(100%);
-          height: max-content;
+          height: auto;
           max-height: var(--drawerHeight);
           border-radius: 8px 8px 0px 0px;
         }
