@@ -151,9 +151,16 @@ export class AppBarWidget extends Nexinterface {
           height: 4px;
           opacity: 1;
           visibility: visible;
-          transform: translateY(calc(-100% + 4px));
           transition-duration: var(--durationLvl1);
           transition-delay: var(--durationLvl1);
+        }
+
+        :host([variant='top'][loading]) {
+          transform: translateY(calc(-100% + 4px));
+        }
+
+        :host([variant='bottom'][loading]) {
+          transform: translateY(calc(100% - 4px));
         }
 
         @keyframes tabs-pop {
