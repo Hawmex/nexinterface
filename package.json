@@ -40,8 +40,8 @@
   "homepage": "https://github.com/Hawmex/nexinterface#readme",
   "dependencies": {
     "nexbounce": "^6.0.3",
-    "nexstate": "^6.0.2",
-    "nexwidget": "^6.0.2"
+    "nexstate": "^6.0.4",
+    "nexwidget": "^6.0.4"
   },
   "devDependencies": {
     "prettier": "^2.4.0",
