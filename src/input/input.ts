@@ -223,8 +223,8 @@ export class InputWidget extends Nexinterface {
   }
 
   #focusNext({ key }: KeyboardEvent) {
-    if (key === 'Enter' && this.nextElementSibling instanceof this.constructor)
-      (<InputWidget>this.nextElementSibling).requestFocus();
+    if (key === 'Enter' && this.nextElementSibling instanceof InputWidget)
+      this.nextElementSibling.requestFocus();
   }
 
   requestFocus() {

@@ -20,7 +20,7 @@ export type AppBarOptions = {
   activeTab: number;
 };
 
-const defualtState = <AppBarOptions>{
+const defualtState: AppBarOptions = {
   headline: '',
   leading: { icon: 'arrow_forward', action: () => history.back() },
   trailing: nothing,

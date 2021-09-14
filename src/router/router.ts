@@ -6,7 +6,7 @@ import { RouteSrc, RouteWidget } from './route.js';
 type ParsedRoute = { keys: string[]; pattern: RegExp };
 type LocationParams = { [key: string]: unknown };
 
-const parse = (route: string, loose?: boolean) => {
+const parse = (route: string, loose?: boolean): ParsedRoute => {
   let tmp: string | undefined;
   let pattern = '';
 
@@ -39,7 +39,7 @@ const parse = (route: string, loose?: boolean) => {
     }
   }
 
-  return <ParsedRoute>{
+  return {
     keys: keys,
     pattern: new RegExp('^' + pattern + (loose ? '(?=$|/)' : '/?$'), 'i'),
   };

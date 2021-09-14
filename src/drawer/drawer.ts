@@ -2,6 +2,7 @@ import { Nexbounce } from 'nexbounce/nexbounce.js';
 import { Nexstate } from 'nexstate/nexstate.js';
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
+import { ButtonWidget } from '../button/button.js';
 import '../divider/divider.js';
 import '../menu/menu-container.js';
 import '../scrim/scrim.js';
@@ -84,7 +85,7 @@ export class DrawerWidget extends Nexinterface {
           overflow: hidden;
           display: grid;
           grid-template-rows: 64px 1fr;
-          position: fixed;
+          position: absolute;
           z-index: 2;
           visibility: hidden;
           transition: transform calc(var(--durationLvl3) - 50ms) var(--deceleratedEase),
@@ -185,7 +186,10 @@ export class DrawerWidget extends Nexinterface {
         </div>
         ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
         <div class="list">
-          <menu-container-widget>
+          <menu-container-widget
+            @click=${(event: MouseEvent) =>
+              event.target instanceof ButtonWidget && deactivateDrawer()}
+          >
             <slot></slot>
           </menu-container-widget>
         </div>
