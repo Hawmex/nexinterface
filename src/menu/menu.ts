@@ -46,23 +46,15 @@ export class MenuWidget extends Nexinterface {
           display: flex;
           visibility: hidden;
           transform: translateY(100%);
-          transition: transform calc(var(--durationLvl3) - 50ms) var(--deceleratedEase),
-            visibility calc(var(--durationLvl3) - 50ms) var(--deceleratedEase);
+          transition: transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
+            visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           will-change: transform;
         }
 
         :host([active]) .menu {
           transform: translateY(0%);
           visibility: visible;
-          transition-duration: var(--durationLvl3);
-        }
-
-        :host .scrim {
-          transition-duration: calc(var(--durationLvl3) - 50ms);
-        }
-
-        :host([active]) .scrim {
-          transition-duration: var(--durationLvl3);
+          transition-duration: var(--durationLvl2);
         }
 
         :host menu-container-widget {
@@ -105,7 +97,7 @@ export class MenuWidget extends Nexinterface {
         this.body = body;
         this.active = true;
       } else {
-        const transitionTime = Number(this.getCSSProperty('--durationLvl3').replace('ms', '')) - 50;
+        const transitionTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
 
         this.active = false;
         this.#timeout = setTimeout(() => (this.body = body), transitionTime);
