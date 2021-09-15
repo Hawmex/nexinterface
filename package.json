@@ -4,7 +4,7 @@
   "description": "A collection of web components based on nexwidget and nexstate following material design guidelines.",
   "type": "module",
   "exports": {
-    "./**/*.js": "./dist/**/*.js"
+    "./*.js": "./dist/*.js"
   },
   "typesVersions": {
     "*": {
@@ -39,9 +39,9 @@
   },
   "homepage": "https://github.com/Hawmex/nexinterface#readme",
   "dependencies": {
-    "nexbounce": "^6.0.3",
-    "nexstate": "^6.0.5",
-    "nexwidget": "^6.0.5"
+    "nexbounce": "^6.0.4",
+    "nexstate": "^6.0.6",
+    "nexwidget": "^6.0.6"
   },
   "devDependencies": {
     "prettier": "^2.4.0",
