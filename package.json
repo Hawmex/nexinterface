@@ -39,12 +39,12 @@
   },
   "homepage": "https://github.com/Hawmex/nexinterface#readme",
   "dependencies": {
-    "nexbounce": "^6.0.4",
-    "nexstate": "^6.0.6",
-    "nexwidget": "^6.0.6"
+    "nexbounce": "^6.0.5",
+    "nexstate": "^6.0.7",
+    "nexwidget": "^6.0.7"
   },
   "devDependencies": {
-    "prettier": "^2.4.0",
+    "prettier": "^2.4.1",
     "typescript": "^4.4.3"
   }
 }
