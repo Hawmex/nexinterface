@@ -1,4 +1,4 @@
-import { lazyLoad } from 'nexwidget/directives/lazyload.js';
+import { lazyload } from 'nexwidget/directives/lazyload.js';
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 import { RouteSrc, RouteWidget } from './route.js';
@@ -100,7 +100,7 @@ export class RouterWidget extends Nexinterface {
   override get template(): WidgetTemplate {
     return html`
       ${this.src && this.component
-        ? lazyLoad(this.src(), document.createElement(this.component))
+        ? lazyload(this.src(), document.createElement(this.component))
         : nothing}
       <slot></slot>
     `;
