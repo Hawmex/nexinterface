@@ -228,7 +228,7 @@ export class InputWidget extends Nexinterface {
   }
 
   requestFocus() {
-    this.#field?.focus?.();
+    this.#field?.focus();
   }
 
   override updatedCallback() {

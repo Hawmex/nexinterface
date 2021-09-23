@@ -311,15 +311,15 @@ export class AppBarWidget extends Nexinterface {
 
   #scrollActiveTabIntoView() {
     const tab = <ButtonWidget | undefined>(
-      this.shadowRoot!.querySelectorAll<ButtonWidget>('.tab')?.[this.activeTab!]
+      this.shadowRoot!.querySelectorAll<ButtonWidget>('.tab')[this.activeTab!]
     );
 
-    tab?.scrollIntoView?.({ inline: 'center', block: 'nearest' });
+    tab?.scrollIntoView({ inline: 'center', block: 'nearest' });
   }
 
   #moveTabIndicator() {
     const tab = <ButtonWidget | undefined>(
-      this.shadowRoot!.querySelectorAll<ButtonWidget>('.tab')?.[this.activeTab!]
+      this.shadowRoot!.querySelectorAll<ButtonWidget>('.tab')[this.activeTab!]
     );
 
     const tabs = this.shadowRoot!.querySelector<HTMLDivElement>('.tabs');
