@@ -168,13 +168,14 @@ export class InputWidget extends Nexinterface {
           left: 0px;
           bottom: 0px;
           transform: scaleX(0);
-          transition: transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
+          transition: transform 0ms var(--deceleratedEase) calc(var(--durationLvl2) - 50ms),
+            opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           z-index: 2;
         }
 
         :host(:focus-within) .bottom-bar {
           transform: scaleX(1);
-          transition-duration: var(--durationLvl2);
+          transition: transform var(--durationLvl2) var(--deceleratedEase);
         }
       `,
     ];
