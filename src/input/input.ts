@@ -167,6 +167,7 @@ export class InputWidget extends Nexinterface {
           background: var(--primaryColor);
           left: 0px;
           bottom: 0px;
+          opacity: 0;
           transform: scaleX(0);
           transition: transform 0ms var(--deceleratedEase) calc(var(--durationLvl2) - 50ms),
             opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
@@ -174,6 +175,7 @@ export class InputWidget extends Nexinterface {
         }
 
         :host(:focus-within) .bottom-bar {
+          opacity: 1;
           transform: scaleX(1);
           transition: transform var(--durationLvl2) var(--deceleratedEase);
         }
