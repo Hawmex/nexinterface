@@ -61,12 +61,12 @@ export class InputWidget extends Nexinterface {
           opacity: 0.04;
           pointer-events: none;
           z-index: 1;
-          transition: opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
+          transition: opacity calc(var(--duationLvl1) - 50ms) var(--deceleratedEase);
         }
 
         :host(:focus-within)::before {
           opacity: 0.08;
-          transition-duration: var(--durationLvl2);
+          transition-duration: var(--duationLvl1);
         }
 
         :host::after {
@@ -80,13 +80,13 @@ export class InputWidget extends Nexinterface {
           background: var(--onSurfaceColor);
           pointer-events: none;
           z-index: 1;
-          transition: background calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
-            opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
+          transition: background calc(var(--duationLvl1) - 50ms) var(--deceleratedEase),
+            opacity calc(var(--duationLvl1) - 50ms) var(--deceleratedEase);
         }
 
         :host([invalid])::after {
           opacity: 1;
-          transition-duration: var(--durationLvl2);
+          transition-duration: var(--duationLvl1);
           background: var(--errorColor);
         }
 
@@ -101,9 +101,9 @@ export class InputWidget extends Nexinterface {
           font-family: 'Dana VF', 'Jost VF';
           font-variation-settings: 'wght' 425;
           transform-origin: top right;
-          transition: transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
-            top calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
-            color calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
+          transition: transform calc(var(--duationLvl1) - 50ms) var(--deceleratedEase),
+            top calc(var(--duationLvl1) - 50ms) var(--deceleratedEase),
+            color calc(var(--duationLvl1) - 50ms) var(--deceleratedEase);
           pointer-events: none;
           z-index: 1;
         }
@@ -122,7 +122,7 @@ export class InputWidget extends Nexinterface {
         :host(:focus-within) .label {
           top: 6px;
           transform: scale(0.9);
-          transition-duration: var(--durationLvl2);
+          transition-duration: var(--duationLvl1);
         }
 
         :host(:focus-within) .label {
@@ -146,7 +146,7 @@ export class InputWidget extends Nexinterface {
           opacity: 0;
           margin: 26px 0px 6px 0px;
           padding: 0px 16px 0px 16px;
-          transition: opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
+          transition: opacity calc(var(--duationLvl1) - 50ms) var(--deceleratedEase);
         }
 
         :host textarea.field {
@@ -157,7 +157,7 @@ export class InputWidget extends Nexinterface {
         :host(:focus-within) .field,
         :host([has-value]) .field {
           opacity: 1;
-          transition-duration: var(--durationLvl2);
+          transition-duration: var(--duationLvl1);
         }
 
         :host .bottom-bar {
@@ -169,15 +169,15 @@ export class InputWidget extends Nexinterface {
           bottom: 0px;
           opacity: 0;
           transform: scaleX(0);
-          transition: transform 0ms var(--deceleratedEase) calc(var(--durationLvl2) - 50ms),
-            opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
+          transition: transform 0ms var(--deceleratedEase) calc(var(--duationLvl1) - 50ms),
+            opacity calc(var(--duationLvl1) - 50ms) var(--deceleratedEase);
           z-index: 2;
         }
 
         :host(:focus-within) .bottom-bar {
           opacity: 1;
           transform: scaleX(1);
-          transition: transform var(--durationLvl2) var(--deceleratedEase);
+          transition: transform var(--duationLvl1) var(--deceleratedEase);
         }
       `,
     ];
