@@ -1,6 +1,6 @@
 {
   "name": "nexinterface",
-  "version": "5.1.14",
+  "version": "5.1.15",
   "description": "A collection of web components based on nexwidget and nexstate following material design guidelines.",
   "type": "module",
   "exports": {
