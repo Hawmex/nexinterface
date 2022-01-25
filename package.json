@@ -41,7 +41,7 @@
   "dependencies": {
     "nexbounce": "^6.0.5",
     "nexstate": "^6.0.8",
-    "nexwidget": "^6.0.10"
+    "nexwidget": "^7.0.1"
   },
   "devDependencies": {
     "prettier": "^2.4.1",
