@@ -23,7 +23,9 @@ export class Nexscreen extends Nexinterface {
         { opacity: '1', transform: 'scale(1)' },
       ],
       options: {
-        duration: Number(this.getCSSProperty('--durationLvl2').replace('ms', '')),
+        duration: Number(
+          this.getCSSProperty('--durationLvl2').replace('ms', ''),
+        ),
         easing: this.getCSSProperty('--deceleratedEase'),
         fill: 'forwards',
       },

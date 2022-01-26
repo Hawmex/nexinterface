@@ -71,7 +71,9 @@ export class CardWidget extends Nexinterface {
         <div class="header">
           <img src=${this.imageSrc ?? ''} />
           <section-widget variant="paragraphs">
-            <typography-widget variant="headline">${this.headline}</typography-widget>
+            <typography-widget variant="headline">
+              ${this.headline}
+            </typography-widget>
             <slot name="body"></slot>
           </section-widget>
         </div>

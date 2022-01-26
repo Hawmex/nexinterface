@@ -1,5 +1,5 @@
 import { repeat } from 'lit-html/directives/repeat.js';
-import { Nexstate } from 'nexstate/nexstate.js';
+import { Store } from 'nexstate/nexstate.js';
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 import '../button/button.js';
@@ -20,19 +20,26 @@ export type AppBarOptions = {
   activeTab: number;
 };
 
-const defualtState: AppBarOptions = {
-  headline: '',
-  leading: { icon: 'arrow_forward', action: () => history.back() },
-  trailing: nothing,
-  active: true,
-  tabs: [],
-  activeTab: -1,
-};
+export class AppBarStore extends Store {
+  static #defualtOptions: AppBarOptions = {
+    headline: '',
+    leading: { icon: 'arrow_forward', action: () => history.back() },
+    trailing: nothing,
+    active: true,
+    tabs: [],
+    activeTab: -1,
+  };
 
-export const appBarOptions = new Nexstate(defualtState);
+  options: AppBarOptions = { ...AppBarStore.#defualtOptions };
 
-export const setAppBarOptions = (options: Partial<AppBarOptions>) =>
-  appBarOptions.setState(() => ({ ...defualtState, ...options }));
+  setOptions(options: Partial<AppBarOptions>) {
+    this.setState(
+      () => (this.options = { ...AppBarStore.#defualtOptions, ...options }),
+    );
+  }
+}
+
+export const appBarStore = new AppBarStore();
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -82,7 +89,14 @@ export class AppBarWidget extends Nexinterface {
       { key: 'variant', type: 'string' },
     ]);
 
-    this.createReactives(['headline', 'trailing', 'leading', 'loading', 'tabs', 'activeTab']);
+    this.createReactives([
+      'headline',
+      'trailing',
+      'leading',
+      'loading',
+      'tabs',
+      'activeTab',
+    ]);
     this.registerAs('app-bar-widget');
   }
 
@@ -101,7 +115,8 @@ export class AppBarWidget extends Nexinterface {
           box-shadow: var(--shadowLvl2);
           height: 0px;
           visibility: hidden;
-          transition: transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
+          transition: transform calc(var(--durationLvl2) - 50ms)
+              var(--deceleratedEase),
             visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
             height calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           will-change: transform, height;
@@ -184,7 +199,8 @@ export class AppBarWidget extends Nexinterface {
           max-width: 100vw;
           scroll-snap-type: x mandatory;
           scroll-padding: 32px;
-          animation: tabs-pop var(--durationLvl1) var(--deceleratedEase) forwards;
+          animation: tabs-pop var(--durationLvl1) var(--deceleratedEase)
+            forwards;
         }
 
         :host .tabs-container {
@@ -272,7 +288,9 @@ export class AppBarWidget extends Nexinterface {
             icon=${this.leading!.icon}
             @click=${this.leading!.action}
           ></button-widget>
-          <typography-widget one-line variant="app-bar">${this.headline}</typography-widget>
+          <typography-widget one-line variant="app-bar"
+            >${this.headline}</typography-widget
+          >
         </div>
         <div class="container">${this.trailing}</div>
       </div>
@@ -297,16 +315,21 @@ export class AppBarWidget extends Nexinterface {
             </div>
           `
         : nothing}
-      <linear-progress-widget ?active=${this.loading} class="progress-bar"></linear-progress-widget>
+      <linear-progress-widget
+        ?active=${this.loading}
+        class="progress-bar"
+      ></linear-progress-widget>
     `;
   }
 
   #setWindowTitle() {
-    document.title = this.headline ? `${this.appName} - ${this.headline}` : `${this.appName}`;
+    document.title = this.headline
+      ? `${this.appName} - ${this.headline}`
+      : `${this.appName}`;
   }
 
   #activateTab(index: number) {
-    setAppBarOptions({ ...appBarOptions.state, activeTab: index });
+    appBarStore.setOptions({ ...appBarStore.options, activeTab: index });
   }
 
   #scrollActiveTabIntoView() {
@@ -342,8 +365,11 @@ export class AppBarWidget extends Nexinterface {
   override addedCallback() {
     super.addedCallback();
 
-    appBarOptions.runAndSubscribe(
-      ({ headline, trailing, active, leading, tabs, activeTab }) => {
+    appBarStore.runAndSubscribe(
+      () => {
+        const { headline, trailing, active, leading, tabs, activeTab } =
+          appBarStore.options;
+
         this.headline = headline;
         this.trailing = trailing;
         this.active = active;
@@ -355,7 +381,9 @@ export class AppBarWidget extends Nexinterface {
       { signal: this.removedSignal },
     );
 
-    addEventListener('resize', this.#moveTabIndicator.bind(this), { signal: this.removedSignal });
+    addEventListener('resize', this.#moveTabIndicator.bind(this), {
+      signal: this.removedSignal,
+    });
   }
 
   override updatedCallback() {

@@ -1,5 +1,5 @@
-import { Nexbounce } from 'nexbounce/nexbounce.js';
-import { Nexstate } from 'nexstate/nexstate.js';
+import { Debouncer } from 'nexbounce/nexbounce';
+import { Store } from 'nexstate/nexstate.js';
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 import { ButtonWidget } from '../button/button.js';
@@ -10,10 +10,19 @@ import '../typography/typography.js';
 
 export type DrawerVariant = 'side' | 'bottom';
 
-export const drawerActive = new Nexstate(false);
+export class DrawerStore extends Store {
+  isActive = false;
 
-export const deactivateDrawer = () => drawerActive.setState(() => false);
-export const activateDrawer = () => drawerActive.setState(() => true);
+  activate() {
+    this.setState(() => (this.isActive = true));
+  }
+
+  deactivate() {
+    this.setState(() => (this.isActive = false));
+  }
+}
+
+export const drawerStore = new DrawerStore();
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -88,7 +97,8 @@ export class DrawerWidget extends Nexinterface {
           position: absolute;
           z-index: 2;
           visibility: hidden;
-          transition: transform calc(var(--durationLvl3) - 50ms) var(--deceleratedEase),
+          transition: transform calc(var(--durationLvl3) - 50ms)
+              var(--deceleratedEase),
             visibility calc(var(--durationLvl3) - 50ms) var(--deceleratedEase);
           will-change: transform;
           box-shadow: var(--shadowLvl4);
@@ -166,14 +176,14 @@ export class DrawerWidget extends Nexinterface {
     ];
   }
 
-  #resizeDebouncer = new Nexbounce();
+  #resizeDebouncer = new Debouncer();
 
   override get template(): WidgetTemplate {
     return html`
       <scrim-widget
         class="scrim"
         ?active=${this.active}
-        @pointerdown=${deactivateDrawer}
+        @pointerdown=${() => drawerStore.deactivate()}
       ></scrim-widget>
       <div class="drawer">
         <div class="header">
@@ -181,14 +191,16 @@ export class DrawerWidget extends Nexinterface {
             <typography-widget one-line variant="headline" class="headline">
               ${this.headline}
             </typography-widget>
-            <typography-widget one-line variant="text" class="text">${this.text}</typography-widget>
+            <typography-widget one-line variant="text" class="text"
+              >${this.text}</typography-widget
+            >
           </div>
         </div>
         ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
         <div class="list">
           <menu-container-widget
             @click=${(event: MouseEvent) =>
-              event.target instanceof ButtonWidget && deactivateDrawer()}
+              event.target instanceof ButtonWidget && drawerStore.deactivate()}
           >
             <slot></slot>
           </menu-container-widget>
@@ -198,25 +210,36 @@ export class DrawerWidget extends Nexinterface {
   }
 
   #getScrollableValue() {
-    const { scrollHeight, clientHeight } = this.shadowRoot!.querySelector<HTMLDivElement>('.list')!;
+    const { scrollHeight, clientHeight } =
+      this.shadowRoot!.querySelector<HTMLDivElement>('.list')!;
     return scrollHeight > clientHeight;
   }
 
   #handleResize() {
-    this.#resizeDebouncer.enqueue(() => (this.scrollable = this.#getScrollableValue()));
+    this.#resizeDebouncer.enqueue(
+      () => (this.scrollable = this.#getScrollableValue()),
+    );
   }
 
   override addedCallback() {
     super.addedCallback();
 
-    drawerActive.runAndSubscribe((drawerActive) => (this.active = drawerActive), {
+    drawerStore.runAndSubscribe(() => (this.active = drawerStore.isActive), {
       signal: this.removedSignal,
     });
 
-    addEventListener('pushstate', deactivateDrawer, { signal: this.removedSignal });
-    addEventListener('popstate', deactivateDrawer, { signal: this.removedSignal });
-    addEventListener('replacestate', deactivateDrawer, { signal: this.removedSignal });
-    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
+    addEventListener('pushstate', () => drawerStore.deactivate(), {
+      signal: this.removedSignal,
+    });
+    addEventListener('popstate', () => drawerStore.deactivate(), {
+      signal: this.removedSignal,
+    });
+    addEventListener('replacestate', () => drawerStore.deactivate(), {
+      signal: this.removedSignal,
+    });
+    addEventListener('resize', this.#handleResize.bind(this), {
+      signal: this.removedSignal,
+    });
   }
 
   override slotChangedCallback() {

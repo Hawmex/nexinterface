@@ -124,10 +124,14 @@ export class ButtonWidget extends Interactive {
 
   override get template(): WidgetTemplate {
     return html`
-      ${this.icon ? html`<icon-widget value=${this.icon} class="icon"></icon-widget>` : nothing}
+      ${this.icon
+        ? html`<icon-widget value=${this.icon} class="icon"></icon-widget>`
+        : nothing}
       ${this.text
         ? html`
-            <typography-widget variant=${this.#typographyVariant}>${this.text}</typography-widget>
+            <typography-widget variant=${this.#typographyVariant}>
+              ${this.text}
+            </typography-widget>
           `
         : nothing}
     `;
@@ -139,7 +143,10 @@ export class ButtonWidget extends Interactive {
 
   override addedCallback() {
     super.addedCallback();
-    this.addEventListener('click', this.#navigate, { signal: this.removedSignal });
+
+    this.addEventListener('click', this.#navigate, {
+      signal: this.removedSignal,
+    });
   }
 
   override updatedCallback() {

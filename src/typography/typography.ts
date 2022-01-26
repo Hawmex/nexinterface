@@ -1,4 +1,9 @@
-import { css, html, WidgetAnimation, WidgetTemplate } from 'nexwidget/nexwidget.js';
+import {
+  css,
+  html,
+  WidgetAnimation,
+  WidgetTemplate,
+} from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
 export type TypographyVariant =
@@ -138,7 +143,9 @@ export class TypographyWidget extends Nexinterface {
             { opacity: '1', transform: 'scale(1)' },
           ],
           options: {
-            duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
+            duration: Number(
+              this.getCSSProperty('--durationLvl1').replace('ms', ''),
+            ),
             easing: this.getCSSProperty('--deceleratedEase'),
             fill: 'forwards',
           },
@@ -154,7 +161,9 @@ export class TypographyWidget extends Nexinterface {
             { transform: 'translateY(0px) rotateX(0deg)' },
           ],
           options: {
-            duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
+            duration: Number(
+              this.getCSSProperty('--durationLvl1').replace('ms', ''),
+            ),
             easing: this.getCSSProperty('--deceleratedEase'),
             fill: 'forwards',
           },
@@ -162,7 +171,9 @@ export class TypographyWidget extends Nexinterface {
       : {
           keyframes: [{ opacity: '0' }, { opacity: '1' }],
           options: {
-            duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
+            duration: Number(
+              this.getCSSProperty('--durationLvl1').replace('ms', ''),
+            ),
             easing: this.getCSSProperty('--deceleratedEase'),
             fill: 'forwards',
           },

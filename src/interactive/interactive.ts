@@ -57,9 +57,12 @@ export class Interactive extends Nexinterface {
           background: var(--interactionEffectsColor);
           opacity: var(--rippleOpacity, 0.08);
           border-radius: 50%;
-          transform: var(--rippleTranslate, translate(-50%, -50%)) var(--rippleScale);
-          transition: opacity var(--rippleTimer, var(--durationLvl2)) var(--standardEase),
-            transform var(--rippleTimer, var(--durationLvl2)) var(--standardEase);
+          transform: var(--rippleTranslate, translate(-50%, -50%))
+            var(--rippleScale);
+          transition: opacity var(--rippleTimer, var(--durationLvl2))
+              var(--standardEase),
+            transform var(--rippleTimer, var(--durationLvl2))
+              var(--standardEase);
           will-change: opacity, transform;
           pointer-events: none;
         }
@@ -73,15 +76,28 @@ export class Interactive extends Nexinterface {
 
   #startRipple({ clientX, clientY }: PointerEvent) {
     const { width, height, left, top } = this.getBoundingClientRect();
-    const s = this.centeredRipple ? Math.max(width, height) : Math.sqrt(width ** 2 + height ** 2);
-    const x = this.centeredRipple ? 0 - s / 2 : clientX - left - width / 2 - s / 2;
-    const y = this.centeredRipple ? 0 - s / 2 : clientY - top - height / 2 - s / 2;
+
+    const s = this.centeredRipple
+      ? Math.max(width, height)
+      : Math.sqrt(width ** 2 + height ** 2);
+
+    const x = this.centeredRipple
+      ? 0 - s / 2
+      : clientX - left - width / 2 - s / 2;
+
+    const y = this.centeredRipple
+      ? 0 - s / 2
+      : clientY - top - height / 2 - s / 2;
 
     clearTimeout(this.#timeout);
 
     this.#isPointerActive = true;
 
-    this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
+    this.style.setProperty(
+      '--interactionEffectsColor',
+      this.getCSSProperty('color'),
+    );
+
     this.style.setProperty('--rippleTimer', '0ms');
     this.style.setProperty('--rippleSize', `${s}px`);
     this.style.setProperty('--rippleTranslate', `translate(${x}px, ${y}px)`);
@@ -89,7 +105,9 @@ export class Interactive extends Nexinterface {
     this.style.setProperty('--rippleOpacity', '0.08');
 
     requestAnimationFrame(() => {
-      const timeout = Number(this.getCSSProperty('--durationLvl2').replace('ms', ''));
+      const timeout = Number(
+        this.getCSSProperty('--durationLvl2').replace('ms', ''),
+      );
 
       this.style.setProperty('--rippleTimer', 'var(--durationLvl2)');
       this.style.setProperty('--rippleTranslate', 'translate(-50%, -50%)');
@@ -98,7 +116,8 @@ export class Interactive extends Nexinterface {
       this.#isRippleCompleted = false;
 
       this.#timeout = setTimeout(() => {
-        if (!this.#isPointerActive) this.style.setProperty('--rippleOpacity', '0');
+        if (!this.#isPointerActive)
+          this.style.setProperty('--rippleOpacity', '0');
         this.#isRippleCompleted = true;
       }, timeout);
     });
@@ -110,7 +129,11 @@ export class Interactive extends Nexinterface {
   }
 
   #startHover() {
-    this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
+    this.style.setProperty(
+      '--interactionEffectsColor',
+      this.getCSSProperty('color'),
+    );
+
     this.style.setProperty('--hoverOpacity', '0.04');
   }
 
@@ -121,13 +144,33 @@ export class Interactive extends Nexinterface {
   override addedCallback() {
     super.addedCallback();
 
-    this.style.setProperty('--interactionEffectsColor', this.getCSSProperty('color'));
+    this.style.setProperty(
+      '--interactionEffectsColor',
+      this.getCSSProperty('color'),
+    );
 
-    this.addEventListener('pointerdown', this.#startRipple, { signal: this.removedSignal });
-    this.addEventListener('pointerup', this.#finishRipple, { signal: this.removedSignal });
-    this.addEventListener('pointerleave', this.#finishRipple, { signal: this.removedSignal });
-    this.addEventListener('touchend', this.#finishRipple, { signal: this.removedSignal });
-    this.addEventListener('pointerenter', this.#startHover, { signal: this.removedSignal });
-    this.addEventListener('pointerleave', this.#finishHover, { signal: this.removedSignal });
+    this.addEventListener('pointerdown', this.#startRipple, {
+      signal: this.removedSignal,
+    });
+
+    this.addEventListener('pointerup', this.#finishRipple, {
+      signal: this.removedSignal,
+    });
+
+    this.addEventListener('pointerleave', this.#finishRipple, {
+      signal: this.removedSignal,
+    });
+
+    this.addEventListener('touchend', this.#finishRipple, {
+      signal: this.removedSignal,
+    });
+
+    this.addEventListener('pointerenter', this.#startHover, {
+      signal: this.removedSignal,
+    });
+
+    this.addEventListener('pointerleave', this.#finishHover, {
+      signal: this.removedSignal,
+    });
   }
 }

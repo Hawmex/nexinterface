@@ -56,7 +56,9 @@ export class ChipWidget extends Interactive {
 
   override get template(): WidgetTemplate {
     return html`
-      ${this.icon ? html`<icon-widget value=${this.icon}></icon-widget>` : nothing}
+      ${this.icon
+        ? html`<icon-widget value=${this.icon}></icon-widget>`
+        : nothing}
       <typography-widget variant="text"> ${this.text} </typography-widget>
     `;
   }

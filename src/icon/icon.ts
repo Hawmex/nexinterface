@@ -47,9 +47,14 @@ export class IconWidget extends Nexinterface {
 
   override get mountAnimation(): WidgetAnimation {
     return {
-      keyframes: [{ transform: 'rotateX(-90deg)' }, { transform: 'rotateX(0deg)' }],
+      keyframes: [
+        { transform: 'rotateX(-90deg)' },
+        { transform: 'rotateX(0deg)' },
+      ],
       options: {
-        duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
+        duration: Number(
+          this.getCSSProperty('--durationLvl1').replace('ms', ''),
+        ),
         easing: this.getCSSProperty('--standardEase'),
         fill: 'forwards',
       },
@@ -63,7 +68,9 @@ export class IconWidget extends Nexinterface {
         { transform: 'rotateZ(0deg) rotateY(0deg)' },
       ],
       options: {
-        duration: Number(this.getCSSProperty('--durationLvl1').replace('ms', '')),
+        duration: Number(
+          this.getCSSProperty('--durationLvl1').replace('ms', ''),
+        ),
         easing: this.getCSSProperty('--standardEase'),
         fill: 'forwards',
       },

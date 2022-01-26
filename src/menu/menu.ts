@@ -1,12 +1,18 @@
-import { Nexstate } from 'nexstate/nexstate.js';
+import { Store } from 'nexstate/nexstate.js';
 import { css, html, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 import { ButtonWidget } from '../button/button.js';
 import './menu-container.js';
 
-export const menuBody = new Nexstate<WidgetTemplate | null>(null);
+export class MenuStore extends Store {
+  body: WidgetTemplate | null = null;
 
-export const setMenuBody = (body: WidgetTemplate | null) => menuBody.setState(() => body);
+  setBody(body: WidgetTemplate | null) {
+    this.setState(() => (this.body = body));
+  }
+}
+
+export const menuBodyStore = new MenuStore();
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -46,7 +52,8 @@ export class MenuWidget extends Nexinterface {
           display: flex;
           visibility: hidden;
           transform: translateY(100%);
-          transition: transform calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
+          transition: transform calc(var(--durationLvl2) - 50ms)
+              var(--deceleratedEase),
             visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           will-change: transform;
         }
@@ -84,28 +91,40 @@ export class MenuWidget extends Nexinterface {
   }
 
   #deactivate() {
-    setMenuBody(null);
+    menuBodyStore.setBody(null);
   }
 
   override addedCallback() {
     super.addedCallback();
 
-    menuBody.runAndSubscribe((body) => {
+    menuBodyStore.runAndSubscribe(() => {
+      const { body } = menuBodyStore;
+
       clearTimeout(this.#timeout);
 
       if (body !== null) {
         this.body = body;
         this.active = true;
       } else {
-        const transitionTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
+        const transitionTime =
+          Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
 
         this.active = false;
+
         this.#timeout = setTimeout(() => (this.body = body), transitionTime);
       }
     });
 
-    addEventListener('pushstate', this.#deactivate.bind(this), { signal: this.removedSignal });
-    addEventListener('popstate', this.#deactivate.bind(this), { signal: this.removedSignal });
-    addEventListener('replacestate', this.#deactivate.bind(this), { signal: this.removedSignal });
+    addEventListener('pushstate', this.#deactivate.bind(this), {
+      signal: this.removedSignal,
+    });
+
+    addEventListener('popstate', this.#deactivate.bind(this), {
+      signal: this.removedSignal,
+    });
+
+    addEventListener('replacestate', this.#deactivate.bind(this), {
+      signal: this.removedSignal,
+    });
   }
 }

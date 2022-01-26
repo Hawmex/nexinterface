@@ -1,7 +1,14 @@
 import { css, html } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 
-export type InputVariant = 'text' | 'tel' | 'number' | 'textarea' | 'url' | 'password' | 'time';
+export type InputVariant =
+  | 'text'
+  | 'tel'
+  | 'number'
+  | 'textarea'
+  | 'url'
+  | 'password'
+  | 'time';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -61,7 +68,8 @@ export class InputWidget extends Nexinterface {
           opacity: 0.04;
           pointer-events: none;
           z-index: 1;
-          transition: opacity calc(var(--durationLvl1) - 50ms) var(--deceleratedEase);
+          transition: opacity calc(var(--durationLvl1) - 50ms)
+            var(--deceleratedEase);
         }
 
         :host(:focus-within)::before {
@@ -80,7 +88,8 @@ export class InputWidget extends Nexinterface {
           background: var(--onSurfaceColor);
           pointer-events: none;
           z-index: 1;
-          transition: background calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
+          transition: background calc(var(--durationLvl1) - 50ms)
+              var(--deceleratedEase),
             opacity calc(var(--durationLvl1) - 50ms) var(--deceleratedEase);
         }
 
@@ -101,7 +110,8 @@ export class InputWidget extends Nexinterface {
           font-family: 'Dana VF', 'Jost VF';
           font-variation-settings: 'wght' 425;
           transform-origin: top right;
-          transition: transform calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
+          transition: transform calc(var(--durationLvl1) - 50ms)
+              var(--deceleratedEase),
             top calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
             color calc(var(--durationLvl1) - 50ms) var(--deceleratedEase);
           pointer-events: none;
@@ -146,7 +156,8 @@ export class InputWidget extends Nexinterface {
           opacity: 0;
           margin: 26px 0px 6px 0px;
           padding: 0px 16px 0px 16px;
-          transition: opacity calc(var(--durationLvl1) - 50ms) var(--deceleratedEase);
+          transition: opacity calc(var(--durationLvl1) - 50ms)
+            var(--deceleratedEase);
         }
 
         :host textarea.field {
@@ -169,7 +180,8 @@ export class InputWidget extends Nexinterface {
           bottom: 0px;
           opacity: 0;
           transform: scaleX(0);
-          transition: transform 0ms var(--deceleratedEase) calc(var(--durationLvl1) - 50ms),
+          transition: transform 0ms var(--deceleratedEase)
+              calc(var(--durationLvl1) - 50ms),
             opacity calc(var(--durationLvl1) - 50ms) var(--deceleratedEase);
           z-index: 2;
         }

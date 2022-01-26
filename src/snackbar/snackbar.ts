@@ -1,5 +1,5 @@
-import { Nexbounce } from 'nexbounce/nexbounce.js';
-import { Nexstate } from 'nexstate/nexstate.js';
+import { Debouncer } from 'nexbounce/nexbounce.js';
+import { Store } from 'nexstate/nexstate.js';
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { AppBarWidget } from '../app-bar/app-bar.js';
 import { Nexinterface } from '../base/base.js';
@@ -13,12 +13,21 @@ export type SnackbarButton = { text: string; action: () => void };
 export type SnackbarInstance = { text: string; button?: SnackbarButton };
 export type SnackbarFinalInstance = { id: symbol } & SnackbarInstance;
 
-export const snackbarsQueue = new Nexstate<SnackbarFinalInstance[]>([]);
+export class SnackbarStore extends Store {
+  queue: SnackbarFinalInstance[] = [];
 
-export const removeSnackbar = () => snackbarsQueue.setState((state) => state.slice(1));
+  pushQueue(snackbar: SnackbarInstance) {
+    this.setState(() =>
+      this.queue.push({ ...snackbar, id: Symbol(snackbar.text) }),
+    );
+  }
 
-export const addSnackbar = (snackbar: SnackbarInstance) =>
-  snackbarsQueue.setState((state) => [...state, { ...snackbar, id: Symbol(snackbar.text) }]);
+  shiftQueue() {
+    this.setState(() => this.queue.shift());
+  }
+}
+
+export const snackbarStore = new SnackbarStore();
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -77,8 +86,10 @@ export class SnackbarWidget extends Nexinterface {
           transform: scale(0.9);
           opacity: 0;
           visibility: hidden;
-          transition: opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
-            transform 0ms var(--deceleratedEase) calc(var(--durationLvl2) - 50ms),
+          transition: opacity calc(var(--durationLvl2) - 50ms)
+              var(--deceleratedEase),
+            transform 0ms var(--deceleratedEase)
+              calc(var(--durationLvl2) - 50ms),
             visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           will-change: opacity, transform;
         }
@@ -140,12 +151,14 @@ export class SnackbarWidget extends Nexinterface {
   #id?: symbol;
   #timer?: number;
 
-  #resizeDebouncer = new Nexbounce();
+  #resizeDebouncer = new Debouncer();
   #activeTime = 6000;
 
   override get template(): WidgetTemplate {
     return html`
-      <typography-widget variant="text" class="text">${this.text}</typography-widget>
+      <typography-widget variant="text" class="text"
+        >${this.text}</typography-widget
+      >
       ${this.button
         ? html`
             <button-widget
@@ -160,7 +173,10 @@ export class SnackbarWidget extends Nexinterface {
   }
 
   #activateRemoveTimer() {
-    this.#timer = setTimeout(removeSnackbar, this.#activeTime);
+    this.#timer = setTimeout(
+      () => snackbarStore.shiftQueue(),
+      this.#activeTime,
+    );
   }
 
   #deactivateRemoveTimer() {
@@ -174,9 +190,10 @@ export class SnackbarWidget extends Nexinterface {
 
   #getPlaceOverAppBarValue() {
     const appBar = <AppBarWidget | undefined>(
-      [...(<HTMLElement[] | undefined>this.parentNode?.children ?? <HTMLElement[]>[])].find(
-        (child) => child instanceof AppBarWidget,
-      )
+      [
+        ...(<HTMLElement[] | undefined>this.parentNode?.children ??
+          <HTMLElement[]>[]),
+      ].find((child) => child instanceof AppBarWidget)
     );
 
     return appBar?.variant === 'bottom' && appBar.active
@@ -189,23 +206,30 @@ export class SnackbarWidget extends Nexinterface {
   }
 
   #handleResize() {
-    this.#resizeDebouncer.enqueue(() => (this.longButtonText = this.#getLongButtonTextValue()));
+    this.#resizeDebouncer.enqueue(
+      () => (this.longButtonText = this.#getLongButtonTextValue()),
+    );
   }
 
   #buttonAction() {
     this.button!.action();
     this.#deactivateRemoveTimer();
 
-    removeSnackbar();
+    snackbarStore.shiftQueue();
   }
 
   override addedCallback() {
     super.addedCallback();
 
-    snackbarsQueue.runAndSubscribe(
-      ([snackbar]: Array<SnackbarFinalInstance | undefined>) => {
+    snackbarStore.runAndSubscribe(
+      () => {
+        const snackbar: SnackbarFinalInstance | undefined =
+          snackbarStore.queue[0];
+
         if (this.#id !== snackbar?.id) {
-          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
+          const fadeTime =
+            Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) -
+            50;
 
           this.active = false;
 
@@ -224,7 +248,9 @@ export class SnackbarWidget extends Nexinterface {
       { signal: this.removedSignal },
     );
 
-    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
+    addEventListener('resize', this.#handleResize.bind(this), {
+      signal: this.removedSignal,
+    });
   }
 
   override updatedCallback() {

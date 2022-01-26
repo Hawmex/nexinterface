@@ -30,7 +30,8 @@ export class LinearProgressWidget extends Nexinterface {
           border-radius: 2px;
           visibility: hidden;
           transform: scaleY(0);
-          transition: transform calc(var(--durationLvl1) - 50ms) var(--deceleratedEase),
+          transition: transform calc(var(--durationLvl1) - 50ms)
+              var(--deceleratedEase),
             visibility calc(var(--durationLvl1) - 50ms) var(--deceleratedEase);
           will-change: transform;
         }
@@ -84,7 +85,8 @@ export class LinearProgressWidget extends Nexinterface {
           grid-template-columns: 1fr 2fr 1fr;
           width: 200%;
           height: 100%;
-          animation: indeterminate-rtl var(--durationLvl4) var(--standardEase) infinite;
+          animation: indeterminate-rtl var(--durationLvl4) var(--standardEase)
+            infinite;
           animation-play-state: paused;
         }
 

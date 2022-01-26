@@ -68,7 +68,8 @@ export class SwitchWidget extends Interactive {
           border-radius: 7px;
           background: var(--onSurfaceColor);
           opacity: 0.08;
-          transition: background-color var(--durationLvl1) var(--deceleratedEase),
+          transition: background-color var(--durationLvl1)
+              var(--deceleratedEase),
             opacity var(--durationLvl1) var(--deceleratedEase);
           will-change: background-color, opacity;
         }
@@ -134,7 +135,9 @@ export class SwitchWidget extends Interactive {
   override get template(): WidgetTemplate {
     return html`
       <icon-widget value=${this.icon!}></icon-widget>
-      <typography-widget variant="button-normal" class="text">${this.text}</typography-widget>
+      <typography-widget variant="button-normal" class="text"
+        >${this.text}</typography-widget
+      >
       <div class="track"><div class="thumb"></div></div>
     `;
   }

@@ -50,7 +50,8 @@ const assignParams = (path: string, { keys, pattern }: ParsedRoute) => {
   const out: LocationParams = {};
   const matches = pattern.exec(path);
 
-  while (i < keys.length) out[keys[i]] = Array.isArray(matches) ? matches[++i] : null;
+  while (i < keys.length)
+    out[keys[i]] = Array.isArray(matches) ? matches[++i] : null;
 
   return out;
 };
@@ -131,19 +132,38 @@ export class RouterWidget extends Nexinterface {
     super.addedCallback();
 
     History.prototype.pushState = ((defaultFn) =>
-      function (this: History, data: any, title: string, url?: string | null | undefined) {
+      function (
+        this: History,
+        data: any,
+        title: string,
+        url?: string | null | undefined,
+      ) {
         defaultFn.call(this, data, title, url);
-        dispatchEvent(new CustomEvent('pushstate', { composed: true, bubbles: true }));
+        dispatchEvent(
+          new CustomEvent('pushstate', { composed: true, bubbles: true }),
+        );
       })(History.prototype.pushState);
 
     History.prototype.replaceState = ((defaultFn) =>
-      function (this: History, data: any, title: string, url?: string | null | undefined) {
+      function (
+        this: History,
+        data: any,
+        title: string,
+        url?: string | null | undefined,
+      ) {
         defaultFn.call(this, data, title, url);
-        dispatchEvent(new CustomEvent('replacestate', { composed: true, bubbles: true }));
+        dispatchEvent(
+          new CustomEvent('replacestate', { composed: true, bubbles: true }),
+        );
       })(History.prototype.replaceState);
 
-    addEventListener('popstate', this.#computeMatching.bind(this), { signal: this.removedSignal });
-    addEventListener('pushstate', this.#computeMatching.bind(this), { signal: this.removedSignal });
+    addEventListener('popstate', this.#computeMatching.bind(this), {
+      signal: this.removedSignal,
+    });
+
+    addEventListener('pushstate', this.#computeMatching.bind(this), {
+      signal: this.removedSignal,
+    });
 
     addEventListener('replacestate', this.#computeMatching.bind(this), {
       signal: this.removedSignal,

@@ -1,5 +1,5 @@
-import { Nexbounce } from 'nexbounce/nexbounce.js';
-import { Nexstate } from 'nexstate/nexstate.js';
+import { Debouncer } from 'nexbounce/nexbounce';
+import { Store } from 'nexstate/nexstate.js';
 import { css, html, nothing, WidgetTemplate } from 'nexwidget/nexwidget.js';
 import { Nexinterface } from '../base/base.js';
 import '../button/button.js';
@@ -9,15 +9,30 @@ import '../section/section.js';
 import '../typography/typography.js';
 
 export type DialogButton = { text: string; action: () => void };
-export type DialogInstance = { headline: string; body: WidgetTemplate; button?: DialogButton };
+
+export type DialogInstance = {
+  headline: string;
+  body: WidgetTemplate;
+  button?: DialogButton;
+};
+
 export type DialogFinalInstance = { id: symbol } & DialogInstance;
 
-export const dialogsQueue = new Nexstate<DialogFinalInstance[]>([]);
+export class DialogStore extends Store {
+  queue: DialogFinalInstance[] = [];
 
-export const removeDialog = () => dialogsQueue.setState((state) => state.slice(1));
+  pushQueue(dialog: DialogInstance) {
+    this.setState(() =>
+      this.queue.push({ ...dialog, id: Symbol(dialog.headline) }),
+    );
+  }
 
-export const addDialog = (dialog: DialogInstance) =>
-  dialogsQueue.setState((state) => [...state, { ...dialog, id: Symbol(dialog.headline) }]);
+  shiftQueue() {
+    this.setState(() => this.queue.shift());
+  }
+}
+
+export const dialogStore = new DialogStore();
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -49,7 +64,13 @@ export class DialogWidget extends Nexinterface {
       { key: 'scrollable', type: 'boolean' },
     ]);
 
-    this.createReactives(['active', 'scrollable', 'headline', 'body', 'button']);
+    this.createReactives([
+      'active',
+      'scrollable',
+      'headline',
+      'body',
+      'button',
+    ]);
     this.registerAs('dialog-widget');
   }
 
@@ -84,8 +105,10 @@ export class DialogWidget extends Nexinterface {
           max-height: calc(100vh - 32px);
           visibility: hidden;
           opacity: 0;
-          transition: opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
-            transform 0ms var(--deceleratedEase) calc(var(--durationLvl2) - 50ms),
+          transition: opacity calc(var(--durationLvl2) - 50ms)
+              var(--deceleratedEase),
+            transform 0ms var(--deceleratedEase)
+              calc(var(--durationLvl2) - 50ms),
             visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           will-change: opacity, transform;
         }
@@ -135,20 +158,27 @@ export class DialogWidget extends Nexinterface {
   }
 
   #id?: symbol;
-  #resizeDebouncer = new Nexbounce();
+  #resizeDebouncer = new Debouncer();
 
   override get template(): WidgetTemplate {
     return html`
-      <scrim-widget ?active=${this.active} @pointerdown=${removeDialog}></scrim-widget>
+      <scrim-widget
+        ?active=${this.active}
+        @pointerdown=${() => dialogStore.shiftQueue()}
+      ></scrim-widget>
       <div class="dialog">
         <section-widget class="header" variant="paragraphs">
-          <typography-widget variant="headline"> ${this.headline} </typography-widget>
+          <typography-widget variant="headline">
+            ${this.headline}
+          </typography-widget>
         </section-widget>
         ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
         <div class="body">${this.body}</div>
         ${this.button
           ? html`
-              ${this.scrollable ? html`<divider-widget></divider-widget>` : nothing}
+              ${this.scrollable
+                ? html`<divider-widget></divider-widget>`
+                : nothing}
               <section-widget class="footer" variant="buttons">
                 <button-widget
                   slot="trailing"
@@ -165,25 +195,32 @@ export class DialogWidget extends Nexinterface {
 
   #buttonAction() {
     this.button!.action();
-    removeDialog();
+    dialogStore.shiftQueue();
   }
 
   #getScrollableValue() {
-    const { scrollHeight, clientHeight } = this.shadowRoot!.querySelector<HTMLDivElement>('.body')!;
+    const { scrollHeight, clientHeight } =
+      this.shadowRoot!.querySelector<HTMLDivElement>('.body')!;
     return scrollHeight > clientHeight;
   }
 
   #handleResize() {
-    this.#resizeDebouncer.enqueue(() => (this.scrollable = this.#getScrollableValue()));
+    this.#resizeDebouncer.enqueue(
+      () => (this.scrollable = this.#getScrollableValue()),
+    );
   }
 
   override addedCallback() {
     super.addedCallback();
 
-    dialogsQueue.runAndSubscribe(
-      ([dialog]: Array<DialogFinalInstance | undefined>) => {
+    dialogStore.runAndSubscribe(
+      () => {
+        const dialog: DialogFinalInstance | undefined = dialogStore.queue[0];
+
         if (this.#id !== dialog?.id) {
-          const fadeTime = Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) - 50;
+          const fadeTime =
+            Number(this.getCSSProperty('--durationLvl2').replace('ms', '')) -
+            50;
 
           this.active = false;
 
@@ -201,10 +238,21 @@ export class DialogWidget extends Nexinterface {
       { signal: this.removedSignal },
     );
 
-    addEventListener('resize', this.#handleResize.bind(this), { signal: this.removedSignal });
-    addEventListener('pushstate', removeDialog, { signal: this.removedSignal });
-    addEventListener('popstate', removeDialog, { signal: this.removedSignal });
-    addEventListener('replacestate', removeDialog, { signal: this.removedSignal });
+    addEventListener('resize', this.#handleResize.bind(this), {
+      signal: this.removedSignal,
+    });
+
+    addEventListener('pushstate', () => dialogStore.shiftQueue(), {
+      signal: this.removedSignal,
+    });
+
+    addEventListener('popstate', () => dialogStore.shiftQueue(), {
+      signal: this.removedSignal,
+    });
+
+    addEventListener('replacestate', () => dialogStore.shiftQueue(), {
+      signal: this.removedSignal,
+    });
   }
 
   override updatedCallback() {

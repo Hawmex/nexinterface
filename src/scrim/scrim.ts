@@ -32,7 +32,8 @@ export class ScrimWidget extends Nexinterface {
           height: 100vh;
           opacity: 0;
           background: #000000;
-          transition: opacity calc(var(--durationLvl2) - 50ms) var(--deceleratedEase),
+          transition: opacity calc(var(--durationLvl2) - 50ms)
+              var(--deceleratedEase),
             visibility calc(var(--durationLvl2) - 50ms) var(--deceleratedEase);
           will-change: opacity;
         }
