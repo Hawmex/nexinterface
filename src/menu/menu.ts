@@ -12,7 +12,7 @@ export class MenuStore extends Store {
   }
 }
 
-export const menuBodyStore = new MenuStore();
+export const menuStore = new MenuStore();
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -91,14 +91,14 @@ export class MenuWidget extends Nexinterface {
   }
 
   #deactivate() {
-    menuBodyStore.setBody(null);
+    menuStore.setBody(null);
   }
 
   override addedCallback() {
     super.addedCallback();
 
-    menuBodyStore.runAndSubscribe(() => {
-      const { body } = menuBodyStore;
+    menuStore.runAndSubscribe(() => {
+      const { body } = menuStore;
 
       clearTimeout(this.#timeout);
 
